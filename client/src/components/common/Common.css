@@ -1,0 +1,17 @@
+header, footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.navigation-list, .user-navigation-list {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    list-style-type: none;
+}
+
+.navigation-list li, .user-navigation-list li {
+    padding: 10px;
+}
