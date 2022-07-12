@@ -1,4 +1,5 @@
 import './Common.css';
+import { NavLink } from 'react-router-dom';
 
 export const Header = () => {
     return (
@@ -8,10 +9,10 @@ export const Header = () => {
             </div>
             <nav>
                 <ul className="navigation-list">
-                    <li>Home</li>
-                    <li>Име</li>
-                    <li>Cause</li>
-                    <li>Contacts</li>
+                    <NavLink to={'/'}>Home</NavLink>
+                    <NavLink to={'/catalog'}>Име</NavLink>
+                    <NavLink to={'/'}>Cause</NavLink>
+                    <NavLink to={'/'}>Contacts</NavLink>
                 </ul>
             </nav>
             <div>

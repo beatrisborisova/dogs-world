@@ -1,5 +1,7 @@
 import './Catalog.css';
 
 export const Main = () => {
-    retu
+    return (
+        <div>Main catalog</div>
+    )
 }
