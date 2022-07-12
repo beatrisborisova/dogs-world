@@ -3,7 +3,7 @@
 }
 
 main {
-  background-color: aquamarine;
+  /* background-color: aquamarine; */
 }
 
 .btn-level-one {
@@ -16,9 +16,30 @@ main {
   text-decoration: none;
 }
 
+/* Button Level 1 */
+
 .btn-level-one:hover {
   background-color: #69e232;
   color: #ffffff;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-  box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Button Level 2 */
+
+.btn-level-two {
+  background-color: #5ecf7a;
+  color: #000000;
+  width: fit-content;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  text-decoration: none;
+}
+
+.btn-level-two:hover {
+  background-color: #69e232;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }

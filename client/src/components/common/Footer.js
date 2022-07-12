@@ -1,25 +1,18 @@
+import { NavLink } from 'react-router-dom';
 import './Common.css';
 
 export const Footer = () => {
     return (
         <footer>
             <div className="image-wrapper-logo">
-                LOGO HERE
+                <NavLink to={'/'}>LOGO HERE</NavLink>
             </div>
-            <nav>
-                <ul className="navigation-list">
-                    <li>Home</li>
-                    <li>Име</li>
-                    <li>Cause</li>
-                    <li>Contacts</li>
-                </ul>
-            </nav>
             <div>
                 <ul className="user-navigation-list">
-                    <li>Login</li>
-                    <li>Register</li>
-                    <li>Profile</li>
-                    <li>Logout</li>
+                    <NavLink to={'/login'}>Login</NavLink>
+                    <NavLink to={'/register'}>Register</NavLink>
+                    <NavLink to={'/profile'}>Profile</NavLink>
+                    <NavLink to={'/logout'}>Logout</NavLink>
                 </ul>
             </div>
         </footer>

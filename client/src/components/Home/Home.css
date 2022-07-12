@@ -1,5 +1,5 @@
 .home-container {
-    height: 100vh;
+    height: 60vh;
     background-repeat: no-repeat;
     background-size: contain;
     background-position: right;
@@ -7,14 +7,46 @@
 
 .home-content {
     font-size: 50px;
-    /* max-width: 400px; */
     align-items: start;
     width: 60%;
-    height: 100vh;
+    height: 60vh;
     margin: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     z-index: 1;
     overflow: hidden;
+}
+
+.home-categories-container {
+    display: flex;
+
+}
+
+.home-article {
+    padding: 30px;
+    flex: 1;
+    text-decoration: none;
+    color: #000000;
+}
+
+.home-article:hover {
+    cursor: pointer;
+    background: rgba(253, 228, 140, 0.44);
+    color: #000000;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10.9px);
+    -webkit-backdrop-filter: blur(10.9px);
+}
+
+.home-adopt-container {
+    background-color: #fffb00;
+}
+
+.home-buy-container {
+    background-color: #00ffff;
+}
+
+.home-create-container {
+    background-color: #ff0084;
 }
