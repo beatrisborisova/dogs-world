@@ -12,6 +12,56 @@ header, footer {
     list-style-type: none;
 }
 
-.navigation-list li, .user-navigation-list li {
-    padding: 10px;
+.nav {
+    display: flex;
+    align-items: center;
+}
+
+
+
+.dropbtn, .navigation-list a, .user-navigation-list a{
+    background-color: transparent;
+    color: #000000;
+    padding: 10px 16px;
+    font-size: 16px;
+    border: none;
+    text-decoration: none;
+}
+
+.dropbtn {
+    padding: 0;
+}
+
+.dropbtn:hover, .navigation-list a:hover, .user-navigation-list a:hover {
+    color: #56a05b;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    padding: 0;
+}
+
+.dropdown-container {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-container a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-container a:hover {
+    background-color: #bbbbbb;
+}
+
+.dropdown:hover .dropdown-container {
+    display: block;
 }
