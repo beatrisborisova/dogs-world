@@ -7,7 +7,7 @@
 
 .home-content {
     font-size: 50px;
-    align-items: start;
+    align-items: flex-start;
     width: 60%;
     height: 60vh;
     margin: auto;

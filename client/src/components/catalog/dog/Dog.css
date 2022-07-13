@@ -1,0 +1,21 @@
+.dog-container {
+    width: 200px;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dog-container:hover {
+    background-color: #fffb00;
+    cursor: pointer;
+}
+
+.image-wrapper-dog-main {
+    width: 100px;
+    margin: 10px auto;
+}
+
+.image-wrapper-dog-main img {
+    border-radius: 50%;
+    width: 100%;
+}

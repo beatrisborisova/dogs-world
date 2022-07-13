@@ -13,8 +13,8 @@ export const Header = () => {
                 <ul className="navigation-list">
                     <NavLink to={'/'}>Home</NavLink>
                     <NavLink to={'/catalog'} className='dropdown'>
-                        <button class="dropbtn">Main</button>
-                        <div class="dropdown-container">
+                        <button className="dropbtn">Main</button>
+                        <div className="dropdown-container">
                             <NavLink to={'/catalog/adopt'}>Adopt</NavLink>
                             <NavLink to={'/catalog/buy'}>Buy</NavLink>
                         </div>
