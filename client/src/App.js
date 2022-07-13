@@ -6,6 +6,7 @@ import { Main } from './components/catalog/Main';
 import { Footer } from './components/common/Footer';
 import { Header } from './components/common/Header';
 import { Home } from './components/Home/Home';
+import { DogDetails } from './components/catalog/dog/dog-details/DogDetails';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path='catalog' element={<Main />} />
           <Route path='catalog/adopt' element={<Adopt />} />
           <Route path='catalog/buy' element={<Buy />} />
+          <Route path='catalog/dog/:id' element={<DogDetails />} />
         </Routes>
       </main>
       <Footer />
