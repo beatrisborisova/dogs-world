@@ -14,12 +14,12 @@ export const Register = () => {
 
 
     return (
-        <>
+        <div className='login-register-container'>
             <div className='login-register-username-nav'>
                 <NavLink to={'/login'} activeClass>Login</NavLink>
                 <NavLink to={'/register'}>Register</NavLink>
             </div>
-            <div className='login-register-container'>
+            <div className='login-register-content'>
                 <form onSubmit={registerHandler} className="login-register-form">
                     <div>
                         <FontAwesomeIcon icon={faUser} />
@@ -30,10 +30,14 @@ export const Register = () => {
                         <input type="password" placeholder='Password' />
                     </div>
                     <div>
+                        <FontAwesomeIcon icon={faKey} />
+                        <input type="password" placeholder='Repeat password' />
+                    </div>
+                    <div>
                         <input type="submit" value="Register" className='submit-btn' />
                     </div>
                 </form>
             </div>
-        </>
+        </div>
     )
 }

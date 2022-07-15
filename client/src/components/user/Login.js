@@ -13,12 +13,12 @@ export const Login = () => {
     }
 
     return (
-        <>
+        <div className='login-register-container'>
             <div className='login-register-username-nav'>
                 <NavLink to={'/login'}>Login</NavLink>
                 <NavLink to={'/register'}>Register</NavLink>
             </div>
-            <div className='login-register-container'>
+            <div className='login-register-content'>
                 <form onSubmit={loginHandler} className="login-register-form">
                     <div>
                         <FontAwesomeIcon icon={faUser} />
@@ -33,6 +33,6 @@ export const Login = () => {
                     </div>
                 </form>
             </div>
-        </>
+        </div>
     )
 }
