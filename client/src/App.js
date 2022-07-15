@@ -7,6 +7,8 @@ import { Footer } from './components/common/Footer';
 import { Header } from './components/common/Header';
 import { Home } from './components/Home/Home';
 import { DogDetails } from './components/catalog/dog/dog-details/DogDetails';
+import { Login } from './components/user/Login';
+import { Register } from './components/user/Register';
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
           <Route path='catalog/adopt' element={<Adopt />} />
           <Route path='catalog/buy' element={<Buy />} />
           <Route path='catalog/dog/:id' element={<DogDetails />} />
+          <Route path='login' element={<Login />} />
+          <Route path='register' element={<Register />} />
         </Routes>
       </main>
       <Footer />
