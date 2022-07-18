@@ -22,8 +22,8 @@ export const Edit = () => {
                         <input type="number" name="age" />
                     </div>
                     <div>
-                        <label htmlFor='vaccine'>Vaccine:</label>
-                        <input type="text" name="vaccine" />
+                        <label htmlFor='vaccines'>Vaccines:</label>
+                        <input type="text" name="vaccines" />
                     </div>
                     <div>
                         <label htmlFor='description'>Description:</label>

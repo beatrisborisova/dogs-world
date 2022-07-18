@@ -1,0 +1,19 @@
+.profile-container {
+    display: flex;
+    justify-content: center;
+    border: 1px solid;
+    padding: 50px;
+}
+
+.image-wrapper-profile {
+    width: 400px;
+}
+
+.image-wrapper-profile img {
+    width: 100%;
+}
+
+.profile-text {
+    margin-left: 20px;
+    text-align: left;
+}

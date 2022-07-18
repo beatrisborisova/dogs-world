@@ -11,6 +11,9 @@ import { Login } from './components/user/Login';
 import { Register } from './components/user/Register';
 import { Create } from './components/create-edit/Create';
 import { Edit } from './components/create-edit/Edit';
+import { Profile } from './components/user/profile/Profile';
+import { EditProfile } from './components/user/profile/EditProfile';
+import { MyDogs } from './components/catalog/dog/my-dogs/MyDogs';
 
 function App() {
   return (
@@ -28,6 +31,9 @@ function App() {
 
           <Route path='login' element={<Login />} />
           <Route path='register' element={<Register />} />
+          <Route path='profile' element={<Profile />} />
+          <Route path='edit-profile' element={<EditProfile />} />
+          <Route path='my-dogs' element={<MyDogs />} />
 
           <Route path='create' element={<Create />} />
           <Route path='edit/:id' element={<Edit />} />
