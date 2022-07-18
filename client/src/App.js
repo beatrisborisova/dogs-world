@@ -14,6 +14,8 @@ import { Edit } from './components/create-edit/Edit';
 import { Profile } from './components/user/profile/Profile';
 import { EditProfile } from './components/user/profile/EditProfile';
 import { MyDogs } from './components/catalog/dog/my-dogs/MyDogs';
+import { Cause } from './components/about/Cause/Cause';
+import { Contacts } from './components/about/Contacts/Contacts';
 
 function App() {
   return (
@@ -22,6 +24,9 @@ function App() {
       <main>
         <Routes>
           <Route path='/' index element={<Home />} />
+
+          <Route path='/cause' element={<Cause />} />
+          <Route path='/contacts' element={<Contacts />} />
 
           <Route path='catalog' element={<Main />} />
           <Route path='catalog/adopt' element={<Adopt />} />

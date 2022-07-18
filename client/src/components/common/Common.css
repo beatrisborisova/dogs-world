@@ -7,6 +7,11 @@ header, footer {
     box-shadow: 0px 8px 17px 0px rgba(0,0,0,0.52);
 }
 
+header a.active {
+    font-weight: bold;
+    color: #56a05b;
+}
+
 .navigation-list, .user-navigation-list {
     padding: 0;
     margin: 0;

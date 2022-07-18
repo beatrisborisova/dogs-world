@@ -19,8 +19,8 @@ export const Header = () => {
                             <NavLink to={'/catalog/buy'}>Buy</NavLink>
                         </div>
                     </NavLink>
-                    <NavLink to={'/'}>Cause</NavLink>
-                    <NavLink to={'/'}>Contacts</NavLink>
+                    <NavLink to={'/cause'}>Cause</NavLink>
+                    <NavLink to={'/contacts'}>Contacts</NavLink>
                 </ul>
             </nav>
             <div>
