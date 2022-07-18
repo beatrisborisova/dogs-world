@@ -25,6 +25,10 @@ export const Header = () => {
             </nav>
             <div>
                 <ul className="user-navigation-list">
+                    {/* The following two must be moved */}
+                    <NavLink to={'/create'}>Create</NavLink>
+                    <NavLink to={'/edit/123'}>Edit</NavLink>
+
                     <NavLink to={'/login'}>Login</NavLink>
                     <NavLink to={'/register'}>Register</NavLink>
                     <NavLink to={'/profile'}>Profile</NavLink>
