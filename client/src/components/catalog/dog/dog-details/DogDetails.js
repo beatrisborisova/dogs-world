@@ -2,13 +2,16 @@ import './DogDetails.css';
 
 export const DogDetails = () => {
     return (
-        <div>
+        <div className='dog-details-container'>
             <div className="image-wrapper-dog-details">
-                <p>IMAGE HERE</p>
+               <img src='https://kb.rspca.org.au/wp-content/uploads/2018/11/golder-retriever-puppy.jpeg' alt="dog"/>
             </div>
-            <div>
-                <h2>Dog's name</h2>
-                <p>Lorem ipsul dolor sit</p>
+            <div className="dog-details-text">
+                <h2>Dog's порода</h2>
+                <p>Възраст: 7 години</p>
+                <p>Паспорт: ДА / NE</p>
+                <p>Ваксини: видове ваксини</p>
+                <p>Описание</p>
             </div>
         </div>
     )

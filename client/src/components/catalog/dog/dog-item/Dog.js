@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import './Dog.css';
 
 export const Dog = (props) => {
@@ -9,6 +10,7 @@ export const Dog = (props) => {
             <h4>Порода</h4>
             <p>Пол</p>
             <p>Години</p>
+            <NavLink to={`/catalog/${props.type}/:id`} className="btn-level-two">Details</NavLink>
         </article>
     )
 }

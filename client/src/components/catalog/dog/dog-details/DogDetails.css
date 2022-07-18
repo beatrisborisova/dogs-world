@@ -1,0 +1,19 @@
+.dog-details-container {
+    display: flex;
+    justify-content: center;
+    border: 1px solid;
+    padding: 50px;
+}
+
+.image-wrapper-dog-details {
+    width: 400px;
+}
+
+.image-wrapper-dog-details img {
+    width: 100%;
+}
+
+.dog-details-text {
+    margin-left: 20px;
+    text-align: left;
+}
