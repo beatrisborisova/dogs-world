@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
 import './Profile.css';
+import { Link } from 'react-router-dom';
 
 export const Profile = () => {
     return (

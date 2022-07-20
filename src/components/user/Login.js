@@ -3,13 +3,23 @@ import { faUser, faKey } from '@fortawesome/free-solid-svg-icons';
 
 import './User.css';
 import { NavLink } from 'react-router-dom';
+import * as userService from '../../services/user';
+import { useState } from 'react';
+// import { async } from '@firebase/util';
 
 export const Login = () => {
 
+    const [loginUser, setLoginUser] = useState([]);
+
     const loginHandler = (e) => {
         e.preventDefault();
+        const formData = new FormData(e.target);
+        const email = formData.get('email');
+        const password = formData.get('password');
 
-        console.log(e.target);
+        userService.login(email, password)
+            .then(res => setLoginUser(res))
+            .catch(err => console.log('A relevant error message should appear here', err.message))
     }
 
     return (
@@ -22,11 +32,11 @@ export const Login = () => {
                 <form onSubmit={loginHandler} className="login-register-form">
                     <div>
                         <FontAwesomeIcon icon={faUser} />
-                        <input type="text" placeholder='Username' />
+                        <input type="text" placeholder='Email' name='email' />
                     </div>
                     <div>
                         <FontAwesomeIcon icon={faKey} />
-                        <input type="password" placeholder='Password' />
+                        <input type="password" placeholder='Password' name='password' />
                     </div>
                     <div>
                         <input type="submit" value="Login" className='submit-btn' />

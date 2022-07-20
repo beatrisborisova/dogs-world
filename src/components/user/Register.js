@@ -3,13 +3,27 @@ import { faUser, faKey } from '@fortawesome/free-solid-svg-icons';
 
 import './User.css';
 import { NavLink } from 'react-router-dom';
+import * as userService from '../../services/user';
+import { useState } from 'react';
 
 export const Register = () => {
 
+    const [registerUser, setRegisterUser] = useState([]);
+
     const registerHandler = (e) => {
         e.preventDefault();
+        const formData = new FormData(e.target);
+        const email = formData.get('email');
+        const password = formData.get('password');
+        const repass = formData.get('repass');
 
-        console.log(e.target);
+        if (password !== repass) {
+            throw new Error('Passwords don\'t match')
+        }
+
+        userService.register(email, password)
+            .then(res => setRegisterUser(res))
+            .catch(err => console.log('A relevant error message should appear here', err.message))
     }
 
 
@@ -23,15 +37,15 @@ export const Register = () => {
                 <form onSubmit={registerHandler} className="login-register-form">
                     <div>
                         <FontAwesomeIcon icon={faUser} />
-                        <input type="text" placeholder='Username' />
+                        <input type="text" placeholder='Email' name='email' />
                     </div>
                     <div>
                         <FontAwesomeIcon icon={faKey} />
-                        <input type="password" placeholder='Password' />
+                        <input type="password" placeholder='Password' name='password' />
                     </div>
                     <div>
                         <FontAwesomeIcon icon={faKey} />
-                        <input type="password" placeholder='Repeat password' />
+                        <input type="password" placeholder='Repeat password' name='repass' />
                     </div>
                     <div>
                         <input type="submit" value="Register" className='submit-btn' />
