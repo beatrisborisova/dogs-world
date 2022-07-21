@@ -19,7 +19,7 @@ export const DogDetails = () => {
                 <p>Ваксини: видове ваксини</p>
                 <p>Описание</p>
             </div>
-            <button onClick={deleteDogHandler}>Delete dog</button>
+            {/* <button onClick={deleteDogHandler}>Delete dog</button> */}
         </div>
     )
 }

@@ -1,14 +1,25 @@
 import './Create-Edit.css';
 import '../user/User.css'
 import * as dogsService from '../../services/dogs';
+import { useState } from 'react';
 
 export const Create = () => {
+
+    const [vaccinesSelectedOption, setVaccinesSelectedOption] = useState('Yes');
+    const [typeSelectedOpion, setTypeSelectedOption] = useState('Adopt');
 
     const createDogHandler = async (e) => {
         e.preventDefault();
         const dog = Object.fromEntries(new FormData(e.target));
         dogsService.createDog(dog);
+    }
 
+    const vaccinesChangeHandler = (value) => {
+        setVaccinesSelectedOption(value)
+    }
+
+    const typeChangeHandler = (value) => {
+        setTypeSelectedOption(value);
     }
 
     return (
@@ -25,11 +36,17 @@ export const Create = () => {
                     </div>
                     <div>
                         <label htmlFor='vaccines'>Vaccines:</label>
-                        <input type="text" name="vaccines" />
+                        <input type="radio" name="vaccines" value='Yes' onChange={(e) => vaccinesChangeHandler(e.target.value)} checked={vaccinesSelectedOption === 'Yes'} /> Yes
+                        <input type="radio" name="vaccines" value='No' onChange={(e) => vaccinesChangeHandler(e.target.value)} checked={vaccinesSelectedOption === 'No'} /> No
                     </div>
                     <div>
                         <label htmlFor='description'>Description:</label>
                         <input type="text" name="description" />
+                    </div>
+                    <div>
+                        <label htmlFor='type'>Type:</label>
+                        <input type="radio" name="type" value='Adopt' onChange={(e) => typeChangeHandler(e.target.value)} checked={typeSelectedOpion === 'Adopt'} /> Adopt
+                        <input type="radio" name="type" value='Buy' onChange={(e) => typeChangeHandler(e.target.value)} checked={typeSelectedOpion === 'Buy'} /> Buy
                     </div>
                     <div>
                         <label htmlFor='uploadImg'>Upload image:</label>
