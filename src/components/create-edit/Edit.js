@@ -7,6 +7,7 @@ export const Edit = () => {
     const [dog, setDog] = useState('');
     const [vaccinesSelectedOption, setVaccinesSelectedOption] = useState('Yes');
     const [typeSelectedOpion, setTypeSelectedOption] = useState('Adopt');
+    const [genderSelectedOption, setGenderSelectedOption] = useState('male');
 
     useEffect(() => {
         dogsService.getDogById('Q9PtaYQj9cYjlAYl6RY6')
@@ -30,6 +31,10 @@ export const Edit = () => {
         setTypeSelectedOption(value);
     }
 
+    const genderChangeHandler = (value) => {
+        setGenderSelectedOption(value);
+    }
+
     return (
         <div className='create-edit-container'>
             <p>TO BE CHANGED TO CONTROLLED FORM</p>
@@ -42,6 +47,11 @@ export const Edit = () => {
                     <div>
                         <label htmlFor='age'>Age:</label>
                         {dog && <input type="number" name="age" defaultValue={dog.age} />}
+                    </div>
+                    <div>
+                        <label htmlFor='age'>Gender:</label>
+                        <input type="radio" name="gender" value="male" onChange={(e) => genderChangeHandler(e.target.value)} checked={genderSelectedOption === 'male'} /> Male
+                        <input type="radio" name="gender" value="female" onChange={(e) => genderChangeHandler(e.target.value)} checked={genderSelectedOption === 'female'} /> Female
                     </div>
                     <div>
                         <label htmlFor='vaccines'>Vaccines:</label>

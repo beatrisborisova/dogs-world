@@ -5,8 +5,9 @@ import { useState } from 'react';
 
 export const Create = () => {
 
-    const [vaccinesSelectedOption, setVaccinesSelectedOption] = useState('Yes');
-    const [typeSelectedOpion, setTypeSelectedOption] = useState('Adopt');
+    const [vaccinesSelectedOption, setVaccinesSelectedOption] = useState('yes');
+    const [typeSelectedOpion, setTypeSelectedOption] = useState('adopt');
+    const [genderSelectedOption, setGenderSelectedOption] = useState('male');
 
     const createDogHandler = async (e) => {
         e.preventDefault();
@@ -22,6 +23,10 @@ export const Create = () => {
         setTypeSelectedOption(value);
     }
 
+    const genderChangeHandler = (value) => {
+        setGenderSelectedOption(value);
+    }
+
     return (
         <div className='create-edit-container'>
             <div className='create-edit-content'>
@@ -35,9 +40,14 @@ export const Create = () => {
                         <input type="number" name="age" />
                     </div>
                     <div>
+                        <label htmlFor='age'>Gender:</label>
+                        <input type="radio" name="gender" value="male" onChange={(e) => genderChangeHandler(e.target.value)} checked={genderSelectedOption === 'male'} /> Male
+                        <input type="radio" name="gender" value="female" onChange={(e) => genderChangeHandler(e.target.value)} checked={genderSelectedOption === 'female'} /> Female
+                    </div>
+                    <div>
                         <label htmlFor='vaccines'>Vaccines:</label>
-                        <input type="radio" name="vaccines" value='Yes' onChange={(e) => vaccinesChangeHandler(e.target.value)} checked={vaccinesSelectedOption === 'Yes'} /> Yes
-                        <input type="radio" name="vaccines" value='No' onChange={(e) => vaccinesChangeHandler(e.target.value)} checked={vaccinesSelectedOption === 'No'} /> No
+                        <input type="radio" name="vaccines" value='yes' onChange={(e) => vaccinesChangeHandler(e.target.value)} checked={vaccinesSelectedOption === 'yes'} /> Yes
+                        <input type="radio" name="vaccines" value='no' onChange={(e) => vaccinesChangeHandler(e.target.value)} checked={vaccinesSelectedOption === 'no'} /> No
                     </div>
                     <div>
                         <label htmlFor='description'>Description:</label>
@@ -45,8 +55,8 @@ export const Create = () => {
                     </div>
                     <div>
                         <label htmlFor='type'>Type:</label>
-                        <input type="radio" name="type" value='Adopt' onChange={(e) => typeChangeHandler(e.target.value)} checked={typeSelectedOpion === 'Adopt'} /> Adopt
-                        <input type="radio" name="type" value='Buy' onChange={(e) => typeChangeHandler(e.target.value)} checked={typeSelectedOpion === 'Buy'} /> Buy
+                        <input type="radio" name="type" value='adopt' onChange={(e) => typeChangeHandler(e.target.value)} checked={typeSelectedOpion === 'adopt'} /> Adopt
+                        <input type="radio" name="type" value='buy' onChange={(e) => typeChangeHandler(e.target.value)} checked={typeSelectedOpion === 'buy'} /> Buy
                     </div>
                     <div>
                         <label htmlFor='uploadImg'>Upload image:</label>

@@ -16,6 +16,23 @@ const getAllDogs = async () => {
     });
 }
 
+const getAllAdopt = async () => {
+    const querySnapshot = await getDocs(collection(database, "adopt"));
+    let results = [];
+    querySnapshot.forEach((doc) => {
+        // console.log(`${doc.id} => ${doc.data()}`);
+        results.push([doc.id, doc.data().dog])
+    });
+    return results.map(([id, v]) => Object.assign({}, { id }, v));
+}
+
+const getAllBuy = async () => {
+    const querySnapshot = await getDocs(collection(database, "buy"));
+    querySnapshot.forEach((doc) => {
+        console.log(`${doc.id} => ${doc.data()}`);
+    });
+}
+
 const getDogById = async (dogId) => {
     const querySnapshot = await getDocs(collection(database, "dogs"));
     let dog;
@@ -29,9 +46,21 @@ const getDogById = async (dogId) => {
 
 const createDog = async (dog) => {
     try {
+        if (dog.type === 'adopt') {
+            await addDoc(collection(database, "adopt"), {
+                dog,
+                // creator: sessionStorage.currentUserId
+            });
+        } else if (dog.type === 'buy') {
+            await addDoc(collection(database, "buy"), {
+                dog,
+                // creator: sessionStorage.currentUserId
+            });
+        }
+
         const docRef = await addDoc(collection(database, "dogs"), {
             dog,
-            crator: sessionStorage.currentUserId
+            // creator: sessionStorage.currentUserId
         });
         console.log("Document written with ID: ", docRef.id);
     } catch (e) {
@@ -51,6 +80,8 @@ const deleteDog = async (dogId) => {
 export {
     getDogImage,
     getAllDogs,
+    getAllAdopt,
+    getAllBuy,
     getDogById,
     createDog,
     editDog,
