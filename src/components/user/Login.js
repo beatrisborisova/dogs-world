@@ -5,12 +5,12 @@ import './User.css';
 import { NavLink } from 'react-router-dom';
 import * as userService from '../../services/user';
 import { useState } from 'react';
+
 // import { async } from '@firebase/util';
 
 export const Login = () => {
 
-    const [loginUser, setLoginUser] = useState([]);
-
+    const [loginUser, setLoginUser] = useState(null);
     const loginHandler = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
@@ -19,7 +19,8 @@ export const Login = () => {
 
         userService.login(email, password)
             .then(res => setLoginUser(res))
-            .catch(err => console.log('A relevant error message should appear here', err.message))
+        // .then(res => setLoginUser(res))
+        // .catch(err => console.log('A relevant error message should appear here', err.message))
     }
 
     return (
@@ -28,6 +29,7 @@ export const Login = () => {
                 <NavLink to={'/login'}>Login</NavLink>
                 <NavLink to={'/register'}>Register</NavLink>
             </div>
+            <p>{loginUser && loginUser.uid}</p>
             <div className='login-register-content'>
                 <form onSubmit={loginHandler} className="login-register-form">
                     <div>

@@ -48,6 +48,7 @@ const register = async (email, password) => {
             authProvider: "local",
             email,
         });
+        sessionStorage.setItem('currentUserId', user.user.uid)
     } catch (err) {
         console.error(err);
         alert(err.message);
@@ -68,6 +69,10 @@ const logout = () => {
     signOut(auth);
 };
 
+const getUser = () => {
+    return sessionStorage.getItem('currentUserId')
+}
+
 export {
     auth,
     signInWithGoogle,
@@ -75,4 +80,5 @@ export {
     register,
     sendPasswordReset,
     logout,
+    getUser
 };

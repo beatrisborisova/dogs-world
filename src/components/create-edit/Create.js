@@ -1,18 +1,20 @@
 import './Create-Edit.css';
 import '../user/User.css'
+import * as dogsService from '../../services/dogs';
 
 export const Create = () => {
 
-
-    const createDog = (e) => {
+    const createDogHandler = async (e) => {
         e.preventDefault();
-        console.log('dog created')
+        const dog = Object.fromEntries(new FormData(e.target));
+        dogsService.createDog(dog);
+
     }
 
     return (
         <div className='create-edit-container'>
             <div className='create-edit-content'>
-                <form onSubmit={createDog} className="create-edit-form">
+                <form onSubmit={createDogHandler} className="create-edit-form">
                     <div>
                         <label htmlFor='breed'>Breed:</label>
                         <input type="text" name="breed" />

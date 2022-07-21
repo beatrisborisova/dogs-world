@@ -1,8 +1,16 @@
 import './Common.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
 
 export const Header = () => {
+
+    const [hasUser, setHasUser] = useState(sessionStorage.getItem('currentUserId'));
+
+    const logoutHandler = () => {
+        setHasUser(null);
+        sessionStorage.clear()
+    }
 
     return (
         <header>
@@ -29,10 +37,20 @@ export const Header = () => {
                     <NavLink to={'/create'}>Create</NavLink>
                     <NavLink to={'/edit/123'}>Edit</NavLink>
 
-                    <NavLink to={'/login'}>Login</NavLink>
-                    <NavLink to={'/register'}>Register</NavLink>
-                    <NavLink to={'/profile'}>Profile</NavLink>
-                    <NavLink to={'/logout'}>Logout</NavLink>
+                    {hasUser &&
+                        <>
+                            <NavLink to={'/profile'}>Profile</NavLink>
+                            <NavLink to={'/logout'} onClick={logoutHandler}>Logout</NavLink>
+                        </>
+                    }
+
+
+                    {!hasUser &&
+                        <>
+                            <NavLink to={'/login'}>Login</NavLink>
+                            <NavLink to={'/register'}>Register</NavLink>
+                        </>
+                    }
                 </ul>
             </div>
         </header>
