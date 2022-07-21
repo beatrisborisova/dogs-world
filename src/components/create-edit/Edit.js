@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 export const Edit = () => {
 
     const [dog, setDog] = useState('');
+    const [vaccinesSelectedOption, setVaccinesSelectedOption] = useState('Yes');
+    const [typeSelectedOpion, setTypeSelectedOption] = useState('Adopt');
 
     useEffect(() => {
         dogsService.getDogById('Q9PtaYQj9cYjlAYl6RY6')
@@ -12,7 +14,7 @@ export const Edit = () => {
 
     }, [])
 
-    console.log('doggg', dog);
+
     const editDogHandler = (e) => {
         e.preventDefault();
 
@@ -20,6 +22,13 @@ export const Edit = () => {
         dogsService.editDog('Q9PtaYQj9cYjlAYl6RY6', newDogData)
     }
 
+    const vaccinesChangeHandler = (value) => {
+        setVaccinesSelectedOption(value)
+    }
+
+    const typeChangeHandler = (value) => {
+        setTypeSelectedOption(value);
+    }
 
     return (
         <div className='create-edit-container'>
@@ -36,14 +45,19 @@ export const Edit = () => {
                     </div>
                     <div>
                         <label htmlFor='vaccines'>Vaccines:</label>
-                        {dog && <input type="radio" name="vaccines" value='Yes' />}
-                        {dog && <input type="radio" name="vaccines" value='No' />}
+                        {dog && <input type="radio" name="vaccines" value='Yes' onChange={(e) => vaccinesChangeHandler(e.target.value)} checked={vaccinesSelectedOption === 'Yes'} />} Yes
+                        {dog && <input type="radio" name="vaccines" value='No' onChange={(e) => vaccinesChangeHandler(e.target.value)} checked={vaccinesSelectedOption === 'No'} />} No
 
                     </div>
                     <div>
                         <label htmlFor='description'>Description:</label>
                         {dog && <input type="text" name="description" defaultValue={dog.description} />}
 
+                    </div>
+                    <div>
+                        <label htmlFor='type'>Type:</label>
+                        {dog && <input type="radio" name="type" value='Adopt' onChange={(e) => typeChangeHandler(e.target.value)} checked={typeSelectedOpion === 'Adopt'} />} Adopt
+                        {dog && <input type="radio" name="type" value='Buy' onChange={(e) => typeChangeHandler(e.target.value)} checked={typeSelectedOpion === 'Buy'} />} Buy
                     </div>
                     <div>
                         <label htmlFor='uploadImg'>Upload image:</label>
