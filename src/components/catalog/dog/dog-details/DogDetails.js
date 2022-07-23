@@ -11,15 +11,12 @@ export const DogDetails = () => {
     const url = location.pathname.split('/');
     const dogId = url[url.length - 1]
 
-    const [dog, setDog] = useState([]);
+    const [dog, setDog] = useState(null);
 
     useEffect(() => {
         dogsService.getDogById(dogId)
-            .then(res => console.log(res))
+            .then(res => setDog(res.dog))
     }, [dogId])
-
-    console.log('dog', dog);
-
 
     // CURRENT USER SCRIPT
     //More info: https://firebase.google.com/docs/auth/web/manage-users
@@ -45,17 +42,21 @@ export const DogDetails = () => {
 
     return (
         <div className='dog-details-container'>
-            <div className="image-wrapper-dog-details">
-                <img src='https://kb.rspca.org.au/wp-content/uploads/2018/11/golder-retriever-puppy.jpeg' alt="dog" />
-            </div>
-            <div className="dog-details-text">
-                {/* <h2>{dog && dog.breed}</h2> */}
-                <p>Възраст: 7 години</p>
-                <p>Паспорт: ДА / NE</p>
-                <p>Ваксини: видове ваксини</p>
-                <p>Описание</p>
-            </div>
-            {/* <button onClick={deleteDogHandler}>Delete dog</button> */}
+            {dog && <>
+                <div className="image-wrapper-dog-details">
+                    <img src='https://kb.rspca.org.au/wp-content/uploads/2018/11/golder-retriever-puppy.jpeg' alt="dog" />
+                </div>
+                <div className="dog-details-text">
+                    {/* <h2>{dog && dog.breed}</h2> */}
+                    <p>Age: {dog.age} years old</p>
+                    <p>Паспорт: ДА / NE</p>
+                    <p>Vacciness: {dog.vaccines}</p>
+                    <p>{dog.description}</p>
+                </div>
+                {/* <button onClick={deleteDogHandler}>Delete dog</button> */}
+            </>}
+
+            {!dog && <div>Loading... /SPINNER TO BE ADDED/</div>}
         </div>
     )
 }

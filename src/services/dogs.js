@@ -39,15 +39,10 @@ const getDogById = async (dogId) => {
 
     const querySnapshot = await getDocs(collection(database, "dogs"));
     querySnapshot.forEach((doc) => {
-        // console.log(`${doc.id} => ${doc.data()}`);
-        console.log('doc.id', doc.id);
-        console.log('dogId', dogId);
         if (doc.id === dogId) {
-            console.log('asd', doc.data())
+            dog = doc.data()
         }
     });
-
-    console.log('dog from service', dog);
     return dog;
 }
 
