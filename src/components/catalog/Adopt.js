@@ -8,10 +8,12 @@ export const Adopt = () => {
 
     const [dogs, setDogs] = useState([]);
 
+
     useEffect(() => {
         dogsService.getAllAdopt()
             .then(res => setDogs(res))
     }, [])
+
 
     return (
         <>
@@ -20,9 +22,7 @@ export const Adopt = () => {
                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
             </section>
             <section className='adopt-buy-catalog-container'>
-                <NavLink to={'/catalog/adopt/:id'}>
-                    {dogs && dogs.map(el => <Dog type="adopt" dog={el} key={el.id} />)}
-                </NavLink>
+                {dogs && dogs.map(el => <Dog type="adopt" dog={el} key={el.id} />)}
             </section>
         </>
     )

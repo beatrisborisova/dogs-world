@@ -1,5 +1,6 @@
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, setDoc, updateDoc } from "firebase/firestore";
-import { database } from '../firebase';
+import { app, database } from '../firebase';
+import { getDatabase, ref, child, get } from "firebase/database";
 
 function getDogImage() {
     return fetch('https://dog.ceo/api/breeds/image/random')
@@ -27,40 +28,52 @@ const getAllAdopt = async () => {
 }
 
 const getAllBuy = async () => {
-    const querySnapshot = await getDocs(collection(database, "buy"));
+    const querySnapshot = await getDocs(collection(database, "dogs/buy"));
     querySnapshot.forEach((doc) => {
         console.log(`${doc.id} => ${doc.data()}`);
     });
 }
 
 const getDogById = async (dogId) => {
-    const querySnapshot = await getDocs(collection(database, "dogs"));
     let dog;
-    querySnapshot.forEach(el => {
-        if (el.id === dogId) {
-            dog = el.data();
+
+    const querySnapshot = await getDocs(collection(database, "dogs"));
+    querySnapshot.forEach((doc) => {
+        // console.log(`${doc.id} => ${doc.data()}`);
+        console.log('doc.id', doc.id);
+        console.log('dogId', dogId);
+        if (doc.id === dogId) {
+            console.log('asd', doc.data())
         }
-    })
-    return dog
+    });
+
+    console.log('dog from service', dog);
+    return dog;
 }
 
 const createDog = async (dog) => {
+    let docRef;
     try {
         if (dog.type === 'adopt') {
-            await addDoc(collection(database, "adopt"), {
+            docRef = await addDoc(collection(database, "adopt"), {
                 dog,
                 // creator: sessionStorage.currentUserId
+                //тука е по-добре да се ползва currentUser от firebase getAuth() (кода го има в DogDetails.js)
             });
+            console.log('docRef.id', docRef.id);
         } else if (dog.type === 'buy') {
-            await addDoc(collection(database, "buy"), {
+            docRef = await addDoc(collection(database, "buy"), {
                 dog,
                 // creator: sessionStorage.currentUserId
+                //тука е по-добре да се ползва currentUser от firebase getAuth() (кода го има в DogDetails.js)
             });
         }
 
-        const docRef = await addDoc(collection(database, "dogs"), {
+
+        await setDoc(doc(database, "dogs", docRef.id), {
             dog,
             // creator: sessionStorage.currentUserId
+            //тука е по-добре да се ползва currentUser от firebase getAuth() (кода го има в DogDetails.js)
         });
         console.log("Document written with ID: ", docRef.id);
     } catch (e) {

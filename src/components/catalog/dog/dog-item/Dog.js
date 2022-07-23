@@ -11,7 +11,7 @@ export const Dog = (props) => {
             <h4>{props.dog.breed}</h4>
             <p>{props.dog.gender}</p>
             <p>{props.dog.age}</p>
-            <NavLink to={`/catalog/${props.dog.type}/:id`} className="btn-level-two">Details</NavLink>
+            <NavLink to={`/catalog/${props.dog.type}/${props.dog.id}`} className="btn-level-two">Details</NavLink>
         </article>
     )
 }
