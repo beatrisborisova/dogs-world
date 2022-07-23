@@ -1,9 +1,10 @@
 import './DogDetails.css';
 import * as dogsService from '../../../../services/dogs';
-import { useLocation } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { Edit } from '../../../create-edit/Edit';
 
 export const DogDetails = () => {
 
@@ -12,10 +13,11 @@ export const DogDetails = () => {
     const dogId = url[url.length - 1]
 
     const [dog, setDog] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         dogsService.getDogById(dogId)
-            .then(res => setDog(res.dog))
+            .then(res => setDog(res))
     }, [dogId])
 
     // CURRENT USER SCRIPT
@@ -40,6 +42,11 @@ export const DogDetails = () => {
         dogsService.deleteDog(dogId, dog)
     }
 
+    // const editDogHandler = () => {
+    //     navigate(`/edit/${dogId}`)
+    //     dogsService.editDog(dogId, dog)
+    // }
+
     return (
         <div className='dog-details-container'>
             {dog && <>
@@ -53,6 +60,7 @@ export const DogDetails = () => {
                     <p>Vacciness: {dog.vaccines}</p>
                     <p>{dog.description}</p>
                 </div>
+                <button onClick={() => navigate(`/edit/${dogId}`, { state: { dogId } })}>Edit dog</button>
                 <button onClick={deleteDogHandler}>Delete dog</button>
             </>}
 

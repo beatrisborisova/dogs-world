@@ -1,26 +1,29 @@
 import './Create-Edit.css';
 import * as dogsService from '../../services/dogs';
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 export const Edit = () => {
+
+    const { state } = useLocation();
+    const { dogId } = state;
 
     const [dog, setDog] = useState('');
     const [vaccinesSelectedOption, setVaccinesSelectedOption] = useState('Yes');
     const [typeSelectedOpion, setTypeSelectedOption] = useState('Adopt');
     const [genderSelectedOption, setGenderSelectedOption] = useState('male');
 
-    useEffect(() => {
-        dogsService.getDogById('Q9PtaYQj9cYjlAYl6RY6')
-            .then(res => setDog(res))
 
-    }, [])
+    useEffect(() => {
+        dogsService.getDogById(dogId)
+            .then(res => setDog(res))
+    }, [dogId])
 
 
     const editDogHandler = (e) => {
         e.preventDefault();
-
         const newDogData = Object.fromEntries(new FormData(e.target));
-        dogsService.editDog('Q9PtaYQj9cYjlAYl6RY6', newDogData)
+        dogsService.editDog(dogId, newDogData)
     }
 
     const vaccinesChangeHandler = (value) => {

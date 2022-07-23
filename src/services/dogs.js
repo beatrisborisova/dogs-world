@@ -1,6 +1,5 @@
-import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, setDoc, updateDoc } from "firebase/firestore";
-import { app, database } from '../firebase';
-import { getDatabase, ref, child, get } from "firebase/database";
+import { addDoc, collection, deleteDoc, doc, getDocs, setDoc, updateDoc } from "firebase/firestore";
+import { database } from '../firebase';
 
 function getDogImage() {
     return fetch('https://dog.ceo/api/breeds/image/random')
@@ -36,11 +35,10 @@ const getAllBuy = async () => {
 
 const getDogById = async (dogId) => {
     let dog;
-
     const querySnapshot = await getDocs(collection(database, "dogs"));
     querySnapshot.forEach((doc) => {
         if (doc.id === dogId) {
-            dog = doc.data()
+            dog = doc.data().dog
         }
     });
     return dog;
@@ -55,7 +53,6 @@ const createDog = async (dog) => {
                 // creator: sessionStorage.currentUserId
                 //тука е по-добре да се ползва currentUser от firebase getAuth() (кода го има в DogDetails.js)
             });
-            console.log('docRef.id', docRef.id);
         } else if (dog.type === 'buy') {
             docRef = await addDoc(collection(database, "buy"), {
                 dog,
@@ -77,15 +74,16 @@ const createDog = async (dog) => {
 }
 
 const editDog = async (dogId, dog) => {
-    const docRef = doc(database, "dogs", dogId);
-    await updateDoc(docRef, dog);
 
-    if (dog.type === 'adopt') {
+    const docRef = doc(database, "dogs", dogId);
+    await setDoc(docRef, dog);
+
+    if (dog.type.toLowerCase() === 'adopt') {
         const docRef = doc(database, "adopt", dogId);
-        await updateDoc(docRef, dog);
-    } else if (dog.type === 'buy') {
+        await setDoc(docRef, dog);
+    } else if (dog.type.toLowerCase() === 'buy') {
         const docRef = doc(database, "buy", dogId);
-        await updateDoc(docRef, dog);
+        await setDoc(docRef, dog);
     }
 }
 
