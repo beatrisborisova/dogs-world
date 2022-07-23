@@ -36,9 +36,9 @@ export const DogDetails = () => {
     });
 
 
-    // const deleteDogHandler = () => {
-    //     dogsService.deleteDog(dogId)
-    // }
+    const deleteDogHandler = () => {
+        dogsService.deleteDog(dogId, dog)
+    }
 
     return (
         <div className='dog-details-container'>
@@ -47,13 +47,13 @@ export const DogDetails = () => {
                     <img src='https://kb.rspca.org.au/wp-content/uploads/2018/11/golder-retriever-puppy.jpeg' alt="dog" />
                 </div>
                 <div className="dog-details-text">
-                    {/* <h2>{dog && dog.breed}</h2> */}
+                    <h2>{dog.breed}</h2>
                     <p>Age: {dog.age} years old</p>
                     <p>Паспорт: ДА / NE</p>
                     <p>Vacciness: {dog.vaccines}</p>
                     <p>{dog.description}</p>
                 </div>
-                {/* <button onClick={deleteDogHandler}>Delete dog</button> */}
+                <button onClick={deleteDogHandler}>Delete dog</button>
             </>}
 
             {!dog && <div>Loading... /SPINNER TO BE ADDED/</div>}

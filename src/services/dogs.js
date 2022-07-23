@@ -79,10 +79,24 @@ const createDog = async (dog) => {
 const editDog = async (dogId, dog) => {
     const docRef = doc(database, "dogs", dogId);
     await updateDoc(docRef, dog);
+
+    if (dog.type === 'adopt') {
+        const docRef = doc(database, "adopt", dogId);
+        await updateDoc(docRef, dog);
+    } else if (dog.type === 'buy') {
+        const docRef = doc(database, "buy", dogId);
+        await updateDoc(docRef, dog);
+    }
 }
 
-const deleteDog = async (dogId) => {
+const deleteDog = async (dogId, dog) => {
     await deleteDoc(doc(database, "dogs", dogId));
+
+    if (dog.type === 'adopt') {
+        await deleteDoc(doc(database, "adopt", dogId));
+    } else if (dog.type === 'buy') {
+        await deleteDoc(doc(database, "buy", dogId));
+    }
 }
 
 export {
