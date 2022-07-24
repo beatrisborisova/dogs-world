@@ -37,14 +37,18 @@ const getAllBuy = async () => {
 }
 
 const getDogById = async (dogId) => {
-    let dog;
-    const querySnapshot = await getDocs(collection(database, "dogs"));
-    querySnapshot.forEach((doc) => {
-        if (doc.id === dogId) {
-            dog = doc.data().dog
-        }
-    });
-    return dog;
+    try {
+        let dog;
+        const querySnapshot = await getDocs(collection(database, "dogs"));
+        querySnapshot.forEach((doc) => {
+            if (doc.id === dogId) {
+                dog = doc.data()
+            }
+        });
+        return dog;
+    } catch (err) {
+        throw new Error('No item with this ID')
+    }
 }
 
 const createDog = async (dog) => {

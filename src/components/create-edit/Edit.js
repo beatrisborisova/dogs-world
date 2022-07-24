@@ -1,12 +1,14 @@
 import './Create-Edit.css';
 import * as dogsService from '../../services/dogs';
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export const Edit = () => {
 
     const { state } = useLocation();
     const { dogId } = state;
+
+    const navigate = useNavigate();
 
     const [dog, setDog] = useState('');
     const [vaccinesSelectedOption, setVaccinesSelectedOption] = useState('Yes');
@@ -24,6 +26,8 @@ export const Edit = () => {
         e.preventDefault();
         const newDogData = Object.fromEntries(new FormData(e.target));
         dogsService.editDog(dogId, newDogData)
+            .then(() => navigate(`/catalog/${typeSelectedOpion}/${dogId}`))
+            .catch(err => console.log(err.message))
     }
 
     const vaccinesChangeHandler = (value) => {
