@@ -1,15 +1,25 @@
 import './Common.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
+import * as userService from '../../services/user';
+import AuthContext from '../../contexts/Auth';
 
 export const Header = () => {
 
-    const [hasUser, setHasUser] = useState(sessionStorage.getItem('currentUserId'));
+    const authContext = useContext(AuthContext);
+
+    const [hasUser, setHasUser] = useState(authContext);
+
+    console.log('authContext', authContext);
+
+    useEffect(() => {
+        setHasUser(authContext)
+    }, [authContext])
 
     const logoutHandler = () => {
+        userService.logout()
         setHasUser(null);
-        sessionStorage.clear()
     }
 
     return (
@@ -47,8 +57,8 @@ export const Header = () => {
 
                     {!hasUser &&
                         <>
-                            <NavLink to={'/login'}>Login</NavLink>
-                            <NavLink to={'/register'}>Register</NavLink>
+                            <Link to={'/login'} hasUser={hasUser}>Login</Link>
+                            <Link to={'/register'}>Register</Link>
                         </>
                     }
                 </ul>

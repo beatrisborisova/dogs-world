@@ -1,10 +1,9 @@
 import './DogDetails.css';
 import * as dogsService from '../../../../services/dogs';
-import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { Edit } from '../../../create-edit/Edit';
 
 export const DogDetails = () => {
 
@@ -41,11 +40,6 @@ export const DogDetails = () => {
     const deleteDogHandler = () => {
         dogsService.deleteDog(dogId, dog)
     }
-
-    // const editDogHandler = () => {
-    //     navigate(`/edit/${dogId}`)
-    //     dogsService.editDog(dogId, dog)
-    // }
 
     return (
         <div className='dog-details-container'>

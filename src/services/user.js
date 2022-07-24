@@ -32,7 +32,9 @@ const signInWithGoogle = async () => {
 const login = async (email, password) => {
     try {
         const user = await signInWithEmailAndPassword(auth, email, password);
+        console.log('user from service', user);
         sessionStorage.setItem('currentUserId', user.user.uid)
+        return user.user
     } catch (err) {
         console.error(err);
         alert(err.message);
@@ -67,6 +69,7 @@ const sendPasswordReset = async (email) => {
 
 const logout = () => {
     signOut(auth);
+    sessionStorage.removeItem('currentUserId')
 };
 
 const getUser = () => {

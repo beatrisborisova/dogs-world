@@ -1,4 +1,4 @@
-import { addDoc, collection, deleteDoc, doc, getDocs, setDoc, updateDoc } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDocs, setDoc } from "firebase/firestore";
 import { database } from '../firebase';
 
 function getDogImage() {
@@ -21,16 +21,19 @@ const getAllAdopt = async () => {
     let results = [];
     querySnapshot.forEach((doc) => {
         // console.log(`${doc.id} => ${doc.data()}`);
-        results.push([doc.id, doc.data().dog])
+        results.push([doc.id, doc.data()])
     });
     return results.map(([id, v]) => Object.assign({}, { id }, v));
 }
 
 const getAllBuy = async () => {
-    const querySnapshot = await getDocs(collection(database, "dogs/buy"));
+    const querySnapshot = await getDocs(collection(database, "dogs"));
+    let results = [];
     querySnapshot.forEach((doc) => {
-        console.log(`${doc.id} => ${doc.data()}`);
+        // console.log(`${doc.id} => ${doc.data()}`);
+        results.push([doc.id, doc.data()])
     });
+    return results.map(([id, v]) => Object.assign({}, { id }, v));
 }
 
 const getDogById = async (dogId) => {

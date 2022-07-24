@@ -1,16 +1,16 @@
+import './User.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faKey } from '@fortawesome/free-solid-svg-icons';
 
-import './User.css';
-import { NavLink } from 'react-router-dom';
 import * as userService from '../../services/user';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-
-// import { async } from '@firebase/util';
 
 export const Login = () => {
 
+    const navigate = useNavigate();
     const [loginUser, setLoginUser] = useState(null);
+
     const loginHandler = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
@@ -18,9 +18,11 @@ export const Login = () => {
         const password = formData.get('password');
 
         userService.login(email, password)
-            .then(res => setLoginUser(res))
-        // .then(res => setLoginUser(res))
-        // .catch(err => console.log('A relevant error message should appear here', err.message))
+            .then(res => {
+                setLoginUser(res)
+                navigate('/')
+            })
+            .catch(err => console.log('A relevant error message should appear here', err.message))
     }
 
     return (

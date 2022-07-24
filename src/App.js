@@ -16,36 +16,52 @@ import { EditProfile } from './components/user/profile/EditProfile';
 import { MyDogs } from './components/catalog/dog/my-dogs/MyDogs';
 import { Cause } from './components/about/Cause/Cause';
 import { Contacts } from './components/about/Contacts/Contacts';
+import { useEffect, useState } from 'react';
+
+import * as userService from './services/user';
+import AuthContext from './contexts/Auth';
 
 function App() {
+
+  // const [hasUser, setHasUser] = useState(userService.getUser());
+  // console.log('hasUser from App', hasUser);
+  // useEffect(() => {
+  //   setHasUser(sessionStorage.getItem('currentUserId'))
+  // }, [hasUser])
+  let hasUser = true
+
   return (
     <div className="App">
-      <Header />
-      <main>
-        <Routes>
-          <Route path='/' index element={<Home />} />
+      <AuthContext.Provider value={hasUser}>
 
-          <Route path='/cause' element={<Cause />} />
-          <Route path='/contacts' element={<Contacts />} />
+        <Header hasUser={hasUser} />
+        <main>
+          <Routes>
+            <Route path='/' index element={<Home />} />
 
-          <Route path='catalog' element={<Main />} />
-          <Route path='catalog/adopt' element={<Adopt />} />
-          <Route path='catalog/buy' element={<Buy />} />
-          <Route path='catalog/adopt/:id' element={<DogDetails />} />
-          <Route path='catalog/buy/:id' element={<DogDetails />} />
+            <Route path='/cause' element={<Cause />} />
+            <Route path='/contacts' element={<Contacts />} />
 
-          <Route path='login' element={<Login />} />
-          <Route path='register' element={<Register />} />
-          <Route path='profile' element={<Profile />} />
-          <Route path='edit-profile' element={<EditProfile />} />
-          <Route path='my-dogs' element={<MyDogs />} />
+            <Route path='catalog' element={<Main />} />
+            <Route path='catalog/adopt' element={<Adopt />} />
+            <Route path='catalog/buy' element={<Buy />} />
+            <Route path='catalog/adopt/:id' element={<DogDetails />} />
+            <Route path='catalog/buy/:id' element={<DogDetails />} />
 
-          <Route path='create' element={<Create />} />
-          <Route path='edit/:id' element={<Edit />} />
-        </Routes>
-      </main>
-      <Footer />
+            <Route path='login' element={<Login />} />
+            <Route path='register' element={<Register />} />
+            <Route path='profile' element={<Profile />} />
+            <Route path='edit-profile' element={<EditProfile />} />
+            <Route path='my-dogs' element={<MyDogs />} />
+
+            <Route path='create' element={<Create />} />
+            <Route path='edit/:id' element={<Edit />} />
+          </Routes>
+        </main>
+        <Footer />
+      </AuthContext.Provider >
     </div>
+
   );
 }
 
