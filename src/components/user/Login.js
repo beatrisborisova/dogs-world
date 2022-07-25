@@ -11,10 +11,9 @@ import { login } from '../../features/user';
 
 export const Login = () => {
 
-    const dispatch = useDispatch();
-
-    const navigate = useNavigate();
     const [loginUser, setLoginUser] = useState(null);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const loginHandler = (e) => {
         e.preventDefault();
@@ -25,7 +24,7 @@ export const Login = () => {
         userService.login(email, password)
             .then(res => {
                 setLoginUser(res)
-                dispatch(login(loginUser))
+                dispatch(login({ payload: { email: res.email }, type: 'LOGIN' }))
                 navigate('/')
             })
             .catch(err => console.log('A relevant error message should appear here', err.message))

@@ -1,25 +1,35 @@
 import './Common.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link, NavLink } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as userService from '../../services/user';
 
 import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { logout } from '../../features/user';
 
 export const Header = () => {
 
-    const [hasUser, setHasUser] = useState('');
+    const [hasUser, setHasUser] = useState(false);
 
     const dispatch = useDispatch();
+    const user = useSelector((states) => states.user.value);
+
+    useEffect(() => {
+        if (user.email !== '') {
+            setHasUser(true);
+        } else {
+            setHasUser(false);
+        }
+    }, [user.email])
 
     const logoutHandler = () => {
         userService.logout()
-        setHasUser('');
-        return () => dispatch(logout())
+        console.log('user logged out');
+        dispatch(logout())
     }
 
-
+    console.log('hasUser', hasUser);
     return (
         <header>
             <div className="image-wrapper-logo">
@@ -55,7 +65,7 @@ export const Header = () => {
 
                     {!hasUser &&
                         <>
-                            <Link to={'/login'} hasUser={hasUser}>Login</Link>
+                            <Link to={'/login'}>Login</Link>
                             <Link to={'/register'}>Register</Link>
                         </>
                     }

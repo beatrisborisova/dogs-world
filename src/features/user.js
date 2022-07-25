@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialStateValue = { email: "asd" };
+const initialStateValue = { email: "" };
 
 export const userSlice = createSlice({
     name: "user",
@@ -12,7 +12,7 @@ export const userSlice = createSlice({
             state.value = action.payload
         },
         logout: (state) => {
-            state.value = { email: "" }
+            state.value = initialStateValue
         }
     }
 });
