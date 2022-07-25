@@ -13,8 +13,6 @@ export const MyDogs = () => {
             .then(res => setMyDogs(res))
     }, [])
 
-    console.log('myDogs', myDogs)
-
     return (
         <section className='adopt-buy-catalog-container'>
             {myDogs && myDogs.map(el => <Dog type="adopt" dog={el.dog} key={el.id} />)}

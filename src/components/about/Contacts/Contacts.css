@@ -1,0 +1,18 @@
+.softuni-image-wrapper {
+    width: 100px;
+    margin: 20px auto;
+}
+
+.softuni-image-wrapper img {
+    width: 100%;
+}
+
+.about-text {
+    margin: 30px auto;
+}
+
+.about-text ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}

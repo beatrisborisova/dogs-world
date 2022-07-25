@@ -14,9 +14,6 @@ export const DogDetails = () => {
     const [dog, setDog] = useState(null);
     const navigate = useNavigate();
 
-
-    console.log('dog from details', dog);
-
     useEffect(() => {
         dogsService.getDogById(dogId)
             .then(res => setDog(res.dog.dog))
@@ -42,6 +39,9 @@ export const DogDetails = () => {
 
     const deleteDogHandler = () => {
         dogsService.deleteDog(dogId, dog)
+            .then(() => navigate(`/catalog/${dog.type}`))
+            .catch((err) => console.log(err.message))
+
     }
 
     return (

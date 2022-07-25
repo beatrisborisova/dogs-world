@@ -11,10 +11,10 @@ export const Edit = () => {
     const navigate = useNavigate();
 
     const [dog, setDog] = useState('');
-    const [vaccinesSelectedOption, setVaccinesSelectedOption] = useState('Yes');
-    const [typeSelectedOpion, setTypeSelectedOption] = useState('Adopt');
-    const [genderSelectedOption, setGenderSelectedOption] = useState('male');
-
+    console.log('dog in edit', dog);
+    const [vaccinesSelectedOption, setVaccinesSelectedOption] = useState(dog.vaccines);
+    const [typeSelectedOpion, setTypeSelectedOption] = useState(dog.type);
+    const [genderSelectedOption, setGenderSelectedOption] = useState(dog.gender);
 
     useEffect(() => {
         dogsService.getDogById(dogId)
@@ -24,6 +24,7 @@ export const Edit = () => {
     const editDogHandler = (e) => {
         e.preventDefault();
         const newDogData = Object.fromEntries(new FormData(e.target));
+        console.log('newDogData', newDogData);
         dogsService.editDog(dogId, newDogData)
             .then(() => navigate(`/catalog/${typeSelectedOpion}/${dogId}`))
             .catch(err => console.log(err.message))
@@ -55,16 +56,25 @@ export const Edit = () => {
                         <label htmlFor='age'>Age:</label>
                         {dog && <input type="number" name="age" defaultValue={dog.age} />}
                     </div>
+                    {/* <div>
+                        <label htmlFor='age'>Gender:</label>
+                        <input type="radio" name="gender" value="male" onChange={(e) => genderChangeHandler(e.target.value)} checked={genderSelectedOption === 'Male'} /> Male
+                        <input type="radio" name="gender" value="female" onChange={(e) => genderChangeHandler(e.target.value)} checked={genderSelectedOption === 'Female'} /> Female
+                    </div> */}
                     <div>
                         <label htmlFor='age'>Gender:</label>
-                        <input type="radio" name="gender" value="male" onChange={(e) => genderChangeHandler(e.target.value)} checked={genderSelectedOption === 'male'} /> Male
-                        <input type="radio" name="gender" value="female" onChange={(e) => genderChangeHandler(e.target.value)} checked={genderSelectedOption === 'female'} /> Female
+                        <input type="radio" name="gender" defaultValue="male" checked={genderSelectedOption === 'male'} onChange={(e) => genderChangeHandler(e.target.value)} /> Male
+                        <input type="radio" name="gender" defaultValue="female" checked={genderSelectedOption === 'female'} onChange={(e) => genderChangeHandler(e.target.value)} /> Female
                     </div>
+                    {/* <div>
+                        <label htmlFor='vaccines'>Vaccines:</label>
+                        {dog && <input type="radio" name="vaccines" value='yes' onChange={(e) => vaccinesChangeHandler(e.target.value)} checked={vaccinesSelectedOption === 'yes'} />} Yes
+                        {dog && <input type="radio" name="vaccines" value='no' onChange={(e) => vaccinesChangeHandler(e.target.value)} checked={vaccinesSelectedOption === 'no'} />} No
+                    </div> */}
                     <div>
                         <label htmlFor='vaccines'>Vaccines:</label>
-                        {dog && <input type="radio" name="vaccines" value='Yes' onChange={(e) => vaccinesChangeHandler(e.target.value)} checked={vaccinesSelectedOption === 'Yes'} />} Yes
-                        {dog && <input type="radio" name="vaccines" value='No' onChange={(e) => vaccinesChangeHandler(e.target.value)} checked={vaccinesSelectedOption === 'No'} />} No
-
+                        {dog && <input type="radio" name="vaccines" value='yes' checked={dog.vaccines === 'yes'} />} Yes
+                        {dog && <input type="radio" name="vaccines" value='no' checked={dog.vaccines === 'no'} />} No
                     </div>
                     <div>
                         <label htmlFor='description'>Description:</label>
@@ -73,8 +83,8 @@ export const Edit = () => {
                     </div>
                     <div>
                         <label htmlFor='type'>Type:</label>
-                        {dog && <input type="radio" name="type" value='adopt' onChange={(e) => typeChangeHandler(e.target.value)} checked={typeSelectedOpion === 'adopt'} />} Adopt
-                        {dog && <input type="radio" name="type" value='buy' onChange={(e) => typeChangeHandler(e.target.value)} checked={typeSelectedOpion === 'buy'} />} Buy
+                        {dog && <input type="radio" name="type" value='adopt' onChange={(e) => typeChangeHandler(e.target.value)} checked={typeSelectedOpion === 'Adopt'} />} adopt
+                        {dog && <input type="radio" name="type" value='buy' onChange={(e) => typeChangeHandler(e.target.value)} checked={typeSelectedOpion === 'Buy'} />} buy
                     </div>
                     <div>
                         <label htmlFor='uploadImg'>Upload image:</label>

@@ -5,9 +5,6 @@ export const Dog = (props) => {
 
     const dog = props.dog.dog;
 
-    console.log('dog edit -> details', props.dog);
-    console.log('dog', dog);
-
     return (
         <article className={`dog-container ${dog.type}-dog-container`}>
             <div className='image-wrapper-dog-main'>
