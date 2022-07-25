@@ -32,7 +32,6 @@ const signInWithGoogle = async () => {
 const login = async (email, password) => {
     try {
         const user = await signInWithEmailAndPassword(auth, email, password);
-        console.log('user from service', user);
         sessionStorage.setItem('currentUserId', user.user.uid)
         return user.user
     } catch (err) {
@@ -50,7 +49,9 @@ const register = async (email, password) => {
             authProvider: "local",
             email,
         });
-        sessionStorage.setItem('currentUserId', user.user.uid)
+        console.log('user from register', user);
+        sessionStorage.setItem('currentUserId', user.uid)
+        return user
     } catch (err) {
         console.error(err);
         alert(err.message);

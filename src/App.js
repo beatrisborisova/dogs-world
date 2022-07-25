@@ -17,42 +17,36 @@ import { MyDogs } from './components/catalog/dog/my-dogs/MyDogs';
 import { Cause } from './components/about/Cause/Cause';
 import { Contacts } from './components/about/Contacts/Contacts';
 
-import AuthContext from './contexts/Auth';
-
 function App() {
-
-  let hasUser = 'true'
 
   return (
     <div className="App">
-      <AuthContext.Provider value={hasUser}>
 
-        <Header />
-        <main>
-          <Routes>
-            <Route path='/' index element={<Home />} />
+      <Header />
+      <main>
+        <Routes>
+          <Route path='/' index element={<Home />} />
 
-            <Route path='/cause' element={<Cause />} />
-            <Route path='/contacts' element={<Contacts />} />
+          <Route path='/cause' element={<Cause />} />
+          <Route path='/contacts' element={<Contacts />} />
 
-            <Route path='catalog' element={<Main />} />
-            <Route path='catalog/adopt' element={<Adopt />} />
-            <Route path='catalog/buy' element={<Buy />} />
-            <Route path='catalog/adopt/:id' element={<DogDetails />} />
-            <Route path='catalog/buy/:id' element={<DogDetails />} />
+          <Route path='catalog' element={<Main />} />
+          <Route path='catalog/adopt' element={<Adopt />} />
+          <Route path='catalog/buy' element={<Buy />} />
+          <Route path='catalog/adopt/:id' element={<DogDetails />} />
+          <Route path='catalog/buy/:id' element={<DogDetails />} />
 
-            <Route path='login' element={<Login />} />
-            <Route path='register' element={<Register />} />
-            <Route path='profile' element={<Profile />} />
-            <Route path='edit-profile' element={<EditProfile />} />
-            <Route path='my-dogs' element={<MyDogs />} />
+          <Route path='login' element={<Login />} />
+          <Route path='register' element={<Register />} />
+          <Route path='profile' element={<Profile />} />
+          <Route path='edit-profile' element={<EditProfile />} />
+          <Route path='my-dogs' element={<MyDogs />} />
 
-            <Route path='create' element={<Create />} />
-            <Route path='edit/:id' element={<Edit />} />
-          </Routes>
-        </main>
-        <Footer />
-      </AuthContext.Provider >
+          <Route path='create' element={<Create />} />
+          <Route path='edit/:id' element={<Edit />} />
+        </Routes>
+      </main>
+      <Footer />
     </div>
 
   );

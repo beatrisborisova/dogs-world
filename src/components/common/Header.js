@@ -25,11 +25,9 @@ export const Header = () => {
 
     const logoutHandler = () => {
         userService.logout()
-        console.log('user logged out');
         dispatch(logout())
     }
 
-    console.log('hasUser', hasUser);
     return (
         <header>
             <div className="image-wrapper-logo">

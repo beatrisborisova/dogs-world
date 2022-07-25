@@ -2,13 +2,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faKey } from '@fortawesome/free-solid-svg-icons';
 
 import './User.css';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import * as userService from '../../services/user';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { register } from '../../features/user';
 
 export const Register = () => {
 
     const [registerUser, setRegisterUser] = useState([]);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const registerHandler = (e) => {
         e.preventDefault();
@@ -22,7 +26,11 @@ export const Register = () => {
         }
 
         userService.register(email, password)
-            .then(res => setRegisterUser(res))
+            .then(res => {
+                setRegisterUser(res)
+                dispatch(register({ payload: { email: res.email }, type: 'REGISTER' }))
+                navigate('/')
+            })
             .catch(err => console.log('A relevant error message should appear here', err.message))
     }
 
