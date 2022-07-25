@@ -6,7 +6,12 @@ import * as userService from '../../services/user';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
+import { useDispatch } from 'react-redux';
+import { login } from '../../features/user';
+
 export const Login = () => {
+
+    const dispatch = useDispatch();
 
     const navigate = useNavigate();
     const [loginUser, setLoginUser] = useState(null);
@@ -20,6 +25,7 @@ export const Login = () => {
         userService.login(email, password)
             .then(res => {
                 setLoginUser(res)
+                dispatch(login(loginUser))
                 navigate('/')
             })
             .catch(err => console.log('A relevant error message should appear here', err.message))
@@ -47,6 +53,6 @@ export const Login = () => {
                     </div>
                 </form>
             </div>
-        </div>
+        </div >
     )
 }

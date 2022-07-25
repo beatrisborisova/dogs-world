@@ -1,7 +1,11 @@
 import './Profile.css';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export const Profile = () => {
+
+    const user = useSelector((states) => states.user.value);
+
     return (
         <div className='profile-container'>
             <div className="image-wrapper-profile">
@@ -14,8 +18,8 @@ export const Profile = () => {
                 </div>
                 <div className="profile-text">
                     <h2>username</h2>
-                    <p>Name: "name"</p>
-                    <p>email: "email"</p>
+                    <p>Name: {user.name}</p>
+                    <p>email: {user.email}</p>
                     <p>city: "city"</p>
                     <p>gender: "gender"</p>
                 </div>

@@ -1,26 +1,24 @@
 import './Common.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link, NavLink } from 'react-router-dom';
-import { useContext, useEffect, useState } from 'react';
+import { useState } from 'react';
 import * as userService from '../../services/user';
-import AuthContext from '../../contexts/Auth';
+
+import { useDispatch } from 'react-redux';
+import { logout } from '../../features/user';
 
 export const Header = () => {
 
-    const authContext = useContext(AuthContext);
+    const [hasUser, setHasUser] = useState('');
 
-    const [hasUser, setHasUser] = useState(authContext);
-
-    console.log('authContext', authContext);
-
-    useEffect(() => {
-        setHasUser(authContext)
-    }, [authContext])
+    const dispatch = useDispatch();
 
     const logoutHandler = () => {
         userService.logout()
-        setHasUser(null);
+        setHasUser('');
+        return () => dispatch(logout())
     }
+
 
     return (
         <header>

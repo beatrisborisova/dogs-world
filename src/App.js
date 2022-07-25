@@ -16,25 +16,18 @@ import { EditProfile } from './components/user/profile/EditProfile';
 import { MyDogs } from './components/catalog/dog/my-dogs/MyDogs';
 import { Cause } from './components/about/Cause/Cause';
 import { Contacts } from './components/about/Contacts/Contacts';
-import { useEffect, useState } from 'react';
 
-import * as userService from './services/user';
 import AuthContext from './contexts/Auth';
 
 function App() {
 
-  // const [hasUser, setHasUser] = useState(userService.getUser());
-  // console.log('hasUser from App', hasUser);
-  // useEffect(() => {
-  //   setHasUser(sessionStorage.getItem('currentUserId'))
-  // }, [hasUser])
-  let hasUser = true
+  let hasUser = 'true'
 
   return (
     <div className="App">
       <AuthContext.Provider value={hasUser}>
 
-        <Header hasUser={hasUser} />
+        <Header />
         <main>
           <Routes>
             <Route path='/' index element={<Home />} />
