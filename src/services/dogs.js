@@ -1,5 +1,6 @@
 import { addDoc, collection, deleteDoc, doc, getDocs, setDoc } from "firebase/firestore";
 import { database } from '../firebase';
+import { getUser } from "./user";
 
 function getDogImage() {
     return fetch('https://dog.ceo/api/breeds/image/random')
@@ -57,24 +58,22 @@ const createDog = async (dog) => {
         if (dog.type === 'adopt') {
             docRef = await addDoc(collection(database, "adopt"), {
                 dog,
-                // creator: sessionStorage.currentUserId
-                //тука е по-добре да се ползва currentUser от firebase getAuth() (кода го има в DogDetails.js)
+                creatorId: getUser()
             });
         } else if (dog.type === 'buy') {
             docRef = await addDoc(collection(database, "buy"), {
                 dog,
-                // creator: sessionStorage.currentUserId
-                //тука е по-добре да се ползва currentUser от firebase getAuth() (кода го има в DogDetails.js)
+                creatorId: getUser()
             });
         }
 
-
         await setDoc(doc(database, "dogs", docRef.id), {
             dog,
-            // creator: sessionStorage.currentUserId
-            //тука е по-добре да се ползва currentUser от firebase getAuth() (кода го има в DogDetails.js)
+            creatorId: getUser()
         });
         console.log("Document written with ID: ", docRef.id);
+        return docRef;
+
     } catch (e) {
         console.error("Error adding document: ", e);
     }

@@ -2,17 +2,20 @@ import './Create-Edit.css';
 import '../user/User.css'
 import * as dogsService from '../../services/dogs';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const Create = () => {
-
     const [vaccinesSelectedOption, setVaccinesSelectedOption] = useState('yes');
     const [typeSelectedOpion, setTypeSelectedOption] = useState('adopt');
     const [genderSelectedOption, setGenderSelectedOption] = useState('male');
+    const navigate = useNavigate();
 
     const createDogHandler = async (e) => {
         e.preventDefault();
         const dog = Object.fromEntries(new FormData(e.target));
-        dogsService.createDog(dog);
+        dogsService.createDog(dog)
+            .then((res) => navigate(`/catalog/${typeSelectedOpion}/${res.id}`))
+            .catch((err) => console.log(err.message))
     }
 
     const vaccinesChangeHandler = (value) => {
@@ -30,6 +33,7 @@ export const Create = () => {
     return (
         <div className='create-edit-container'>
             <div className='create-edit-content'>
+                <h2>Publish a dog</h2>
                 <form onSubmit={createDogHandler} className="create-edit-form">
                     <div>
                         <label htmlFor='breed'>Breed:</label>

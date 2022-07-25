@@ -46,6 +46,7 @@ export const Edit = () => {
         <div className='create-edit-container'>
             <p>TO BE CHANGED TO CONTROLLED FORM</p>
             <div className='create-edit-content'>
+                <h2>Edit</h2>
                 <form onSubmit={editDogHandler} className="create-edit-form">
                     <div>
                         <label htmlFor='breed'>Breed:</label>

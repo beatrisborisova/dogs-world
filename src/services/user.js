@@ -49,7 +49,6 @@ const register = async (email, password) => {
             authProvider: "local",
             email,
         });
-        console.log('user from register', user);
         sessionStorage.setItem('currentUserId', user.uid)
         return user
     } catch (err) {

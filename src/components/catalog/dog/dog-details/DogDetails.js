@@ -32,7 +32,7 @@ export const DogDetails = () => {
         } else {
             // User is signed out
             // ...
-            console.log('User not logged in')
+            console.log(' logged in')
         }
     });
 

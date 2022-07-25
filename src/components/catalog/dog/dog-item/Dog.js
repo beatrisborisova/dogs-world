@@ -6,7 +6,7 @@ export const Dog = (props) => {
     return (
         <article className={`dog-container ${props.dog.type}-dog-container`}>
             <div className='image-wrapper-dog-main'>
-                <img src='https://kb.rspca.org.au/wp-content/uploads/2018/11/golder-retriever-puppy.jpeg' alt='{породата}' />
+                <img src='https://kb.rspca.org.au/wp-content/uploads/2018/11/golder-retriever-puppy.jpeg' alt={props.dog.breed} />
             </div>
             <h4>{props.dog.breed}</h4>
             <p>{props.dog.gender}</p>

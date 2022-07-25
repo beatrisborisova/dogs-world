@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 export const Profile = () => {
 
-    const user = useSelector((states) => states.user.value);
+    const user = useSelector((states) => states.user.value.payload);
 
     return (
         <div className='profile-container'>
@@ -17,8 +17,7 @@ export const Profile = () => {
                     <Link to={'/edit-profile'}>Edit profile</Link>
                 </div>
                 <div className="profile-text">
-                    <h2>username</h2>
-                    <p>Name: {user.name}</p>
+                    <h2>Name: {user.name}</h2>
                     <p>email: {user.email}</p>
                     <p>city: "city"</p>
                     <p>gender: "gender"</p>

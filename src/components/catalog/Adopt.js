@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
 import './Catalog.css';
 import { Dog } from './dog/dog-item/Dog';
 import * as dogsService from '../../services/dogs';
@@ -8,12 +7,10 @@ export const Adopt = () => {
 
     const [dogs, setDogs] = useState([]);
 
-
     useEffect(() => {
         dogsService.getAllAdopt()
             .then(res => setDogs(res))
     }, [])
-
 
     return (
         <>

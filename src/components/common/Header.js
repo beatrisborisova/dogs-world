@@ -49,14 +49,12 @@ export const Header = () => {
             </nav>
             <div>
                 <ul className="user-navigation-list">
-                    {/* The following two must be moved */}
-                    <NavLink to={'/create'}>Create</NavLink>
-                    <NavLink to={'/edit/123'}>Edit</NavLink>
 
                     {hasUser &&
                         <>
+                            <NavLink to={'/create'}>Publish a dog</NavLink>
                             <NavLink to={'/profile'}>Profile</NavLink>
-                            <NavLink to={'/logout'} onClick={logoutHandler}>Logout</NavLink>
+                            <NavLink to={'/'} onClick={logoutHandler}>Logout</NavLink>
                         </>
                     }
 
