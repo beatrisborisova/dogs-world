@@ -17,10 +17,10 @@ export const Profile = () => {
                     <Link to={'/edit-profile'}>Edit profile</Link>
                 </div>
                 <div className="profile-text">
-                    <h2>Name: {user.name}</h2>
+                    <h2>Name: {user.name ? user.name : 'NOT SET'}</h2>
                     <p>email: {user.email}</p>
-                    <p>city: "city"</p>
-                    <p>gender: "gender"</p>
+                    <p>city: {user.city ? user.city : 'NOT SET'}</p>
+                    <p>gender: {user.gender ? user.gender : 'NOT SET'}</p>
                 </div>
             </div>
         </div>

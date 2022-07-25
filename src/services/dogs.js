@@ -43,12 +43,30 @@ const getDogById = async (dogId) => {
         const querySnapshot = await getDocs(collection(database, "dogs"));
         querySnapshot.forEach((doc) => {
             if (doc.id === dogId) {
-                dog = doc.data()
+                dog = {
+                    id: doc.id,
+                    dog: doc.data()
+                }
             }
         });
         return dog;
     } catch (err) {
         throw new Error('No item with this ID')
+    }
+}
+
+const getMyDogs = async (userId) => {
+    try {
+        let dogs = [];
+        const querySnapshot = await getDocs(collection(database, "dogs"));
+        querySnapshot.forEach((doc) => {
+            if (doc.data().creatorId === userId) {
+                dogs.push({ id: doc.id, dog: doc.data() })
+            }
+        });
+        return dogs;
+    } catch (err) {
+        throw new Error('No items owned by user with ID: ', userId)
     }
 }
 
@@ -82,15 +100,21 @@ const createDog = async (dog) => {
 const editDog = async (dogId, dog) => {
 
     const docRef = doc(database, "dogs", dogId);
-    await setDoc(docRef, dog);
-
-    if (dog.type.toLowerCase() === 'adopt') {
-        const docRef = doc(database, "adopt", dogId);
-        await setDoc(docRef, dog);
-    } else if (dog.type.toLowerCase() === 'buy') {
-        const docRef = doc(database, "buy", dogId);
-        await setDoc(docRef, dog);
+    const editedDog = {
+        creatorId: getUser(),
+        dog
     }
+    await setDoc(docRef, editedDog);
+
+    if (dog.type === 'adopt') {
+        const docRef = doc(database, "adopt", dogId);
+        await setDoc(docRef, editedDog);
+    } else if (dog.type === 'buy') {
+        const docRef = doc(database, "buy", dogId);
+        await setDoc(docRef, editedDog);
+    }
+
+    return docRef;
 }
 
 const deleteDog = async (dogId, dog) => {
@@ -109,6 +133,7 @@ export {
     getAllAdopt,
     getAllBuy,
     getDogById,
+    getMyDogs,
     createDog,
     editDog,
     deleteDog

@@ -18,9 +18,8 @@ export const Edit = () => {
 
     useEffect(() => {
         dogsService.getDogById(dogId)
-            .then(res => setDog(res))
+            .then(res => setDog(res.dog.dog))
     }, [dogId])
-
 
     const editDogHandler = (e) => {
         e.preventDefault();
@@ -74,8 +73,8 @@ export const Edit = () => {
                     </div>
                     <div>
                         <label htmlFor='type'>Type:</label>
-                        {dog && <input type="radio" name="type" value='Adopt' onChange={(e) => typeChangeHandler(e.target.value)} checked={typeSelectedOpion === 'Adopt'} />} Adopt
-                        {dog && <input type="radio" name="type" value='Buy' onChange={(e) => typeChangeHandler(e.target.value)} checked={typeSelectedOpion === 'Buy'} />} Buy
+                        {dog && <input type="radio" name="type" value='adopt' onChange={(e) => typeChangeHandler(e.target.value)} checked={typeSelectedOpion === 'adopt'} />} Adopt
+                        {dog && <input type="radio" name="type" value='buy' onChange={(e) => typeChangeHandler(e.target.value)} checked={typeSelectedOpion === 'buy'} />} Buy
                     </div>
                     <div>
                         <label htmlFor='uploadImg'>Upload image:</label>

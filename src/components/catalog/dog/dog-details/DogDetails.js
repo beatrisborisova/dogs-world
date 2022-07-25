@@ -14,9 +14,12 @@ export const DogDetails = () => {
     const [dog, setDog] = useState(null);
     const navigate = useNavigate();
 
+
+    console.log('dog from details', dog);
+
     useEffect(() => {
         dogsService.getDogById(dogId)
-            .then(res => setDog(res))
+            .then(res => setDog(res.dog.dog))
     }, [dogId])
 
     // CURRENT USER SCRIPT
