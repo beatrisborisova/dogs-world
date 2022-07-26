@@ -7,10 +7,12 @@
 
 .image-wrapper-profile {
     width: 400px;
+    margin: 10px;
 }
 
 .image-wrapper-profile img {
     width: 100%;
+    border-radius: 50%;
 }
 
 .profile-text {

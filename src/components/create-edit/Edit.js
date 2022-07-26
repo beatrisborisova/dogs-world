@@ -93,7 +93,7 @@ export const Edit = () => {
 
                     </div>
                     <div>
-                        <input type="submit" value="Edit a dog" className='submit-btn' />
+                        <input type="submit" value="Save" className='submit-btn' />
                     </div>
                 </form>
             </div>

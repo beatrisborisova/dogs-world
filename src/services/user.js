@@ -40,7 +40,7 @@ const login = async (email, password) => {
     }
 };
 
-const register = async (email, password) => {
+const register = async ({ email, password, name, avatar, city, gender }) => {
     try {
         const res = await createUserWithEmailAndPassword(auth, email, password);
         const user = res.user;
@@ -48,6 +48,10 @@ const register = async (email, password) => {
             uid: user.uid,
             authProvider: "local",
             email,
+            name,
+            avatar,
+            city,
+            gender
         });
         sessionStorage.setItem('currentUserId', user.uid)
         return user

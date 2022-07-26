@@ -12,7 +12,6 @@ export const DogDetails = () => {
     const dogId = url[url.length - 1]
 
     const [dog, setDog] = useState(null);
-    console.log('dog', dog);
 
     const navigate = useNavigate();
 

@@ -7,10 +7,17 @@ import * as userService from '../../services/user';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { register } from '../../features/user';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { v4 } from 'uuid';
+import { storage } from '../../firebase';
+
 
 export const Register = () => {
 
     const [registerUser, setRegisterUser] = useState([]);
+    const [imageUpload, setImageUpload] = useState(null);
+    const [currentImageUrl, setCurrentImageUrl] = useState('');
+    const [imageUrls, setImageUrls] = useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -19,21 +26,45 @@ export const Register = () => {
         const formData = new FormData(e.target);
         const email = formData.get('email');
         const password = formData.get('password');
+        const name = formData.get('name');
+        const city = formData.get('city');
+        const gender = formData.get('gender');
         const repass = formData.get('repass');
 
         if (password !== repass) {
             throw new Error('Passwords don\'t match')
         }
 
-        userService.register(email, password)
+        const user = {
+            email,
+            password,
+            name,
+            avatar: currentImageUrl,
+            city,
+            gender
+        }
+
+        userService.register(user)
             .then(res => {
+                console.log('res', res);
                 setRegisterUser(res)
-                dispatch(register({ payload: { email: res.email }, type: 'REGISTER' }))
+                dispatch(register({ payload: { email: res.email, name, avatar: currentImageUrl, city, gender }, type: 'REGISTER' }))
                 navigate('/')
             })
             .catch(err => console.log('A relevant error message should appear here', err.message))
     }
 
+
+    const uploadFile = () => {
+        if (imageUpload == null) return;
+        const imageRef = ref(storage, `users/${imageUpload.name + v4()}`);
+        uploadBytes(imageRef, imageUpload).then(res => {
+            getDownloadURL(res.ref).then((url) => {
+                setImageUrls(state => [...state, url]);
+                setCurrentImageUrl(url)
+            });
+        });
+    };
 
     return (
         <div className='login-register-container'>
@@ -47,6 +78,25 @@ export const Register = () => {
                         <FontAwesomeIcon icon={faUser} />
                         <input type="text" placeholder='Email' name='email' />
                     </div>
+                    <div>
+                        <input type="text" placeholder='Name' name="name" />
+                    </div>
+                    <div>
+                        <input type="file" name="uploadImg" placeholder='Upload profile picture' onChange={(e) => setImageUpload(e.target.files[0])} />
+                        <button onClick={uploadFile} type='button'> Upload Image</button>
+                    </div>
+                    <div>
+                        <input type="text" placeholder='City' />
+                    </div>
+                    <div>
+                        <label htmlFor='gender'>Gender: </label>
+                        <input type="radio" value="male" />Male
+                        <input type="radio" value="female" />Female
+                    </div>
+                    {/* <div>
+                        <FontAwesomeIcon icon={faUser} />
+                        <input type="text" placeholder='Email' name='email' />
+                    </div> */}
                     <div>
                         <FontAwesomeIcon icon={faKey} />
                         <input type="password" placeholder='Password' name='password' />
