@@ -1,10 +1,10 @@
 import './Create-Edit.css';
 import '../user/User.css'
 import * as dogsService from '../../services/dogs';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { storage } from '../../firebase';
-import { getDownloadURL, listAll, ref, uploadBytes } from 'firebase/storage';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { v4 } from 'uuid';
 
 export const Create = () => {
@@ -12,24 +12,20 @@ export const Create = () => {
     const [typeSelectedOpion, setTypeSelectedOption] = useState('adopt');
     const [genderSelectedOption, setGenderSelectedOption] = useState('male');
     const [imageUpload, setImageUpload] = useState(null);
+    const [currentImageUrl, setCurrentImageUrl] = useState('');
     const [imageUrls, setImageUrls] = useState([]);
-    const [imageList, setImageList] = useState([]);
-
     const navigate = useNavigate();
 
-    const imageListRef = ref(storage, 'dogs');
-    let uploadImg;
-
-    useEffect(() => {
-        listAll(imageListRef)
-            .then(res => {
-                res.items.forEach(item => {
-                    getDownloadURL(item)
-                        .then(url => uploadImg = url)
-                })
-            })
-    }, [])
-
+    const uploadFile = () => {
+        if (imageUpload == null) return;
+        const imageRef = ref(storage, `dogs/${imageUpload.name + v4()}`);
+        uploadBytes(imageRef, imageUpload).then(res => {
+            getDownloadURL(res.ref).then((url) => {
+                setImageUrls(state => [...state, url]);
+                setCurrentImageUrl(url)
+            });
+        });
+    };
 
     const createDogHandler = async (e) => {
         e.preventDefault();
@@ -41,14 +37,11 @@ export const Create = () => {
             vaccines: vaccinesSelectedOption,
             description: formData.get('description'),
             type: typeSelectedOpion,
-            uploadImg: uploadImg
+            uploadImg: currentImageUrl
         }
 
         dogsService.createDog(dog)
-            .then((res) => {
-                uploadImage(res.id)
-            })
-            // navigate(`/catalog/${typeSelectedOpion}/${res.id}`)
+            .then((res) => navigate(`/catalog/${typeSelectedOpion}/${res.id}`))
             .catch((err) => console.log(err.message))
     }
 
@@ -62,22 +55,6 @@ export const Create = () => {
 
     const genderChangeHandler = (value) => {
         setGenderSelectedOption(value);
-    }
-
-    const uploadImage = (id) => {
-        console.log('imageUpload', imageUpload);
-
-        if (imageUpload == null) {
-            return
-        }
-        console.log('imageUpload', imageUpload);
-        const imageRef = ref(storage, `dogs/${imageUpload.name + id}`);
-        uploadBytes(imageRef, imageUpload)
-            .then((res) => {
-                getDownloadURL(res.ref).then((url) => {
-                    setImageUrls((state) => [...state, url]);
-                })
-            });
     }
 
     return (
@@ -115,7 +92,7 @@ export const Create = () => {
                     <div>
                         <label htmlFor='uploadImg'>Upload image:</label>
                         <input type="file" name="uploadImg" onChange={(e) => setImageUpload(e.target.files[0])} />
-                        {/* <button>Upload</button> */}
+                        <button onClick={uploadFile} type='button'> Upload Image</button>
                     </div>
                     <div>
                         <input type="submit" value="Post a dog" className='submit-btn' />
