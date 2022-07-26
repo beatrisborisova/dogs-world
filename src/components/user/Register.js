@@ -7,6 +7,7 @@ import * as userService from '../../services/user';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { register } from '../../features/user';
+import { userProfile } from '../../features/userProfile';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { v4 } from 'uuid';
 import { storage } from '../../firebase';
@@ -18,6 +19,8 @@ export const Register = () => {
     const [imageUpload, setImageUpload] = useState(null);
     const [currentImageUrl, setCurrentImageUrl] = useState('');
     const [imageUrls, setImageUrls] = useState([]);
+    const [currentUserProfile, setCurrentUserProfile] = useState(null);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -46,9 +49,10 @@ export const Register = () => {
 
         userService.register(user)
             .then(res => {
-                console.log('res', res);
-                setRegisterUser(res)
-                dispatch(register({ payload: { email: res.email, name, avatar: currentImageUrl, city, gender }, type: 'REGISTER' }))
+                setRegisterUser(res.myUser)
+                console.log('res.myUser', res.myUser);
+                dispatch(register({ payload: { email: res.myUser.email, uid: res.myUser.uid }, type: 'REGISTER' }))
+                dispatch(userProfile({ payload: { email: res.myUser.email, name, avatar: currentImageUrl, city, gender }, type: 'USER PROFILE' }))
                 navigate('/')
             })
             .catch(err => console.log('A relevant error message should appear here', err.message))
@@ -86,7 +90,7 @@ export const Register = () => {
                         <button onClick={uploadFile} type='button'> Upload Image</button>
                     </div>
                     <div>
-                        <input type="text" placeholder='City' />
+                        <input type="text" placeholder='City' name="city" />
                     </div>
                     <div>
                         <label htmlFor='gender'>Gender: </label>

@@ -2,7 +2,7 @@ import {
     getAuth, signInWithEmailAndPassword, signInWithPopup,
     GoogleAuthProvider, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut
 } from 'firebase/auth';
-import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
+import { addDoc, collection, doc, getDocs, query, setDoc, where } from 'firebase/firestore';
 import { app, database } from '../firebase';
 
 const auth = getAuth(app);
@@ -32,8 +32,18 @@ const signInWithGoogle = async () => {
 const login = async (email, password) => {
     try {
         const user = await signInWithEmailAndPassword(auth, email, password);
-        sessionStorage.setItem('currentUserId', user.user.uid)
-        return user.user
+        let myUser;
+        const querySnapshot = await getDocs(collection(database, "users"));
+        querySnapshot.forEach((doc) => {
+            if (doc.data().id === user.uid) {
+                myUser = {
+                    uid: doc.id,
+                    user: doc.data()
+                }
+            }
+        });
+        sessionStorage.setItem('currentUserId', myUser.uid)
+        return myUser;
     } catch (err) {
         console.error(err);
         alert(err.message);
@@ -44,17 +54,18 @@ const register = async ({ email, password, name, avatar, city, gender }) => {
     try {
         const res = await createUserWithEmailAndPassword(auth, email, password);
         const user = res.user;
-        await addDoc(collection(database, "users"), {
-            uid: user.uid,
-            authProvider: "local",
+        const myUser = {
             email,
             name,
             avatar,
             city,
-            gender
-        });
-        sessionStorage.setItem('currentUserId', user.uid)
-        return user
+            gender,
+            uid: user.uid
+        }
+        const docRef = doc(database, "users", user.uid);
+        await setDoc(docRef, { myUser, uid: docRef.id });
+        sessionStorage.setItem('currentUserId', docRef.id)
+        return { myUser, docRef };
     } catch (err) {
         console.error(err);
         alert(err.message);
@@ -80,6 +91,39 @@ const getUser = () => {
     return sessionStorage.getItem('currentUserId')
 }
 
+const getUserData = async (userId) => {
+    try {
+        let user;
+        const querySnapshot = await getDocs(collection(database, "users"));
+        querySnapshot.forEach((doc) => {
+            // console.log('doc.id', doc.id);
+            // console.log('userId', userId);
+            if (doc.id === userId) {
+                user = {
+                    uid: doc.id,
+                    user: doc.data()
+                }
+            }
+        });
+        console.log('ne znam we4e', user);
+        return user;
+    } catch (err) {
+        throw new Error('No user with this ID');
+    }
+}
+
+
+const editProfile = async (user, userId) => {
+    try {
+        const docRef = doc(database, "users", userId);
+        const editedUser = user;
+        await setDoc(docRef, editedUser);
+        return docRef;
+    } catch (err) {
+        throw new Error('Cannot edit entry with ID: ', userId)
+    }
+}
+
 export {
     auth,
     signInWithGoogle,
@@ -87,5 +131,7 @@ export {
     register,
     sendPasswordReset,
     logout,
-    getUser
+    getUser,
+    getUserData,
+    editProfile
 };

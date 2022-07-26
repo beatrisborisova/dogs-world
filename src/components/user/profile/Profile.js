@@ -1,17 +1,25 @@
 import './Profile.css';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import * as userService from '../../../services/user';
 
 export const Profile = () => {
 
+    const [currentUser, setCurrentUser] = useState(null);
     const user = useSelector((states) => states.user.value.payload);
 
-    console.log('uses', user);
+    useEffect(() => {
+        userService.getUserData(user.uid)
+            .then(res => setCurrentUser(res.user.myUser));
+
+    }, [])
 
     return (
         <div className='profile-container'>
             <div className="image-wrapper-profile">
-                <img src={user.avatar} alt="user" />
+                {/* {currentUser.avatar && <img src={currentUser.avatar} alt="user" />} */}
+                {/* {!currentUser.avatar && <span>NI6to we</span>} */}
             </div>
             <div className='profile-content'>
                 <div className='login-register-username-nav'>
@@ -19,10 +27,10 @@ export const Profile = () => {
                     <Link to={'/edit-profile'}>Edit profile</Link>
                 </div>
                 <div className="profile-text">
-                    <h2>Name: {user.name ? user.name : 'NOT SET'}</h2>
-                    <p>email: {user.email}</p>
-                    <p>city: {user.city ? user.city : 'NOT SET'}</p>
-                    <p>gender: {user.gender ? user.gender : 'NOT SET'}</p>
+                    <h2>Name: {currentUser.name ? currentUser.name : 'NOT SET'}</h2>
+                    <p>email: {currentUser.email}</p>
+                    <p>city: {currentUser.city ? currentUser.city : 'NOT SET'}</p>
+                    <p>gender: {currentUser.gender ? currentUser.gender : 'NOT SET'}</p>
                 </div>
             </div>
         </div>

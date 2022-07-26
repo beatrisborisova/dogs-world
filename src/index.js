@@ -9,10 +9,12 @@ import { BrowserRouter } from 'react-router-dom';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import userReducer from './features/user';
+import userProfileReducer from './features/userProfile';
 
 const store = configureStore({
   reducer: {
     user: userReducer,
+    userProfile: userProfileReducer,
   }
 })
 

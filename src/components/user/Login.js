@@ -23,8 +23,9 @@ export const Login = () => {
 
         userService.login(email, password)
             .then(res => {
-                setLoginUser(res)
-                dispatch(login({ payload: { email: res.email }, type: 'LOGIN' }))
+                setLoginUser(res.user.myUser)
+                console.log('res.user.myUser', res.user.myUser);
+                dispatch(login({ payload: { email: res.user.myUser.email, uid: res.user.myUser.uid }, type: 'LOGIN' }))
                 navigate('/')
             })
             .catch(err => console.log('A relevant error message should appear here', err.message))

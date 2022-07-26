@@ -129,7 +129,7 @@ const editDog = async (dogId, dog) => {
 
         return docRef;
     } catch (err) {
-        throw new Error('Cannot delete entry with ID: ', dog.id)
+        throw new Error('Cannot edit entry with ID: ', dog.id)
     }
 }
 
