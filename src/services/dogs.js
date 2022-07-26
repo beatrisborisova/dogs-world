@@ -105,7 +105,7 @@ const createDog = async (dog) => {
         return docRef;
 
     } catch (err) {
-        throw new Error('Cannot create entry');
+        throw new Error('Cannot create entry.');
     }
 }
 

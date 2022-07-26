@@ -1,20 +1,54 @@
 import './Create-Edit.css';
 import '../user/User.css'
 import * as dogsService from '../../services/dogs';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { storage } from '../../firebase';
+import { getDownloadURL, listAll, ref, uploadBytes } from 'firebase/storage';
+import { v4 } from 'uuid';
 
 export const Create = () => {
     const [vaccinesSelectedOption, setVaccinesSelectedOption] = useState('yes');
     const [typeSelectedOpion, setTypeSelectedOption] = useState('adopt');
     const [genderSelectedOption, setGenderSelectedOption] = useState('male');
+    const [imageUpload, setImageUpload] = useState(null);
+    const [imageUrls, setImageUrls] = useState([]);
+    const [imageList, setImageList] = useState([]);
+
     const navigate = useNavigate();
+
+    const imageListRef = ref(storage, 'dogs');
+    let uploadImg;
+
+    useEffect(() => {
+        listAll(imageListRef)
+            .then(res => {
+                res.items.forEach(item => {
+                    getDownloadURL(item)
+                        .then(url => uploadImg = url)
+                })
+            })
+    }, [])
+
 
     const createDogHandler = async (e) => {
         e.preventDefault();
-        const dog = Object.fromEntries(new FormData(e.target));
+        const formData = new FormData(e.target);
+        const dog = {
+            breed: formData.get('breed'),
+            age: formData.get('age'),
+            gender: genderSelectedOption,
+            vaccines: vaccinesSelectedOption,
+            description: formData.get('description'),
+            type: typeSelectedOpion,
+            uploadImg: uploadImg
+        }
+
         dogsService.createDog(dog)
-            .then((res) => navigate(`/catalog/${typeSelectedOpion}/${res.id}`))
+            .then((res) => {
+                uploadImage(res.id)
+            })
+            // navigate(`/catalog/${typeSelectedOpion}/${res.id}`)
             .catch((err) => console.log(err.message))
     }
 
@@ -28,6 +62,22 @@ export const Create = () => {
 
     const genderChangeHandler = (value) => {
         setGenderSelectedOption(value);
+    }
+
+    const uploadImage = (id) => {
+        console.log('imageUpload', imageUpload);
+
+        if (imageUpload == null) {
+            return
+        }
+        console.log('imageUpload', imageUpload);
+        const imageRef = ref(storage, `dogs/${imageUpload.name + id}`);
+        uploadBytes(imageRef, imageUpload)
+            .then((res) => {
+                getDownloadURL(res.ref).then((url) => {
+                    setImageUrls((state) => [...state, url]);
+                })
+            });
     }
 
     return (
@@ -64,7 +114,8 @@ export const Create = () => {
                     </div>
                     <div>
                         <label htmlFor='uploadImg'>Upload image:</label>
-                        <input type="text" name="uploadImg" />
+                        <input type="file" name="uploadImg" onChange={(e) => setImageUpload(e.target.files[0])} />
+                        {/* <button>Upload</button> */}
                     </div>
                     <div>
                         <input type="submit" value="Post a dog" className='submit-btn' />

@@ -48,7 +48,7 @@ export const DogDetails = () => {
         <div className='dog-details-container'>
             {dog && <>
                 <div className="image-wrapper-dog-details">
-                    <img src='https://kb.rspca.org.au/wp-content/uploads/2018/11/golder-retriever-puppy.jpeg' alt="dog" />
+                    <img src={dog.uploadImg} alt="dog" />
                 </div>
                 <div className="dog-details-text">
                     <h2>{dog.breed}</h2>
