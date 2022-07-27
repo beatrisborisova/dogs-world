@@ -36,8 +36,8 @@ export const EditProfile = () => {
     useEffect(() => {
         userService.getUserData(user.uid)
             .then(res => {
-                console.log('res.user', res.user);
-                setCurrentUserData(res.user)
+                console.log('res.user', res.user.myUser);
+                setCurrentUserData(res.user.myUser)
             })
     }, [])
 

@@ -12,7 +12,8 @@ export const Profile = () => {
     useEffect(() => {
         userService.getUserData(user.uid)
             .then(res => {
-                setCurrentUser(res.user)
+                setCurrentUser(res.user.myUser)
+                console.log('res.user.myUser from Profile.js', res.user.myUser);
             });
 
 

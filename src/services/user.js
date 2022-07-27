@@ -70,6 +70,7 @@ const register = async ({ email, password, name, avatar, city, gender }) => {
         await setDoc(docRef, { myUser, uid: docRef.id });
         sessionStorage.setItem('currentUserId', docRef.id)
         return { myUser, docRef };
+        // return myUser;
     } catch (err) {
         console.error(err);
         alert(err.message);
@@ -97,17 +98,17 @@ const getUser = () => {
 
 const getUserData = async (userId) => {
     try {
-        let user;
+        let myUser;
         const querySnapshot = await getDocs(collection(database, "users"));
         querySnapshot.forEach((doc) => {
             if (doc.id.uid === userId.uid) {
-                user = {
+                myUser = {
                     uid: doc.id,
                     user: doc.data()
                 }
             }
         });
-        return user;
+        return myUser;
     } catch (err) {
         throw new Error('No user with this ID');
     }
@@ -133,7 +134,8 @@ const editProfile = async (user, userId) => {
         // await setDoc(docRef, { myUser, uid: docRef.id });
         sessionStorage.setItem('currentUserId', docRef.id)
         await setDoc(docRef, editedUser);
-        return docRef;
+        // return docRef;
+        return { editedUser, docRef };
     } catch (err) {
         throw new Error('Cannot edit entry with ID: ', userId)
     }
