@@ -19,7 +19,7 @@ export const Register = () => {
     const [imageUpload, setImageUpload] = useState(null);
     const [currentImageUrl, setCurrentImageUrl] = useState('');
     const [imageUrls, setImageUrls] = useState([]);
-    const [currentUserProfile, setCurrentUserProfile] = useState(null);
+    // const [currentUserProfile, setCurrentUserProfile] = useState(null);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -50,7 +50,6 @@ export const Register = () => {
         userService.register(user)
             .then(res => {
                 setRegisterUser(res.myUser)
-                console.log('res.myUser', res.myUser);
                 dispatch(register({ payload: { email: res.myUser.email, uid: res.myUser.uid }, type: 'REGISTER' }))
                 dispatch(userProfile({ payload: { email: res.myUser.email, name, avatar: currentImageUrl, city, gender }, type: 'USER PROFILE' }))
                 navigate('/')
@@ -86,7 +85,7 @@ export const Register = () => {
                         <input type="text" placeholder='Name' name="name" />
                     </div>
                     <div>
-                        <input type="file" name="uploadImg" placeholder='Upload profile picture' onChange={(e) => setImageUpload(e.target.files[0])} />
+                        <input type="file" name="avatar" placeholder='Upload profile picture' onChange={(e) => setImageUpload(e.target.files[0])} />
                         <button onClick={uploadFile} type='button'> Upload Image</button>
                     </div>
                     <div>

@@ -14,23 +14,24 @@ export const EditProfile = () => {
 
     const [currentUserData, setCurrentUserData] = useState(null);
     const navigate = useNavigate();
-    // const [imageUpload, setImageUpload] = useState(null);
-    // const [currentImageUrl, setCurrentImageUrl] = useState('');
-    // const [imageUrls, setImageUrls] = useState([]);
-    // const navigate = useNavigate();
 
-    // const uploadFile = () => {
-    //     if (imageUpload == null) return;
-    //     const imageRef = ref(storage, `users/${imageUpload.name + v4()}`);
-    //     uploadBytes(imageRef, imageUpload).then(res => {
-    //         getDownloadURL(res.ref).then((url) => {
-    //             setImageUrls(state => [...state, url]);
-    //             setCurrentImageUrl(url)
-    //         });
-    //     });
-    // };
+    const [imageUpload, setImageUpload] = useState(null);
+    const [currentImageUrl, setCurrentImageUrl] = useState('');
+    const [imageUrls, setImageUrls] = useState([]);
 
-    // const currentSessionUserId = userService.getUser();
+    const uploadFile = () => {
+        if (imageUpload == null) return;
+        const imageRef = ref(storage, `users/${imageUpload.name + v4()}`);
+        uploadBytes(imageRef, imageUpload).then(res => {
+            getDownloadURL(res.ref).then((url) => {
+                setImageUrls(state => [...state, url]);
+                setCurrentImageUrl(url)
+            });
+        });
+    };
+    console.log('currentImageUrl', currentImageUrl);
+
+
     const user = useSelector((states) => states.user.value.payload);
 
     useEffect(() => {
@@ -48,7 +49,7 @@ export const EditProfile = () => {
 
         const formData = new FormData(e.target);
         const name = formData.get('name');
-        const avatar = 'asdf';
+        const avatar = currentImageUrl;
         const email = currentUserData.email;
         const city = formData.get('city');
         const gender = formData.get('gender');
@@ -69,7 +70,8 @@ export const EditProfile = () => {
                 </div>
                 <div>
                     <label htmlFor='avatar'>Avatar: </label>
-                    <input type="file" name='avatar' />
+                    <input type="file" name="avatar" placeholder='Upload profile picture' onChange={(e) => setImageUpload(e.target.files[0])} />
+                    <button onClick={uploadFile} type='button'> Upload Image</button>
                 </div>
                 <div>
                     <label htmlFor='city'>City: </label>

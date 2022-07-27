@@ -13,17 +13,13 @@ export const Profile = () => {
         userService.getUserData(user.uid)
             .then(res => {
                 setCurrentUser(res.user.myUser)
-                console.log('res.user.myUser from Profile.js', res.user.myUser);
             });
-
-
     }, [])
 
     return (
         <div className='profile-container'>
             <div className="image-wrapper-profile">
-                {/* {currentUser.avatar && <img src={currentUser.avatar} alt="user" />} */}
-                {/* {!currentUser.avatar && <span>NI6to we</span>} */}
+                {currentUser && <img src={currentUser.avatar} alt="user" />}
             </div>
             <div className='profile-content'>
                 <div className='login-register-username-nav'>
@@ -31,10 +27,10 @@ export const Profile = () => {
                     <Link to={'/edit-profile'}>Edit profile</Link>
                 </div>
                 <div className="profile-text">
-                    {/* <h2>Name: {currentUser.name && <span>{currentUser.name}</span>} {!currentUser.name && <span>NOT SET</span>}</h2>
-                    <p>email: {currentUser.email}</p>
-                    <p>city: {currentUser.city && <span>{currentUser.city}</span>} {!currentUser.city && <span>NOT SET</span>}</p>
-                    <p>gender:{currentUser.gender && <span>{currentUser.gender}</span>} {!currentUser.gender && <span>NOT SET</span>}</p> */}
+                    <h2>Name: {currentUser && <span>{currentUser.name}</span>} {!currentUser && <span>NOT SET</span>}</h2>
+                    <p>email: {currentUser && <span>{currentUser.email}</span>} {!currentUser && <span>NOT SET</span>}</p>
+                    <p>city: {currentUser && <span>{currentUser.city}</span>} {!currentUser && <span>NOT SET</span>}</p>
+                    <p>gender:{currentUser && <span>{currentUser.gender}</span>} {!currentUser && <span>NOT SET</span>}</p>
                 </div>
             </div>
         </div>
