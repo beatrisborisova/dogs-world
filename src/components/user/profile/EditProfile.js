@@ -29,21 +29,17 @@ export const EditProfile = () => {
             });
         });
     };
-    console.log('currentImageUrl', currentImageUrl);
-
 
     const user = useSelector((states) => states.user.value.payload);
 
     useEffect(() => {
         userService.getUserData(user.uid)
             .then(res => {
-                console.log('res.user', res.user.myUser);
                 setCurrentUserData(res.user.myUser)
             })
     }, [])
 
 
-    console.log('curerntUserData', currentUserData);
     const editProfileHandler = (e) => {
         e.preventDefault();
 

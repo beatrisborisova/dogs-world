@@ -1,15 +1,13 @@
 import './DogDetails.css';
 import * as dogsService from '../../../../services/dogs';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 export const DogDetails = () => {
 
-    const location = useLocation();
-    const url = location.pathname.split('/');
-    const dogId = url[url.length - 1]
+    const dogId = useParams().id;
 
     const [dog, setDog] = useState(null);
 
@@ -58,8 +56,8 @@ export const DogDetails = () => {
                     <p>Vacciness: {dog.vaccines}</p>
                     <p>{dog.description}</p>
                 </div>
-                <button onClick={() => navigate(`/edit/${dogId}`, { state: { dogId } })}>Edit dog</button>
-                <button onClick={deleteDogHandler}>Delete dog</button>
+                <button onClick={() => navigate(`/edit/${dogId}`, { state: { dogId } })} className="btn-level-two">Edit dog</button>
+                <button onClick={deleteDogHandler} className="btn-level-two">Delete dog</button>
             </>}
 
             {!dog && <div>Loading... /SPINNER TO BE ADDED/</div>}
