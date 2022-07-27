@@ -8,6 +8,7 @@ import { v4 } from 'uuid';
 
 import { useSelector } from 'react-redux';
 import * as userService from '../../../services/user';
+import LinearColor from '../../others/Loader';
 
 export const EditProfile = () => {
 
@@ -83,7 +84,7 @@ export const EditProfile = () => {
                 </div>
             </form>
         }
-            {!currentUserData && <div>Spinner to be added ...</div>}
+            {!currentUserData && <LinearColor />}
         </>
     )
 }

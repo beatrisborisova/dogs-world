@@ -2,12 +2,23 @@
     width: 200px;
     padding: 20px;
     margin: 20px;
+    background-color: #aeff009a;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     cursor: pointer;
 }
 
 .adopt-dog-container:hover {
     background-color: #fffb00;
+}
+
+.adopt-buy-catalog-container a {
+    text-decoration: none;
+    color: #000000;
+}
+
+.adopt-buy-catalog-container a:hover {
+    text-decoration: none;
+    color: #000000;
 }
 
 .buy-dog-container:hover {

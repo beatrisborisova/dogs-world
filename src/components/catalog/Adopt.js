@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './Catalog.css';
 import { Dog } from './dog/dog-item/Dog';
 import * as dogsService from '../../services/dogs';
+import LinearColor from '../others/Loader';
 
 export const Adopt = () => {
 
@@ -20,6 +21,7 @@ export const Adopt = () => {
             </section>
             <section className='adopt-buy-catalog-container'>
                 {dogs && dogs.map(el => <Dog type="adopt" dog={el} key={el.id} />)}
+                {dogs.length === 0 && <LinearColor />}
             </section>
         </>
     )

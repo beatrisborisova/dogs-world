@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import LinearColor from '../../../others/Loader';
 
 export const DogDetails = () => {
 
@@ -60,7 +61,7 @@ export const DogDetails = () => {
                 <button onClick={deleteDogHandler} className="btn-level-two">Delete dog</button>
             </>}
 
-            {!dog && <div>Loading... /SPINNER TO BE ADDED/</div>}
+            {!dog && <LinearColor />}
         </div>
     )
 }

@@ -15,9 +15,10 @@ export const Contacts = () => {
                 <ul>
                     <li>React.js 18.2.0</li>
                     <li>React Redux 8.0.2</li>
-                    <li>Firebase</li>
+                    <li>Firebase 9.9.0</li>
                     <li>React Bootstrap 2.4.0</li>
-                    <li>Font Awesome</li>
+                    <li>Font Awesome 6.1.1</li>
+                    <li>Material UI 5.9.2</li>
                 </ul>
             </div>
         </>
