@@ -21,11 +21,13 @@ export const Login = () => {
         const email = formData.get('email');
         const password = formData.get('password');
 
+        console.log('email, password', email, password);
+
         userService.login(email, password)
             .then(res => {
-                setLoginUser(res.user.myUser)
-                console.log('res.user.myUser', res.user.myUser);
-                dispatch(login({ payload: { email: res.user.myUser.email, uid: res.user.myUser.uid }, type: 'LOGIN' }))
+                console.log('res.user', res.user);
+                setLoginUser(res)
+                dispatch(login({ payload: { email: res.user.myUser.email, uid: res.user.uid }, type: 'LOGIN' }))
                 navigate('/')
             })
             .catch(err => console.log('A relevant error message should appear here', err.message))
@@ -37,7 +39,6 @@ export const Login = () => {
                 <NavLink to={'/login'}>Login</NavLink>
                 <NavLink to={'/register'}>Register</NavLink>
             </div>
-            <p>{loginUser && loginUser.uid}</p>
             <div className='login-register-content'>
                 <form onSubmit={loginHandler} className="login-register-form">
                     <div>

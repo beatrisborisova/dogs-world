@@ -11,7 +11,10 @@ export const Profile = () => {
 
     useEffect(() => {
         userService.getUserData(user.uid)
-            .then(res => setCurrentUser(res.user.myUser));
+            .then(res => {
+                setCurrentUser(res.user)
+            });
+
 
     }, [])
 
@@ -27,10 +30,10 @@ export const Profile = () => {
                     <Link to={'/edit-profile'}>Edit profile</Link>
                 </div>
                 <div className="profile-text">
-                    <h2>Name: {currentUser.name ? currentUser.name : 'NOT SET'}</h2>
+                    {/* <h2>Name: {currentUser.name && <span>{currentUser.name}</span>} {!currentUser.name && <span>NOT SET</span>}</h2>
                     <p>email: {currentUser.email}</p>
-                    <p>city: {currentUser.city ? currentUser.city : 'NOT SET'}</p>
-                    <p>gender: {currentUser.gender ? currentUser.gender : 'NOT SET'}</p>
+                    <p>city: {currentUser.city && <span>{currentUser.city}</span>} {!currentUser.city && <span>NOT SET</span>}</p>
+                    <p>gender:{currentUser.gender && <span>{currentUser.gender}</span>} {!currentUser.gender && <span>NOT SET</span>}</p> */}
                 </div>
             </div>
         </div>

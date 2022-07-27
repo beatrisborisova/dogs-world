@@ -32,10 +32,13 @@ const signInWithGoogle = async () => {
 const login = async (email, password) => {
     try {
         const user = await signInWithEmailAndPassword(auth, email, password);
+        // console.log('eserrr', user);
         let myUser;
         const querySnapshot = await getDocs(collection(database, "users"));
         querySnapshot.forEach((doc) => {
-            if (doc.data().id === user.uid) {
+            // console.log('doc.data().id', doc.data().uid);
+            // console.log('user.uid', user.user.uid);
+            if (doc.data().uid === user.user.uid) {
                 myUser = {
                     uid: doc.id,
                     user: doc.data()
@@ -54,6 +57,7 @@ const register = async ({ email, password, name, avatar, city, gender }) => {
     try {
         const res = await createUserWithEmailAndPassword(auth, email, password);
         const user = res.user;
+        console.log('user', user);
         const myUser = {
             email,
             name,
@@ -96,16 +100,13 @@ const getUserData = async (userId) => {
         let user;
         const querySnapshot = await getDocs(collection(database, "users"));
         querySnapshot.forEach((doc) => {
-            // console.log('doc.id', doc.id);
-            // console.log('userId', userId);
-            if (doc.id === userId) {
+            if (doc.id.uid === userId.uid) {
                 user = {
                     uid: doc.id,
                     user: doc.data()
                 }
             }
         });
-        console.log('ne znam we4e', user);
         return user;
     } catch (err) {
         throw new Error('No user with this ID');
@@ -116,7 +117,21 @@ const getUserData = async (userId) => {
 const editProfile = async (user, userId) => {
     try {
         const docRef = doc(database, "users", userId);
-        const editedUser = user;
+        // const editedUser = user;
+        const editedUser = {
+            myUser: {
+                email: user.email,
+                name: user.name,
+                avatar: user.avatar,
+                city: user.city,
+                gender: user.gender,
+                uid: user.uid
+            },
+            uid: user.uid
+        }
+        // const docRef = doc(database, "users", user.uid);
+        // await setDoc(docRef, { myUser, uid: docRef.id });
+        sessionStorage.setItem('currentUserId', docRef.id)
         await setDoc(docRef, editedUser);
         return docRef;
     } catch (err) {

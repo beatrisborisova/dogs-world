@@ -35,7 +35,10 @@ export const EditProfile = () => {
 
     useEffect(() => {
         userService.getUserData(user.uid)
-            .then(res => setCurrentUserData(res.user.myUser))
+            .then(res => {
+                console.log('res.user', res.user);
+                setCurrentUserData(res.user)
+            })
     }, [])
 
 
@@ -53,7 +56,7 @@ export const EditProfile = () => {
         userService.editProfile({ name, email, avatar, city, gender, uid: currentUserData.uid }, currentUserData.uid)
             .then(res => {
                 navigate('/profile')
-                console.log('assfsevd');
+                console.log('res ot edita', res);
             })
     }
 
