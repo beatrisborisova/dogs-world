@@ -45,6 +45,7 @@ export const DogContextRoutes = () => {
                 <Route element={<ProtectedRoute data={{ user, redirectPath: 'login' }} />}>
                     <Route path='edit/:id' element={<Edit />} />
                 </Route>
+
             </Routes >
         </DogContext.Provider>
     )
