@@ -73,7 +73,7 @@ const getMyDogs = async (userId) => {
         const querySnapshot = await getDocs(collection(database, "dogs"));
         querySnapshot.forEach((doc) => {
             if (doc.data().creatorId === userId) {
-                dogs.push({ id: doc.id, dog: doc.data() })
+                dogs.push({ dog: { id: doc.id, dog: doc.data() } })
             }
         });
         return dogs;

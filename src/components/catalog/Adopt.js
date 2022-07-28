@@ -18,6 +18,8 @@ export const Adopt = () => {
             .then(res => setDogs(res))
     }, [])
 
+    console.log('ADOPT', dogs);
+
     return (
         <motion.section initial={{ width: 0 }} animate={{ width: '100%' }} exit={{ width: '100%', transition: { duration: 0.1 } }}>
             <section className='adopt-buy-section-container'>

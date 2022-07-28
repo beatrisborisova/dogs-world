@@ -100,7 +100,9 @@ const getUserData = async (userId) => {
         let myUser;
         const querySnapshot = await getDocs(collection(database, "users"));
         querySnapshot.forEach((doc) => {
-            if (doc.id.uid === userId.uid) {
+            console.log('doc.id.uid ', doc.id);
+            console.log('userId.uid', userId);
+            if (doc.id === userId) {
                 myUser = {
                     uid: doc.id,
                     user: doc.data()

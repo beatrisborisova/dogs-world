@@ -10,8 +10,8 @@ export const Edit = () => {
     const { state } = useLocation();
     const { dogId } = state;
 
-
-
+    const dog4e = useContext(DogContext);
+    console.log('from edit dog ot konteksta', dog4e);
 
 
     const navigate = useNavigate();

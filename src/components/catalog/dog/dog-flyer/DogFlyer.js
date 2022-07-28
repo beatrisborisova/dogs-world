@@ -7,9 +7,9 @@ export const DogFlyer = ({ state }) => {
 
     const navigate = useNavigate();
 
-    const dog = state.currentDog.dog;
-
     console.log('dog', dog);
+
+    const dog = state.currentDog.dog;
 
     return (
         <motion.div className='dog-content-container'

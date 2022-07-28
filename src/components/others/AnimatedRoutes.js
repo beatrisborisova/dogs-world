@@ -66,7 +66,6 @@ export const AnimatedRoutes = () => {
                 </Route>
 
 
-                <Route path="*" element={<NotFound />} />
             </Routes>
         </AnimatePresence>
 

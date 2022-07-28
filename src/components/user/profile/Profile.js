@@ -16,6 +16,9 @@ export const Profile = () => {
             });
     }, [])
 
+    // console.log('user', user.uid);
+    // console.log('USER WE', currentUser.uid);
+
     return (
         <div className='profile-container'>
             <div className="image-wrapper-profile">
