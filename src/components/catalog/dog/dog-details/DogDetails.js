@@ -1,10 +1,11 @@
 import './DogDetails.css';
 import * as dogsService from '../../../../services/dogs';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import AlertDialog from '../../../others/Confirmation';
 import LinearColor from '../../../others/Linear';
 import { useSelector } from 'react-redux';
+import DogContext from '../../../../contexts/Dog';
 
 export const DogDetails = () => {
 
@@ -14,6 +15,9 @@ export const DogDetails = () => {
     const [agree, setAgree] = useState(false);
     const [isCreator, setIsCreator] = useState(false);
     const user = useSelector(states => states.user.value.payload);
+
+
+    const currentDog = useContext(DogContext);
 
     const navigate = useNavigate();
 
@@ -25,18 +29,20 @@ export const DogDetails = () => {
 
     useEffect(() => {
         if (dog) {
-            if (user.uid === dog.creatorId) {
+            if (user.uid === currentDog.dog.creatorId) {
                 setIsCreator(true)
             }
         }
-    }, [user.uid, dog])
+    }, [user.uid, currentDog, dog])
 
     if (agree) {
         dogsService.deleteDog(dogId, dog)
-            .then(() => navigate(`/catalog/${dog.type}`))
+            .then(() => {
+                navigate(`/catalog/${dog.type}`)
+                setOpen(false)
+            })
             .catch((err) => console.log(err.message))
     }
-
 
     return (
         <div className='dog-details-container'>

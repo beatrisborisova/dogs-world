@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { storage } from '../../firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { v4 } from 'uuid';
+import { motion } from 'framer-motion';
 
 export const Create = () => {
     const [vaccinesSelectedOption, setVaccinesSelectedOption] = useState('yes');
@@ -58,7 +59,8 @@ export const Create = () => {
     }
 
     return (
-        <div className='create-edit-container'>
+        <motion.div className='create-edit-container'
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <div className='create-edit-content'>
                 <h2>Publish a dog</h2>
                 <form onSubmit={createDogHandler} className="create-edit-form">
@@ -99,6 +101,6 @@ export const Create = () => {
                     </div>
                 </form>
             </div>
-        </div>
+        </motion.div>
     )
 }

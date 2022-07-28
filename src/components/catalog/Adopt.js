@@ -19,7 +19,7 @@ export const Adopt = () => {
     }, [])
 
     return (
-        <motion.section initial={{ width: 0 }} animate={{ width: '100%' }} exit={{ width: '100%', transition: { duration: 0.3 } }}>
+        <motion.section initial={{ width: 0 }} animate={{ width: '100%' }} exit={{ width: '100%', transition: { duration: 0.1 } }}>
             <section className='adopt-buy-section-container'>
                 <p>Adopt a dog</p>
                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>

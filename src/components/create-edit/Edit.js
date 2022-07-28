@@ -1,12 +1,18 @@
 import './Create-Edit.css';
 import * as dogsService from '../../services/dogs';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import DogContext from '../../contexts/Dog';
 
 export const Edit = () => {
 
     const { state } = useLocation();
     const { dogId } = state;
+
+
+
+
 
     const navigate = useNavigate();
 
@@ -41,7 +47,7 @@ export const Edit = () => {
     }
 
     return (
-        <div className='create-edit-container'>
+        <motion.div className='create-edit-container' initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <p>TO BE CHANGED TO CONTROLLED FORM</p>
             <div className='create-edit-content'>
                 <h2>Edit</h2>
@@ -95,6 +101,6 @@ export const Edit = () => {
                     </div>
                 </form>
             </div>
-        </div>
+        </motion.div>
     )
 }

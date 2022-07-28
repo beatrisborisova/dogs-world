@@ -13,11 +13,10 @@ export const Dog = ({ type, currentDog, setCurrentDog, setSelectedId }) => {
             initial={{ scale: 0.7, opacity: 0 }}>
             <motion.div>
                 <motion.div className='image-wrapper-dog-main'>
-                    <motion.img>{currentDog.dog.image}</motion.img>
+                    <motion.img src={currentDog.dog.uploadImg} key={currentDog.dog.uploadImg} />
                 </motion.div>
                 <motion.h2>{currentDog.dog.breed}</motion.h2>
-                <motion.p>{currentDog.dog.gender}</motion.p>
-                <motion.p>{currentDog.dog.age}</motion.p>
+                <motion.p><b>Gender:</b> {currentDog.dog.gender}</motion.p>
             </motion.div>
         </motion.div>
     )
