@@ -1,0 +1,24 @@
+.dog-content-container {
+    background-color: rgba(255, 255, 255, 0.721);
+    padding: 100px 200px;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.dog-content {
+    background-color: rgb(234, 254, 125);
+    border-radius: 20px;
+    padding: 50px;
+}
+
+.btn-level-two.close {
+    background-color: darkgrey;
+}
+
+.close:hover {
+    color: #ffffff;
+    background-color: #686868;
+}

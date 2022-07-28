@@ -32,7 +32,6 @@ const signInWithGoogle = async () => {
 const login = async (email, password) => {
     try {
         const user = await signInWithEmailAndPassword(auth, email, password);
-        // console.log('eserrr', user);
         let myUser;
         const querySnapshot = await getDocs(collection(database, "users"));
         querySnapshot.forEach((doc) => {

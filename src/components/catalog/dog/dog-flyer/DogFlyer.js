@@ -1,3 +1,4 @@
+import './DogFlyer.css';
 import { motion } from "framer-motion"
 import { useNavigate } from "react-router-dom";
 
@@ -19,7 +20,7 @@ export const DogFlyer = ({ state }) => {
                     </motion.div>
                     <motion.p>{dog.age}</motion.p>
                     <motion.p>{dog.gender}</motion.p>
-                    <motion.button onClick={() => state.setSelectedId(null)} className="btn-level-two">CLOSE</motion.button>
+                    <motion.button onClick={() => state.setSelectedId(null)} className="btn-level-two close">CLOSE</motion.button>
                     <motion.button onClick={() => navigate(`${state.currentDog.id}`)} className="btn-level-two">More details</motion.button>
                 </motion.div>
             </div>

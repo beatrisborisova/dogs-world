@@ -11,7 +11,6 @@ export const Edit = () => {
     const navigate = useNavigate();
 
     const [dog, setDog] = useState('');
-    console.log('dog in edit', dog);
     const [vaccinesSelectedOption, setVaccinesSelectedOption] = useState(dog.vaccines);
     const [typeSelectedOpion, setTypeSelectedOption] = useState(dog.type);
     const [genderSelectedOption, setGenderSelectedOption] = useState(dog.gender);
@@ -24,7 +23,6 @@ export const Edit = () => {
     const editDogHandler = (e) => {
         e.preventDefault();
         const newDogData = Object.fromEntries(new FormData(e.target));
-        console.log('newDogData', newDogData);
         dogsService.editDog(dogId, newDogData)
             .then(() => navigate(`/catalog/${typeSelectedOpion}/${dogId}`))
             .catch(err => console.log(err.message))
