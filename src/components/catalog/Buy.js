@@ -4,10 +4,14 @@ import './Catalog.css';
 import { Dog } from './dog/dog-item/Dog';
 import * as dogsService from '../../services/dogs';
 import LinearColor from '../others/Loader';
+import { DogFlyer } from './dog/dog-flyer/DogFlyer';
+
 
 export const Buy = () => {
 
     const [dogs, setDogs] = useState([]);
+    const [selectedId, setSelectedId] = useState(null);
+    const [currentDog, setCurrentDog] = useState(null);
 
     useEffect(() => {
         dogsService.getAllAdopt()
@@ -21,10 +25,18 @@ export const Buy = () => {
                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
             </section>
             <section className='adopt-buy-catalog-container'>
-                <NavLink to={'/catalog/adopt/:id'}>
-                    {dogs && dogs.map(el => <Dog type="buy" dog={el} key={el.id} />)}
-                    {dogs.length === 0 && <LinearColor />}
-                </NavLink>
+
+                {dogs.length === 0 && <LinearColor />}
+
+                {dogs.length !== 0 &&
+                    dogs.map(el => <Dog type="buy" currentDog={el} key={el.id} setCurrentDog={setCurrentDog} setSelectedId={setSelectedId} />)
+                }
+
+                {selectedId && currentDog &&
+                    <DogFlyer state={{ setSelectedId, setCurrentDog, currentDog }} />
+                }
+
+
             </section>
         </>
     )

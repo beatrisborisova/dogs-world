@@ -21,8 +21,6 @@ export const Login = () => {
         const email = formData.get('email');
         const password = formData.get('password');
 
-        console.log('email, password', email, password);
-
         userService.login(email, password)
             .then(res => {
                 console.log('res.user', res.user);
@@ -30,7 +28,7 @@ export const Login = () => {
                 dispatch(login({ payload: { email: res.user.myUser.email, uid: res.user.uid }, type: 'LOGIN' }))
                 navigate('/')
             })
-            .catch(err => console.log('A relevant error message should appear here', err.message))
+            .catch(err => console.log(err.message))
     }
 
     return (

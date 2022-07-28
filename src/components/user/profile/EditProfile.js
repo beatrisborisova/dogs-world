@@ -12,13 +12,20 @@ import LinearColor from '../../others/Loader';
 
 export const EditProfile = () => {
 
-
     const [currentUserData, setCurrentUserData] = useState(null);
-    const navigate = useNavigate();
-
     const [imageUpload, setImageUpload] = useState(null);
     const [currentImageUrl, setCurrentImageUrl] = useState('');
     const [imageUrls, setImageUrls] = useState([]);
+
+    const user = useSelector((states) => states.user.value.payload);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        userService.getUserData(user.uid)
+            .then(res => {
+                setCurrentUserData(res.user.myUser)
+            })
+    }, [])
 
     const uploadFile = () => {
         if (imageUpload == null) return;
@@ -31,16 +38,6 @@ export const EditProfile = () => {
         });
     };
 
-    const user = useSelector((states) => states.user.value.payload);
-
-    useEffect(() => {
-        userService.getUserData(user.uid)
-            .then(res => {
-                setCurrentUserData(res.user.myUser)
-            })
-    }, [])
-
-
     const editProfileHandler = (e) => {
         e.preventDefault();
 
@@ -52,10 +49,7 @@ export const EditProfile = () => {
         const gender = formData.get('gender');
 
         userService.editProfile({ name, email, avatar, city, gender, uid: currentUserData.uid }, currentUserData.uid)
-            .then(res => {
-                navigate('/profile')
-                console.log('res ot edita', res);
-            })
+            .then(() => navigate('/profile'))
     }
 
     return (

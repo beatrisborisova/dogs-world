@@ -19,6 +19,7 @@ export const Contacts = () => {
                     <li>React Bootstrap 2.4.0</li>
                     <li>Font Awesome 6.1.1</li>
                     <li>Material UI 5.9.2</li>
+                    <li>Framer Motion 6.5.1</li>
                 </ul>
             </div>
         </>

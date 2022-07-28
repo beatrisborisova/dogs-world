@@ -23,6 +23,7 @@ const ProtectedRoute = ({ data }) => {
   if (data.user === undefined) {
     return <Navigate to={data.redirectPath} replace />;
   }
+  return <Outlet />
 };
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
           <Route path='catalog' element={<Main />} />
           <Route path='catalog/adopt' element={<Adopt />} />
           <Route path='catalog/buy' element={<Buy />} />
+
           <Route path='catalog/adopt/:id' element={<DogDetails />} />
           <Route path='catalog/buy/:id' element={<DogDetails />} />
 

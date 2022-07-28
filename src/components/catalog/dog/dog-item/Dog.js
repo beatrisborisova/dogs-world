@@ -1,19 +1,24 @@
 import './Dog.css';
-import { NavLink } from 'react-router-dom';
+import { motion } from "framer-motion"
 
-export const Dog = (props) => {
-
-    const dog = props.dog.dog;
+export const Dog = ({ type, currentDog, setCurrentDog, setSelectedId }) => {
 
     return (
-        <article className={`dog-container ${dog.type}-dog-container`}>
-            <div className='image-wrapper-dog-main'>
-                <img src={dog.uploadImg} alt={dog.breed} />
-            </div>
-            <h4>{dog.breed}</h4>
-            <p>{dog.gender}</p>
-            <p>{dog.age}</p>
-            <NavLink to={`/catalog/${dog.type}/${props.dog.id}`} className="btn-level-two">Details</NavLink>
-        </article>
+        <motion.div className={`dog-container ${type}-dog-container dog-modal`}
+            onClick={() => {
+                setSelectedId(currentDog.id)
+                setCurrentDog(currentDog)
+            }}
+            animate={{ scale: 1, opacity: 1 }}
+            initial={{ scale: 0.7, opacity: 0 }}>
+            <motion.div>
+                <motion.div className='image-wrapper-dog-main'>
+                    <motion.img>{currentDog.dog.image}</motion.img>
+                </motion.div>
+                <motion.h2>{currentDog.dog.breed}</motion.h2>
+                <motion.p>{currentDog.dog.gender}</motion.p>
+                <motion.p>{currentDog.dog.age}</motion.p>
+            </motion.div>
+        </motion.div>
     )
 }

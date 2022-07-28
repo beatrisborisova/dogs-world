@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import Carousel from 'react-bootstrap/Carousel';
 import { useEffect, useState } from 'react';
 import * as dogsService from '../../services/dogs';
+import CircularColor from '../others/Spinner';
 
 
 export const Main = () => {
@@ -31,6 +32,7 @@ export const Main = () => {
                                 <p>{el.breed}</p>
                             </Carousel.Item>
                         ))}
+                        {dogs.length === 0 && <CircularColor />}
                     </Carousel>
                     <NavLink to={'/catalog/adopt'} className="btn-level-two">GO</NavLink>
                 </article>
@@ -48,6 +50,7 @@ export const Main = () => {
                                 <p>{el.breed}</p>
                             </Carousel.Item>
                         ))}
+                        {dogs.length === 0 && <CircularColor />}
                     </Carousel>
                     <NavLink to={'/catalog/buy'} className="btn-level-two">GO</NavLink>
                 </article>

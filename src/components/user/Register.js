@@ -54,7 +54,7 @@ export const Register = () => {
                 dispatch(userProfile({ payload: { email: res.myUser.email, name, avatar: currentImageUrl, city, gender }, type: 'USER PROFILE' }))
                 navigate('/')
             })
-            .catch(err => console.log('A relevant error message should appear here', err.message))
+            .catch(err => console.log(err.message))
     }
 
 
@@ -96,10 +96,6 @@ export const Register = () => {
                         <input type="radio" value="male" />Male
                         <input type="radio" value="female" />Female
                     </div>
-                    {/* <div>
-                        <FontAwesomeIcon icon={faUser} />
-                        <input type="text" placeholder='Email' name='email' />
-                    </div> */}
                     <div>
                         <FontAwesomeIcon icon={faKey} />
                         <input type="password" placeholder='Password' name='password' />

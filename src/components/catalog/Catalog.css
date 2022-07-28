@@ -32,7 +32,7 @@
 /* ADOPT-BUY Section */
 
 .adopt-buy-section-container {
-    height: 60vh;
+    height: 40vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -44,3 +44,25 @@
     flex-wrap: wrap;
     background-color: #ffffff;
 }
+
+
+/* modal */
+
+.dog-content-container {
+    background-color: rgba(156, 156, 156, 0.268);
+    padding: 30px;
+    border-radius: 20px;
+    position: absolute;
+    height: 50vh;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.dog-content {
+    background-color: red;
+}
+
+/* .dog-modal:active~.dog-content-container {
+    display: inline;
+} */
