@@ -2,12 +2,9 @@ import { useEffect, useState } from 'react';
 import './Catalog.css';
 import { Dog } from './dog/dog-item/Dog';
 import * as dogsService from '../../services/dogs';
-import LinearColor from '../others/Loader';
-
-import { motion } from "framer-motion"
-import { useNavigate } from 'react-router-dom';
+import LinearColor from '../others/Linear';
 import { DogFlyer } from './dog/dog-flyer/DogFlyer';
-
+import { motion } from 'framer-motion';
 
 
 export const Adopt = () => {
@@ -21,9 +18,8 @@ export const Adopt = () => {
             .then(res => setDogs(res))
     }, [])
 
-
     return (
-        <section>
+        <motion.section initial={{ width: 0 }} animate={{ width: '100%' }} exit={{ width: '100%', transition: { duration: 0.3 } }}>
             <section className='adopt-buy-section-container'>
                 <p>Adopt a dog</p>
                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
@@ -39,6 +35,6 @@ export const Adopt = () => {
                     <DogFlyer state={{ setSelectedId, setCurrentDog, currentDog }} />
                 }
             </section>
-        </section>
+        </motion.section>
     )
 }

@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
 import './Catalog.css';
+import { useEffect, useState } from 'react';
 import { Dog } from './dog/dog-item/Dog';
 import * as dogsService from '../../services/dogs';
-import LinearColor from '../others/Loader';
+import LinearColor from '../others/Linear';
 import { DogFlyer } from './dog/dog-flyer/DogFlyer';
+import { motion } from 'framer-motion';
 
 
 export const Buy = () => {
@@ -14,18 +14,17 @@ export const Buy = () => {
     const [currentDog, setCurrentDog] = useState(null);
 
     useEffect(() => {
-        dogsService.getAllAdopt()
+        dogsService.getAllBuy()
             .then(res => setDogs(res))
     }, [])
 
     return (
-        <>
+        <motion.div initial={{ width: 0 }} animate={{ width: '100%' }} exit={{ width: '100%', transition: { duration: 0.3 } }}>
             <section className='adopt-buy-section-container'>
                 <p>Buy a dog</p>
                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
             </section>
             <section className='adopt-buy-catalog-container'>
-
                 {dogs.length === 0 && <LinearColor />}
 
                 {dogs.length !== 0 &&
@@ -35,9 +34,7 @@ export const Buy = () => {
                 {selectedId && currentDog &&
                     <DogFlyer state={{ setSelectedId, setCurrentDog, currentDog }} />
                 }
-
-
             </section>
-        </>
+        </motion.div>
     )
 }

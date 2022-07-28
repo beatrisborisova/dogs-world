@@ -1,7 +1,8 @@
+import './Home.css';
 import { getDogImage } from '../../services/dogs';
 import { useEffect, useState } from 'react';
-import './Home.css';
 import { NavLink } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 export const Home = () => {
 
@@ -15,7 +16,7 @@ export const Home = () => {
     }, [dogImg])
 
     return (
-        <>
+        <motion.div initial={{ width: 0 }} animate={{ width: '100%' }} exit={{ width: '100%', transition: { duration: 0.3 } }}>
             <div className="home-container" style={{ backgroundImage: `url(${dogImg})` }}>
                 <div className='home-content'>
                     <h1>Welcome to the DOGS World</h1>
@@ -42,7 +43,7 @@ export const Home = () => {
                     </article>
                 </NavLink>
             </section>
-        </>
+        </motion.div>
 
     )
 }

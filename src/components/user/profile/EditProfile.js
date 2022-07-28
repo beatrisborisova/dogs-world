@@ -8,7 +8,7 @@ import { v4 } from 'uuid';
 
 import { useSelector } from 'react-redux';
 import * as userService from '../../../services/user';
-import LinearColor from '../../others/Loader';
+import LinearColor from '../../others/Linear';
 
 export const EditProfile = () => {
 

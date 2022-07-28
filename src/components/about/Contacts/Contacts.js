@@ -1,8 +1,9 @@
 import './Contacts.css';
+import { motion } from 'framer-motion';
 
 export const Contacts = () => {
     return (
-        <>
+        <motion.div initial={{ width: 0 }} animate={{ width: '100%' }} exit={{ width: '100%', transition: { duration: 0.3 } }}>
             <h2>Contacts</h2>
             <h4>About</h4>
             <div className='softuni-image-wrapper'>
@@ -22,6 +23,6 @@ export const Contacts = () => {
                     <li>Framer Motion 6.5.1</li>
                 </ul>
             </div>
-        </>
+        </motion.div>
     )
 }
