@@ -90,17 +90,20 @@ const createDog = async (dog) => {
         if (dog.type === 'adopt') {
             docRef = await addDoc(collection(database, "adopt"), {
                 dog,
+                comments: [],
                 creatorId: getUser()
             });
         } else if (dog.type === 'buy') {
             docRef = await addDoc(collection(database, "buy"), {
                 dog,
+                comments: [],
                 creatorId: getUser()
             });
         }
 
         await setDoc(doc(database, "dogs", docRef.id), {
             dog,
+            comments: [],
             creatorId: getUser()
         });
         console.log('Document written with ID: ', docRef.id);
