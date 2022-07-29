@@ -7,6 +7,7 @@ import DogContext from "../../contexts/Dog";
 import { useEffect, useState } from "react";
 import * as dogService from '../../services/dogs';
 import { Edit } from "../create-edit/Edit";
+import { Dog } from "../catalog/dog/dog-item/Dog";
 
 const ProtectedRoute = ({ data }) => {
     if (data.user === undefined) {
@@ -21,14 +22,15 @@ export const DogContextRoutes = () => {
     const user = useSelector((states) => states.user.value.payload);
     const location = useLocation();
 
-    const locationasd = location.pathname.split('/');
-    const dogId = locationasd[locationasd.length - 1];
+    const locationDogId = location.pathname.split('/');
+    const dogId = locationDogId[locationDogId.length - 1];
 
     useEffect(() => {
         dogService.getDogById(dogId)
             .then(res => setDogState(res))
     }, [dogId])
 
+    console.log('dogId', dogId)
     console.log('dogState', dogState);
 
     return (
@@ -44,6 +46,10 @@ export const DogContextRoutes = () => {
 
                 <Route element={<ProtectedRoute data={{ user, redirectPath: 'login' }} />}>
                     <Route path='edit/:id' element={<Edit />} />
+                </Route>
+
+                <Route element={<ProtectedRoute data={{ user, redirectPath: 'login' }} />}>
+                    <Route path='my-dogs/:id' element={<Dog />} />
                 </Route>
 
             </Routes >

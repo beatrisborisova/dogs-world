@@ -17,17 +17,14 @@ export const MyDogs = () => {
             .then(res => setMyDogs(res))
     }, [])
 
-    console.log('selectedId', selectedId);
-    console.log('currentDog', currentDog);
-
-
     return (
         <section className='adopt-buy-catalog-container'>
             {myDogs.length === 0 && <LinearColor />}
 
             {myDogs.length !== 0 &&
-                myDogs.map(el => <Dog currentDog={el} key={el.id} setCurrentDog={setCurrentDog} setSelectedId={setSelectedId} />)
+                myDogs.map(el => <Dog currentDog={el.dog.dog} dogId={el.dog.id} key={el.dog.id} setCurrentDog={setCurrentDog} setSelectedId={setSelectedId} />)
             }
+
             {selectedId && currentDog &&
                 <DogFlyer state={{ setSelectedId, setCurrentDog, currentDog }} />
             }

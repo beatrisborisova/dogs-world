@@ -30,7 +30,7 @@ export const Adopt = () => {
                 {dogs.length === 0 && <LinearColor />}
 
                 {dogs.length !== 0 &&
-                    dogs.map(el => <Dog type="adopt" currentDog={el} key={el.id} setCurrentDog={setCurrentDog} setSelectedId={setSelectedId} />)
+                    dogs.map(el => <Dog type="adopt" currentDog={el} dogId={el.id} key={el.id} setCurrentDog={setCurrentDog} setSelectedId={setSelectedId} />)
                 }
 
                 {selectedId && currentDog &&

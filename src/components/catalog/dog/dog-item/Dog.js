@@ -1,20 +1,15 @@
 import './Dog.css';
 import { motion } from "framer-motion"
 
-export const Dog = ({ currentDog, setCurrentDog, setSelectedId }) => {
+export const Dog = ({ currentDog, dogId, setCurrentDog, setSelectedId }) => {
 
     const dog = currentDog.dog;
-
-    console.log('dog', dog);
-
-    console.log('currentDog.id', currentDog.dog);
-
-    // от myDogs.js идва като currentDog.dog.dog, а от Adopt.js идва currentDog.dog
+    //TODO: от myDogs.js идва като currentDog.dog.dog, а от Adopt.js идва currentDog.dog
 
     return (
         <motion.div className={`dog-container ${dog.type}-dog-container dog-modal`}
             onClick={() => {
-                setSelectedId(currentDog.id)
+                setSelectedId(dogId)
                 setCurrentDog(currentDog)
             }}
             animate={{ scale: 1, opacity: 1 }}

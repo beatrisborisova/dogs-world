@@ -10,11 +10,13 @@ import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import userReducer from './features/user';
 import userProfileReducer from './features/userProfile';
+import dogReducer from './features/dogs';
 
 const store = configureStore({
   reducer: {
     user: userReducer,
     userProfile: userProfileReducer,
+    dog: dogReducer
   }
 })
 
