@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react"
+import { useDispatch } from "react-redux";
+import { removeDog } from "../../../../features/dogs";
 import * as dogsService from '../../../../services/dogs';
 import * as userService from '../../../../services/user';
 import LinearColor from "../../../others/Linear";
@@ -10,14 +12,19 @@ export const MyDogs = () => {
     const [myDogs, setMyDogs] = useState([]);
     const [selectedId, setSelectedId] = useState(null);
     const [currentDog, setCurrentDog] = useState(null);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const userId = userService.getUser();
         dogsService.getMyDogs(userId)
-            .then(res => setMyDogs(res))
+            .then(res => {
+                setMyDogs(res)
+                dispatch(removeDog());
+            })
     }, [])
 
     console.log('myDogs', myDogs)
+    console.log('selectedId', selectedId);
 
     return (
         <section className='adopt-buy-catalog-container'>

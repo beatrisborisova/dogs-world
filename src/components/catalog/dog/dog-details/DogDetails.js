@@ -4,7 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import AlertDialog from '../../../others/Confirmation';
 import LinearColor from '../../../others/Linear';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeDog } from '../../../../features/dogs';
 
 export const DogDetails = () => {
 
@@ -17,6 +18,7 @@ export const DogDetails = () => {
     const stateDog = useSelector(states => states.dog.value.payload)
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         dogsService.getDogById(dogId)
@@ -37,7 +39,8 @@ export const DogDetails = () => {
     if (agree) {
         dogsService.deleteDog(dogId, dog)
             .then(() => {
-                navigate(`/catalog/${dog.type}`)
+                navigate(`/catalog/${dog.dog.type}`)
+                dispatch(removeDog());
                 setOpen(false)
             })
             .catch((err) => console.log(err.message))
