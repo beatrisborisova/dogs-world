@@ -29,7 +29,7 @@ export const Edit = () => {
     const editDogHandler = (e) => {
         e.preventDefault();
         const newDogData = Object.fromEntries(new FormData(e.target));
-        dogsService.editDog(dogId, newDogData)
+        dogsService.editDog(dogId, newDogData, dog4e.comments)
             .then(() => navigate(`/catalog/${typeSelectedOpion}/${dogId}`))
             .catch(err => console.log(err.message))
     }

@@ -57,10 +57,12 @@ const getDogById = async (dogId) => {
             if (doc.id === dogId) {
                 dog = {
                     id: doc.id,
-                    dog: doc.data()
+                    dog: doc.data(),
+                    comments: doc.data().comments
                 }
             }
         });
+
         return dog;
     } catch (err) {
         throw new Error('No item with this ID');
@@ -114,14 +116,16 @@ const createDog = async (dog) => {
     }
 }
 
-const editDog = async (dogId, dog) => {
+const editDog = async (dogId, dog, comments) => {
 
     try {
         const docRef = doc(database, "dogs", dogId);
         const editedDog = {
             creatorId: getUser(),
-            dog
+            dog,
+            comments
         }
+
         await setDoc(docRef, editedDog);
 
         if (dog.type === 'adopt') {
