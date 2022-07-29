@@ -30,9 +30,6 @@ export const DogContextRoutes = () => {
             .then(res => setDogState(res))
     }, [dogId])
 
-    console.log('dogId', dogId)
-    console.log('dogState', dogState);
-
     return (
         <DogContext.Provider value={dogState}>
             <Routes >
@@ -49,7 +46,7 @@ export const DogContextRoutes = () => {
                 </Route>
 
                 <Route element={<ProtectedRoute data={{ user, redirectPath: 'login' }} />}>
-                    <Route path='my-dogs/:id' element={<Dog />} />
+                    <Route path='my-dogs/:id' element={<DogDetails />} />
                 </Route>
 
             </Routes >

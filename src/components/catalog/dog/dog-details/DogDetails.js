@@ -1,11 +1,10 @@
 import './DogDetails.css';
 import * as dogsService from '../../../../services/dogs';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import AlertDialog from '../../../others/Confirmation';
 import LinearColor from '../../../others/Linear';
 import { useSelector } from 'react-redux';
-import DogContext from '../../../../contexts/Dog';
 
 export const DogDetails = () => {
 
@@ -15,25 +14,25 @@ export const DogDetails = () => {
     const [agree, setAgree] = useState(false);
     const [isCreator, setIsCreator] = useState(false);
     const user = useSelector(states => states.user.value.payload);
-
-
-    const currentDog = useContext(DogContext);
+    const stateDog = useSelector(states => states.dog.value.payload)
 
     const navigate = useNavigate();
 
     useEffect(() => {
         dogsService.getDogById(dogId)
-            .then(res => setDog(res.dog))
+            .then(res => setDog(res))
             .catch(err => console.log(err.messag))
-    }, [dogId])
+    }, [])
+
 
     useEffect(() => {
         if (dog) {
-            if (user.uid === currentDog.dog.creatorId) {
+            if (user.uid === dog.dog.creatorId) {
                 setIsCreator(true)
             }
         }
-    }, [user.uid, currentDog, dog])
+    }, [user.uid, stateDog, dog])
+
 
     if (agree) {
         dogsService.deleteDog(dogId, dog)

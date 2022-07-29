@@ -30,11 +30,11 @@ export const Adopt = () => {
                 {dogs.length === 0 && <LinearColor />}
 
                 {dogs.length !== 0 &&
-                    dogs.map(el => <Dog type="adopt" currentDog={el} dogId={el.id} key={el.id} setCurrentDog={setCurrentDog} setSelectedId={setSelectedId} />)
+                    dogs.map(el => <Dog type="adopt" currentDog={el.dog} dogId={el.id} key={el.id} setCurrentDog={setCurrentDog} setSelectedId={setSelectedId} />)
                 }
 
                 {selectedId && currentDog &&
-                    <DogFlyer state={{ setSelectedId, setCurrentDog, currentDog }} />
+                    <DogFlyer state={{ setSelectedId, setCurrentDog, currentDog, selectedId }} />
                 }
             </section>
         </motion.section>

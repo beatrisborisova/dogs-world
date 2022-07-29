@@ -73,10 +73,12 @@ const getMyDogs = async (userId) => {
         const querySnapshot = await getDocs(collection(database, "dogs"));
         querySnapshot.forEach((doc) => {
             if (doc.data().creatorId === userId) {
-                dogs.push({ dog: { id: doc.id, dog: doc.data() } })
+                dogs.push([doc.id, doc.data()])
             }
         });
-        return dogs;
+        return dogs.map(([id, v]) => Object.assign({}, { id }, v));
+
+
     } catch (err) {
         throw new Error('No items owned by user with ID: ', userId)
     }

@@ -3,6 +3,8 @@ import { motion } from "framer-motion"
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { setDog } from '../../../../features/dogs';
+import { useContext } from 'react';
+import DogContext from '../../../../contexts/Dog';
 
 
 export const DogFlyer = ({ state }) => {
@@ -13,26 +15,29 @@ export const DogFlyer = ({ state }) => {
 
     console.log('state from flyer', state);
 
-    const dog = state.currentDog.dog;
+    const dogContext = useContext(DogContext);
+
+    console.log('dogContext', dogContext);
+
+    const currentDog = state.currentDog;
+    const dogId = state.selectedId;
 
     return (
         <motion.div className='dog-content-container'
             animate={state.setSelectedId ? { opacity: 1 } : { opacity: 0 }}>
             <div className='dog-content'>
                 <motion.div key={state.currentDog.id}>
-                    <motion.h4><b>Breed:</b> {dog.breed}</motion.h4>
+                    <motion.h4><b>Breed:</b> {currentDog.breed}</motion.h4>
                     <motion.div className='image-wrapper-dog-main'>
-                        <motion.img src={dog.uploadImg} key={dog.uploadImg} />
+                        <motion.img src={currentDog.uploadImg} key={currentDog.uploadImg} />
                     </motion.div>
-                    <motion.p><b>Age:</b> {dog.age}</motion.p>
-                    <motion.p><b>Gender:</b> {dog.gender}</motion.p>
+                    <motion.p><b>Age:</b> {currentDog.age}</motion.p>
+                    <motion.p><b>Gender:</b> {currentDog.gender}</motion.p>
                     <motion.button onClick={() => state.setSelectedId(null)} className="btn-level-two close">CLOSE</motion.button>
                     <motion.button onClick={() => {
-                        navigate(`${state.currentDog.id}`);
-                        dispatch(setDog({ payload: { email: dog, id: state.currentDog.id }, type: 'SET DOG' }));
-                    }
-
-                    } className="btn-level-two">More details</motion.button>
+                        navigate(`${dogId}`, { currentDog, dogId });
+                        dispatch(setDog({ payload: { dog: currentDog, id: dogId }, type: 'SET DOG' }));
+                    }} className="btn-level-two">More details</motion.button>
                 </motion.div>
             </div >
         </motion.div >
