@@ -12,6 +12,8 @@ export const Buy = () => {
     const [dogs, setDogs] = useState([]);
     const [selectedId, setSelectedId] = useState(null);
     const [currentDog, setCurrentDog] = useState(null);
+    const [creatorId, setCreatorId] = useState(null);
+
 
     useEffect(() => {
         dogsService.getAllBuy()
@@ -28,11 +30,12 @@ export const Buy = () => {
                 {dogs.length === 0 && <LinearColor />}
 
                 {dogs.length !== 0 &&
-                    dogs.map(el => <Dog type="buy" currentDog={el} key={el.id} setCurrentDog={setCurrentDog} setSelectedId={setSelectedId} />)
+                    dogs.map(el => <Dog type="buy" currentDog={el} key={el.id}
+                        setCurrentDog={setCurrentDog} setSelectedId={setSelectedId} setCreatorId={setCreatorId} />)
                 }
 
                 {selectedId && currentDog &&
-                    <DogFlyer state={{ setSelectedId, setCurrentDog, currentDog }} />
+                    <DogFlyer state={{ setSelectedId, setCurrentDog, currentDog, selectedId, creatorId }} />
                 }
             </section>
         </motion.div>

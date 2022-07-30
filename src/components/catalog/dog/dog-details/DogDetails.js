@@ -14,32 +14,34 @@ export const DogDetails = () => {
     const [open, setOpen] = useState(false);
     const [agree, setAgree] = useState(false);
     const [isCreator, setIsCreator] = useState(false);
+
     const user = useSelector(states => states.user.value.payload);
+
     const stateDog = useSelector(states => states.dog.value.payload)
+
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dogsService.getDogById(dogId)
-            .then(res => setDog(res))
-            .catch(err => console.log(err.messag))
-    }, [])
+    // useEffect(() => {
+    //     dogsService.getDogById(dogId)
+    //         .then(res => setDog(res))
+    //         .catch(err => console.log(err.messag))
+    // }, [dogId])
 
-
     useEffect(() => {
-        if (dog) {
-            if (user.uid === dog.dog.creatorId) {
+        if (stateDog) {
+            if (user.uid === stateDog.creatorId) {
                 setIsCreator(true)
             }
         }
-    }, [user.uid, stateDog, dog])
+    }, [stateDog, user])
 
 
     if (agree) {
         dogsService.deleteDog(dogId, dog)
             .then(() => {
-                navigate(`/catalog/${dog.dog.type}`)
+                navigate(`/catalog/${stateDog.dog.type}`)
                 dispatch(removeDog());
                 setOpen(false)
             })
@@ -50,26 +52,26 @@ export const DogDetails = () => {
         <div className='dog-details-container'>
             {open && <AlertDialog state={{ setOpen, setAgree }} />}
 
-            {dog && <>
+            {stateDog && <>
                 <div className="image-wrapper-dog-details">
-                    <img src={dog.dog.uploadImg} alt="dog" />
+                    <img src={stateDog.dog.uploadImg} alt="dog" />
                 </div>
                 <div className="dog-details-text">
-                    <h2>{dog.dog.breed}</h2>
-                    <p>Age: {dog.dog.age} years old</p>
+                    <h2>{stateDog.dog.breed}</h2>
+                    <p>Age: {stateDog.dog.age} years old</p>
                     <p>Паспорт: ДА / NE</p>
-                    <p>Vacciness: {dog.dog.vaccines}</p>
-                    <p>{dog.dog.description}</p>
+                    <p>Vacciness: {stateDog.dog.vaccines}</p>
+                    <p>{stateDog.dog.description}</p>
                 </div>
                 {isCreator &&
                     <>
-                        <button onClick={() => navigate(`/edit/${dogId}`, { state: { dogId } })} className="btn-level-two">Edit dog</button>
+                        <button onClick={() => navigate(`/edit/${stateDog.id}`, { state: { id: stateDog.id } })} className="btn-level-two">Edit dog</button>
                         <button onClick={() => setOpen(true)} className="btn-level-two">Delete dog</button>
                     </>
                 }
             </>}
 
-            {!dog && <LinearColor />}
+            {!stateDog && <LinearColor />}
         </div>
     )
 }

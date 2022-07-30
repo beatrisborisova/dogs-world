@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialStateValue = { dog: "", id: "" };
+const initialStateValue = { dog: "", id: "", creatorId: "" };
 
 export const dogSlice = createSlice({
     name: "dog",

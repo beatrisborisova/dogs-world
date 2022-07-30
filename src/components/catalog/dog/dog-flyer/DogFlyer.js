@@ -2,25 +2,18 @@ import './DogFlyer.css';
 import { motion } from "framer-motion"
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
-import { setDog } from '../../../../features/dogs';
-import { useContext } from 'react';
-import DogContext from '../../../../contexts/Dog';
-
+import { removeDog, setDog } from '../../../../features/dogs';
 
 export const DogFlyer = ({ state }) => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-
     console.log('state from flyer', state);
-
-    const dogContext = useContext(DogContext);
-
-    console.log('dogContext', dogContext);
 
     const currentDog = state.currentDog;
     const dogId = state.selectedId;
+
 
     return (
         <motion.div className='dog-content-container'
@@ -33,10 +26,13 @@ export const DogFlyer = ({ state }) => {
                     </motion.div>
                     <motion.p><b>Age:</b> {currentDog.age}</motion.p>
                     <motion.p><b>Gender:</b> {currentDog.gender}</motion.p>
-                    <motion.button onClick={() => state.setSelectedId(null)} className="btn-level-two close">CLOSE</motion.button>
+                    <motion.button onClick={() => {
+                        state.setSelectedId(null)
+                        dispatch(removeDog())
+                    }} className="btn-level-two close">CLOSE</motion.button>
                     <motion.button onClick={() => {
                         navigate(`${dogId}`, { currentDog, dogId });
-                        dispatch(setDog({ payload: { dog: currentDog, id: dogId }, type: 'SET DOG' }));
+                        dispatch(setDog({ payload: { dog: currentDog, id: dogId, creatorId: state.creatorId }, type: 'SET DOG' }));
                     }} className="btn-level-two">More details</motion.button>
                 </motion.div>
             </div >

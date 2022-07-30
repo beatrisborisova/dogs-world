@@ -12,6 +12,8 @@ export const MyDogs = () => {
     const [myDogs, setMyDogs] = useState([]);
     const [selectedId, setSelectedId] = useState(null);
     const [currentDog, setCurrentDog] = useState(null);
+    const [creatorId, setCreatorId] = useState(null);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -34,11 +36,12 @@ export const MyDogs = () => {
             {myDogs.length === 0 && <LinearColor />}
 
             {myDogs.length !== 0 &&
-                myDogs.map(el => <Dog currentDog={el.dog} dogId={el.id} key={el.id} setCurrentDog={setCurrentDog} setSelectedId={setSelectedId} />)
+                myDogs.map(el => <Dog currentDog={el.dog} dogId={el.id} key={el.id} creatorId={el.creatorId}
+                    setCurrentDog={setCurrentDog} setSelectedId={setSelectedId} setCreatorId={setCreatorId} />)
             }
 
             {selectedId && currentDog &&
-                <DogFlyer state={{ setSelectedId, setCurrentDog, currentDog, selectedId }} />
+                <DogFlyer state={{ setSelectedId, setCurrentDog, currentDog, selectedId, creatorId }} />
             }
         </section>
     )

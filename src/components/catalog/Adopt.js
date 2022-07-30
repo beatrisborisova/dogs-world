@@ -5,17 +5,26 @@ import * as dogsService from '../../services/dogs';
 import LinearColor from '../others/Linear';
 import { DogFlyer } from './dog/dog-flyer/DogFlyer';
 import { motion } from 'framer-motion';
-
+import { useDispatch } from "react-redux";
+import { removeDog } from '../../features/dogs';
 
 export const Adopt = () => {
 
     const [dogs, setDogs] = useState([]);
     const [selectedId, setSelectedId] = useState(null);
     const [currentDog, setCurrentDog] = useState(null);
+    const [creatorId, setCreatorId] = useState(null);
+
+    const dispatch = useDispatch();
+
 
     useEffect(() => {
         dogsService.getAllAdopt()
-            .then(res => setDogs(res))
+            .then(res => {
+                setDogs(res)
+                // dispatch(removeDog());
+            })
+
     }, [])
 
     console.log('ADOPT', dogs);
@@ -30,11 +39,15 @@ export const Adopt = () => {
                 {dogs.length === 0 && <LinearColor />}
 
                 {dogs.length !== 0 &&
-                    dogs.map(el => <Dog type="adopt" currentDog={el.dog} dogId={el.id} key={el.id} setCurrentDog={setCurrentDog} setSelectedId={setSelectedId} />)
+                    dogs.map(el =>
+                        <Dog type="adopt" currentDog={el.dog} dogId={el.id} key={el.id}
+                            setCurrentDog={setCurrentDog} setSelectedId={setSelectedId} creatorId={el.creatorId}
+                            setCreatorId={setCreatorId}
+                        />)
                 }
-
+                {console.log('creatorId from Adopt.js', creatorId)}
                 {selectedId && currentDog &&
-                    <DogFlyer state={{ setSelectedId, setCurrentDog, currentDog, selectedId }} />
+                    <DogFlyer state={{ setSelectedId, setCurrentDog, currentDog, selectedId, creatorId }} />
                 }
             </section>
         </motion.section>
