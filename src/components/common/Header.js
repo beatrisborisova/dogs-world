@@ -7,6 +7,7 @@ import * as userService from '../../services/user';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { logout } from '../../features/user';
+import { removeDog } from '../../features/dogs';
 
 export const Header = () => {
 
@@ -26,6 +27,7 @@ export const Header = () => {
     const logoutHandler = () => {
         userService.logout()
         dispatch(logout())
+        dispatch(removeDog());
     }
 
     return (

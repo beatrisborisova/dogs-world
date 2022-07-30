@@ -36,6 +36,11 @@ export const Create = () => {
     const createDogHandler = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
+        if (imageUpload) {
+            console.log('imageUpload', imageUpload);
+            uploadFile();
+            console.log('file uploaded');
+        }
         const dog = {
             breed: formData.get('breed'),
             age: formData.get('age'),
@@ -49,7 +54,7 @@ export const Create = () => {
         dogsService.createDog(dog)
             .then((res) => {
                 navigate(`/catalog/${typeSelectedOpion}/${res.id}`)
-                dispatch(setDog({ payload: { dog, id: res.id, creatorId: user.id }, type: 'SET DOG' }));
+                dispatch(setDog({ payload: { dog, id: res.id, creatorId: user.uid }, type: 'SET DOG' }));
             })
             .catch((err) => console.log(err.message))
 
@@ -104,7 +109,7 @@ export const Create = () => {
                     <div>
                         <label htmlFor='uploadImg'>Upload image:</label>
                         <input type="file" name="uploadImg" onChange={(e) => setImageUpload(e.target.files[0])} />
-                        <button onClick={uploadFile} type='button'> Upload Image</button>
+                        {/* <button onClick={uploadFile} type='button'> Upload Image</button> */}
                     </div>
                     <div>
                         <input type="submit" value="Post a dog" className='submit-btn' />

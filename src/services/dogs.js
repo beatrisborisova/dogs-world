@@ -145,10 +145,11 @@ const editDog = async (dogId, dog, comments) => {
 const deleteDog = async (dogId, dog) => {
     try {
         await deleteDoc(doc(database, "dogs", dogId));
+        console.log('dog.type', dog);
 
-        if (dog.type === 'adopt') {
+        if (dog.dog.dog.type === 'adopt') {
             await deleteDoc(doc(database, "adopt", dogId));
-        } else if (dog.type === 'buy') {
+        } else if (dog.dog.dog.type === 'buy') {
             await deleteDoc(doc(database, "buy", dogId));
         }
     } catch (err) {
