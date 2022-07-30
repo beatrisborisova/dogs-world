@@ -1,0 +1,6 @@
+.comment-container {
+    display: grid;
+    grid-template-columns: 30% 50% 20%;
+    text-align: left;
+    border-bottom: 1px solid #dfdfdf;
+}

@@ -4,15 +4,13 @@ import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import DogContext from '../../contexts/Dog';
+import { useSelector } from 'react-redux';
 
 export const Edit = () => {
 
     const { state } = useLocation();
     const { dogId } = state;
-
-    const dog4e = useContext(DogContext);
-    console.log('from edit dog ot konteksta', dog4e);
-
+    const dogState = useSelector(states => states.dog.value.payload);
 
     const navigate = useNavigate();
 
@@ -22,17 +20,20 @@ export const Edit = () => {
     const [genderSelectedOption, setGenderSelectedOption] = useState(dog.gender);
 
     useEffect(() => {
-        dogsService.getDogById(dogId)
-            .then(res => setDog(res.dog.dog))
-    }, [dogId])
+        dogsService.getDogById(dogState.id)
+            .then(res => setDog(res.dog))
+    }, [])
+
 
     const editDogHandler = (e) => {
         e.preventDefault();
         const newDogData = Object.fromEntries(new FormData(e.target));
-        dogsService.editDog(dogId, newDogData, dog4e.comments)
-            .then(() => navigate(`/catalog/${typeSelectedOpion}/${dogId}`))
+        dogsService.editDog(dogState.id, newDogData, dog.comments)
+            .then(() => navigate(`/catalog/${typeSelectedOpion}/${dogState.id}`))
             .catch(err => console.log(err.message))
+
     }
+
 
     const vaccinesChangeHandler = (value) => {
         setVaccinesSelectedOption(value)
@@ -54,11 +55,11 @@ export const Edit = () => {
                 <form onSubmit={editDogHandler} className="create-edit-form">
                     <div>
                         <label htmlFor='breed'>Breed:</label>
-                        {dog && <input type="text" name="breed" defaultValue={dog.breed} />}
+                        {dog && <input type="text" name="breed" defaultValue={dog.dog.breed} />}
                     </div>
                     <div>
                         <label htmlFor='age'>Age:</label>
-                        {dog && <input type="number" name="age" defaultValue={dog.age} />}
+                        {dog && <input type="number" name="age" defaultValue={dog.dog.age} />}
                     </div>
                     {/* <div>
                         <label htmlFor='age'>Gender:</label>
@@ -82,7 +83,7 @@ export const Edit = () => {
                     </div>
                     <div>
                         <label htmlFor='description'>Description:</label>
-                        {dog && <input type="text" name="description" defaultValue={dog.description} />}
+                        {dog && <input type="text" name="description" defaultValue={dog.dog.description} />}
 
                     </div>
                     <div>
@@ -93,7 +94,7 @@ export const Edit = () => {
                     <div>
                         <label htmlFor='uploadImg'>Upload image:</label>
                         <input type="text" name="uploadImg" />
-                        {dog && <input type="text" name="uploadImg" defaultValue={dog.uploadImg} />}
+                        {dog && <input type="text" name="uploadImg" defaultValue={dog.dog.uploadImg} />}
 
                     </div>
                     <div>

@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { removeDog } from '../../../../features/dogs';
 import { Comment } from '../../../comments/Comment';
 import { v4 } from 'uuid';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSmile } from '@fortawesome/free-solid-svg-icons';
 
 export const DogDetails = () => {
 
@@ -53,12 +55,20 @@ export const DogDetails = () => {
         e.preventDefault();
 
         const comment = (new FormData(e.target)).get('comment');
+        const currentdate = new Date();
+        const datetime = currentdate.getDate() + "/"
+            + (currentdate.getMonth() + 1) + "/"
+            + currentdate.getFullYear() + ", "
+            + currentdate.getHours() + ":"
+            + currentdate.getMinutes() + ":"
+            + currentdate.getSeconds();
         const newComment = {
             dogId: stateDog.id,
             comment,
             commentOwnerId: user.uid,
             commentId: v4(),
-            commentOwnerEmail: user.email
+            commentOwnerEmail: user.email,
+            commentCreatedAt: datetime
         }
 
 
@@ -109,10 +119,15 @@ export const DogDetails = () => {
             </div>
 
             <div className='comments-container'>
-                {console.log('dog', dog)}
-                {dog && dog.comments.length > 0 &&
-                    dog.comments.map(el => <Comment comment={el} commentOwnerEmail={el.commentOwnerEmail} key={el.commentId} />)
-                }
+                <div className='comments-content'>
+                    {dog && <h2>Comments</h2>}
+                    {dog && dog.comments.length > 0 &&
+                        dog.comments.map(el => <Comment comment={el} commentOwnerEmail={el.commentOwnerEmail} key={el.commentId} date={el.commentCreatedAt} />)
+                    }
+                    {dog && dog.comments.length === 0 &&
+                        <div className='no-comments'>No comments yet. Be the first one <FontAwesomeIcon icon={faSmile} style={{ color: '#e2db23', fontSize: '20px' }} /></div>
+                    }
+                </div>
                 <div className='add-comment-container'>
                     <form onSubmit={addCommentHandler} className="comments-form">
                         <p className='email-comment'>{user.email}</p>

@@ -42,3 +42,16 @@
     margin-right: 10px;
     font-weight: bold;
 }
+
+.comments-content {
+    margin: 20px 0 50px 0;
+}
+
+.comments-content h2 {
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.no-comments {
+    font-size: 24px;
+}

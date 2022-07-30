@@ -1,15 +1,17 @@
-import './Comments.css';
+import './Comment.css';
 
 export const Comment = (props) => {
 
     const comment = props.comment.comment;
     const commentOwnerEmail = props.commentOwnerEmail;
-    console.log(props, 'props');
+    const commentCreatedAt = props.date;
+    console.log('commentCreatedAt', commentCreatedAt);
 
     return (
         <div className='comment-container'>
-            <p>{commentOwnerEmail}</p>
+            <p><b>{commentOwnerEmail}</b></p>
             <p>{comment}</p>
+            <p>{commentCreatedAt}</p>
         </div>
     )
 }
