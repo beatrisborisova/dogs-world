@@ -1,4 +1,4 @@
-import { addDoc, collection, deleteDoc, doc, getDocs, setDoc } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDocs, setDoc, updateDoc } from "firebase/firestore";
 import { database } from '../firebase';
 import { getUser } from "./user";
 
@@ -157,6 +157,28 @@ const deleteDog = async (dogId, dog) => {
 
 }
 
+const addComment = async (dogId, dog, oldComments, comment) => {
+    try {
+        const docRef = doc(database, "dogs", dogId);
+        const comments = [...oldComments, comment]
+        const editedDog = {
+            comments
+        }
+        await updateDoc(docRef, editedDog);
+
+        if (dog.dog.dog.type === 'adopt') {
+            const docRef = doc(database, "adopt", dogId);
+            await updateDoc(docRef, editedDog);
+        } else if (dog.dog.dog.type === 'buy') {
+            const docRef = doc(database, "buy", dogId);
+            await updateDoc(docRef, editedDog);
+        }
+        return docRef;
+    } catch (err) {
+        throw new Error('Cannot edit entry with ID: ', dogId)
+    }
+}
+
 export {
     getDogImage,
     getAllDogs,
@@ -166,5 +188,6 @@ export {
     getMyDogs,
     createDog,
     editDog,
-    deleteDog
+    deleteDog,
+    addComment
 }

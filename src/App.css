@@ -46,3 +46,23 @@ main {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+/* Button Level 3 */
+
+.btn-level-three {
+  background-color: #cfa65e;
+  color: #000000;
+  width: fit-content;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  text-decoration: none;
+  margin: 5px;
+}
+
+.btn-level-three:hover {
+  background-color: #e27832;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}

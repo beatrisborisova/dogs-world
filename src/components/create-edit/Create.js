@@ -7,6 +7,8 @@ import { storage } from '../../firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { v4 } from 'uuid';
 import { motion } from 'framer-motion';
+import { setDog } from '../../features/dogs';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const Create = () => {
     const [vaccinesSelectedOption, setVaccinesSelectedOption] = useState('yes');
@@ -16,6 +18,9 @@ export const Create = () => {
     const [currentImageUrl, setCurrentImageUrl] = useState('');
     const [imageUrls, setImageUrls] = useState([]);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const user = useSelector(states => states.user.value.payload);
+
 
     const uploadFile = () => {
         if (imageUpload == null) return;
@@ -42,8 +47,13 @@ export const Create = () => {
         }
 
         dogsService.createDog(dog)
-            .then((res) => navigate(`/catalog/${typeSelectedOpion}/${res.id}`))
+            .then((res) => {
+                navigate(`/catalog/${typeSelectedOpion}/${res.id}`)
+                dispatch(setDog({ payload: { dog, id: res.id, creatorId: user.id }, type: 'SET DOG' }));
+            })
             .catch((err) => console.log(err.message))
+
+
     }
 
     const vaccinesChangeHandler = (value) => {

@@ -6,28 +6,40 @@ import AlertDialog from '../../../others/Confirmation';
 import LinearColor from '../../../others/Linear';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeDog } from '../../../../features/dogs';
+import { Comment } from '../../../comments/Comment';
+import { v4 } from 'uuid';
 
 export const DogDetails = () => {
 
-    const dogId = useParams().id;
+    // const dogId = useParams().id;
     const [dog, setDog] = useState(null);
     const [open, setOpen] = useState(false);
     const [agree, setAgree] = useState(false);
     const [isCreator, setIsCreator] = useState(false);
+    const [comments, setComments] = useState([]);
+    const [newComment, setNewComment] = useState({});
 
     const user = useSelector(states => states.user.value.payload);
-
-    const stateDog = useSelector(states => states.dog.value.payload)
+    const stateDog = useSelector(states => states.dog.value.payload);
 
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    // useEffect(() => {
-    //     dogsService.getDogById(dogId)
-    //         .then(res => setDog(res))
-    //         .catch(err => console.log(err.messag))
-    // }, [dogId])
+    useEffect(() => {
+        dogsService.getDogById(stateDog.id)
+            .then(res => {
+                setDog(res)
+                setComments(res.comments)
+            })
+            .catch(err => console.log(err.message))
+    }, [])
+
+    useEffect(() => {
+        dogsService.getDogById(stateDog.id)
+            .then(res => setDog(res))
+            .catch(err => console.log(err.message))
+    }, [newComment])
 
     useEffect(() => {
         if (stateDog) {
@@ -35,11 +47,31 @@ export const DogDetails = () => {
                 setIsCreator(true)
             }
         }
-    }, [stateDog, user])
+    }, [])
 
+    const addCommentHandler = (e) => {
+        e.preventDefault();
+
+        const comment = (new FormData(e.target)).get('comment');
+        const newComment = {
+            dogId: stateDog.id,
+            comment,
+            commentOwnerId: user.uid,
+            commentId: v4(),
+            commentOwnerEmail: user.email
+        }
+
+
+        dogsService.addComment(stateDog.id, dog, comments, newComment)
+            .then(() => {
+                setNewComment(newComment)
+                setComments(oldComments => [...oldComments, newComment])
+            })
+            .catch(err => console.log(err.message))
+    }
 
     if (agree) {
-        dogsService.deleteDog(dogId, dog)
+        dogsService.deleteDog(stateDog.id, dog)
             .then(() => {
                 navigate(`/catalog/${stateDog.dog.type}`)
                 dispatch(removeDog());
@@ -49,29 +81,49 @@ export const DogDetails = () => {
     }
 
     return (
-        <div className='dog-details-container'>
-            {open && <AlertDialog state={{ setOpen, setAgree }} />}
+        <>
+            <div className='dog-details-container'>
+                {open && <AlertDialog state={{ setOpen, setAgree }} />}
 
-            {stateDog && <>
-                <div className="image-wrapper-dog-details">
-                    <img src={stateDog.dog.uploadImg} alt="dog" />
-                </div>
-                <div className="dog-details-text">
-                    <h2>{stateDog.dog.breed}</h2>
-                    <p>Age: {stateDog.dog.age} years old</p>
-                    <p>Паспорт: ДА / NE</p>
-                    <p>Vacciness: {stateDog.dog.vaccines}</p>
-                    <p>{stateDog.dog.description}</p>
-                </div>
-                {isCreator &&
-                    <>
-                        <button onClick={() => navigate(`/edit/${stateDog.id}`, { state: { id: stateDog.id } })} className="btn-level-two">Edit dog</button>
-                        <button onClick={() => setOpen(true)} className="btn-level-two">Delete dog</button>
-                    </>
+                {stateDog && <>
+                    <div className="image-wrapper-dog-details">
+                        <img src={stateDog.dog.uploadImg} alt="dog" />
+                    </div>
+                    <div className="dog-details-text">
+                        <h2>{stateDog.dog.breed}</h2>
+                        <p>Age: {stateDog.dog.age} years old</p>
+                        <p>Vacciness: {stateDog.dog.vaccines}</p>
+                        <p>{stateDog.dog.description}</p>
+                    </div>
+                    {isCreator &&
+                        <>
+                            <button onClick={() => navigate(`/edit/${stateDog.id}`, { state: { id: stateDog.id } })} className="btn-level-two">Edit dog</button>
+                            <button onClick={() => setOpen(true)} className="btn-level-two">Delete dog</button>
+                        </>
+                    }
+                </>}
+
+                {!stateDog && <LinearColor />}
+
+
+            </div>
+
+            <div className='comments-container'>
+                {console.log('dog', dog)}
+                {dog && dog.comments.length > 0 &&
+                    dog.comments.map(el => <Comment comment={el} commentOwnerEmail={el.commentOwnerEmail} key={el.commentId} />)
                 }
-            </>}
+                <div className='add-comment-container'>
+                    <form onSubmit={addCommentHandler} className="comments-form">
+                        <p className='email-comment'>{user.email}</p>
+                        <div>
+                            <textarea className='comment-field' name='comment' placeholder='Your comment here...'></textarea>
+                            <button className='btn-level-three' type='submit'>Add comment</button>
+                        </div>
+                    </form>
 
-            {!stateDog && <LinearColor />}
-        </div>
+                </div>
+            </div>
+        </>
     )
 }

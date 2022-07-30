@@ -22,7 +22,6 @@ export const Dog = ({ currentDog, dogId, creatorId, setCurrentDog, setSelectedId
                     animate={{ scale: 1, opacity: 1 }}
                     initial={{ scale: 0.7, opacity: 0 }}>
                     <motion.div>
-                        {console.log('creatorId from Dog.js', creatorId)}
                         <motion.div className='image-wrapper-dog-main'>
                             <motion.img src={stateDog.dog.uploadImg} key={stateDog.dog.uploadImg} />
                         </motion.div>
@@ -31,7 +30,7 @@ export const Dog = ({ currentDog, dogId, creatorId, setCurrentDog, setSelectedId
                     </motion.div>
                 </motion.div>
             }
-            {/* 
+
             {!stateDog &&
                 <motion.div className={`dog-container ${currentDog.type}-dog-container dog-modal`}
                     onClick={() => {
@@ -51,7 +50,7 @@ export const Dog = ({ currentDog, dogId, creatorId, setCurrentDog, setSelectedId
                         <motion.p><b>Gender:</b> {currentDog.gender}</motion.p>
                     </motion.div>
                 </motion.div>
-            } */}
+            }
         </>
     )
 }

@@ -17,12 +17,11 @@ export const Adopt = () => {
 
     const dispatch = useDispatch();
 
-
     useEffect(() => {
         dogsService.getAllAdopt()
             .then(res => {
                 setDogs(res)
-                // dispatch(removeDog());
+                dispatch(removeDog());
             })
 
     }, [])
@@ -45,7 +44,9 @@ export const Adopt = () => {
                             setCreatorId={setCreatorId}
                         />)
                 }
-                {console.log('creatorId from Adopt.js', creatorId)}
+                {/* {console.log('creatorId from Adopt.js', creatorId)} */}
+                {console.log('selectedId', selectedId)}
+                {console.log('currentDog', currentDog)}
                 {selectedId && currentDog &&
                     <DogFlyer state={{ setSelectedId, setCurrentDog, currentDog, selectedId, creatorId }} />
                 }

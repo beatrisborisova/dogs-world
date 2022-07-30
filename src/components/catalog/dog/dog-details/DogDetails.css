@@ -16,3 +16,29 @@
     margin-left: 20px;
     text-align: left;
 }
+
+/* COMMENTS */
+
+.comments-container {
+    border: 1px solid;
+    border-radius: 10px;
+    margin: 30px;
+    padding: 30px;
+    background-color: #ffffff;
+}
+
+.comments-form {
+    display: flex;
+    justify-content: center;
+}
+
+.comments-form textarea {
+    border-radius: 10px;
+    outline: none;
+    width: 100%;
+}
+
+.email-comment {
+    margin-right: 10px;
+    font-weight: bold;
+}
