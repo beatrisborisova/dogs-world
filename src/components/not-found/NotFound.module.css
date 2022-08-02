@@ -1,0 +1,26 @@
+.notFoundContainer {
+    padding: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+.notFoundContainer h1 {
+    font-size: 200px;
+    background-clip: text;
+    background-image: url('../../assets/images/404.jpg');
+    color: transparent;
+    text-shadow: 2px 2px 4px rgba(84, 84, 84, 0.1);
+
+}
+
+.text {
+    text-transform: uppercase;
+}
+
+
+.notFoundContent {
+    margin-bottom: 40px;
+}
