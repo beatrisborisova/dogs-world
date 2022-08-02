@@ -3,7 +3,7 @@ import * as dogsService from '../../services/dogs';
 import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import DogContext from '../../contexts/Dog';
+import { DogContext } from '../../contexts/Dog';
 import { useSelector } from 'react-redux';
 
 export const Edit = () => {

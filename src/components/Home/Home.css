@@ -1,32 +1,28 @@
-.home-container {
-    height: 60vh;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: right;
-}
-
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
 
 .home-content {
-    font-size: 50px;
-    align-items: flex-start;
-    width: 60%;
-    height: 60vh;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    position: relative;
+}
+
+.home-text {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    color: #ffffff;
     z-index: 1;
-    overflow: hidden;
 }
 
-/* 
-.home-content {
-    box-shadow: inset 0px 0px 10px 20px white;
-} */
+.home-content h1 {
+    font-family: 'Dancing Script', cursive;
+    font-weight: 700;
+    font-size: 80px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 
 .home-categories-container {
     display: flex;
-
 }
 
 .home-article {

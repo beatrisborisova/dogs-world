@@ -2,10 +2,10 @@ import { addDoc, collection, deleteDoc, doc, getDocs, setDoc, updateDoc } from "
 import { database } from '../firebase';
 import { getUser } from "./user";
 
-function getDogImage() {
+const getDogImage = () => {
     return fetch('https://dog.ceo/api/breeds/image/random')
         .then(res => res.json())
-        .then(img => img.message)
+        // .then(img => img.message)
         .catch(err => { throw new Error('Cannot get dog image') })
 }
 
