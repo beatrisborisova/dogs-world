@@ -13,9 +13,6 @@ function App() {
       <main>
         <AnimatedRoutes />
         <DogContextRoutes />
-        <Routes>
-          <Route path="*" element={<NotFound />} />
-        </Routes>
       </main>
       <Footer />
     </div>

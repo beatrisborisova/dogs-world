@@ -9,17 +9,17 @@ export const Home = () => {
     const [dogImg, setDogImg] = useState('');
 
     useEffect(() => {
-        setTimeout(() => {
+        setInterval(() => {
             getDogImage()
                 .then(img => setDogImg(img))
-        }, 3000)
-    }, [dogImg])
+        }, 2000)
+    }, [])
 
     return (
         <motion.div initial={{ width: 0 }} animate={{ width: '100%' }} exit={{ width: '100%', transition: { duration: 0.3 } }}>
             <div className="home-container" style={{ backgroundImage: `url(${dogImg})` }}>
                 <div className='home-content'>
-                    <h1>Welcome to the DOGS World</h1>
+                    <h1>Welcome to Dogland</h1>
                     <NavLink to={'catalog'} className="btn-level-one">EXPLORE</NavLink>
                 </div>
             </div>
@@ -43,7 +43,7 @@ export const Home = () => {
                     </article>
                 </NavLink>
             </section>
-        </motion.div>
+        </motion.div >
 
     )
 }

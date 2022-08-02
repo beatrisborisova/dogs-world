@@ -44,6 +44,10 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.42);
 }
 
+.adopt-section-container {
+    background-image: url('../../assets/images/adopt.jpg');
+}
+
 .buy-section-container {
     background-image: url('../../assets/images/buy.jpg');
 }

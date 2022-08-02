@@ -5,6 +5,7 @@
     background-position: right;
 }
 
+
 .home-content {
     font-size: 50px;
     align-items: flex-start;
@@ -17,6 +18,11 @@
     z-index: 1;
     overflow: hidden;
 }
+
+/* 
+.home-content {
+    box-shadow: inset 0px 0px 10px 20px white;
+} */
 
 .home-categories-container {
     display: flex;
