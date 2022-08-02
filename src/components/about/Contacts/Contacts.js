@@ -21,6 +21,7 @@ export const Contacts = () => {
                     <li>Font Awesome 6.1.1</li>
                     <li>Material UI 5.9.2</li>
                     <li>Framer Motion 6.5.1</li>
+                    <li>React Paginate 8.1.3</li>
                 </ul>
             </div>
         </motion.div>

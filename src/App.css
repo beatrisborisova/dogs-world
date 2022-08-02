@@ -4,7 +4,6 @@
 
 main {
   background-color: aquamarine;
-  padding: 50px 0;
 }
 
 .btn-level-one {
@@ -65,4 +64,36 @@ main {
   color: #ffffff;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* DELETE BTN */
+
+.delete {
+  background-color: #f86262;
+}
+
+.delete:hover {
+  background-color: #ff1d1d;
+}
+
+/* PAGINATION */
+
+.pagination {
+  justify-content: center;
+  margin: 10px;
+}
+
+.page-item .page-link {
+  border-radius: 50%;
+  background-color: #ffffffc2;
+  color: #000000;
+  margin: 3px;
+}
+
+.pagination .page-item.active .page-link {
+  border-color: #d7c928;
+  font-weight: bold;
+  background: #f8f84d;
+  color: #000000;
+
 }

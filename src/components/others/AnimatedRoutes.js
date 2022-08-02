@@ -42,8 +42,8 @@ export const AnimatedRoutes = () => {
                 <Route path='/contacts' element={<Contacts />} />
 
                 <Route path='catalog' element={<Main />} />
-                <Route path='catalog/adopt' element={<Adopt />} />
-                <Route path='catalog/buy' element={<Buy />} />
+                <Route path='catalog/adopt' element={<Adopt dogsPerPage={4} />} />
+                <Route path='catalog/buy' element={<Buy dogsPerPage={4} />} />
 
                 <Route path='login' element={<Login />} />
                 <Route path='register' element={<Register />} />
@@ -58,7 +58,7 @@ export const AnimatedRoutes = () => {
                 </Route>
 
                 <Route element={<ProtectedRoute data={{ user, redirectPath: 'login' }} />}>
-                    <Route path='my-dogs' element={<MyDogs />} />
+                    <Route path='my-dogs' element={<MyDogs dogsPerPage={4} />} />
                 </Route>
 
                 <Route element={<ProtectedRoute data={{ user, redirectPath: 'login' }} />}>

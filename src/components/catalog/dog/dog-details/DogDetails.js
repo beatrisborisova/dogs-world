@@ -1,8 +1,8 @@
 import './DogDetails.css';
 import * as dogsService from '../../../../services/dogs';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import AlertDialog from '../../../others/Confirmation';
+import DeleteModal from '../../../others/Confirmation';
 import LinearColor from '../../../others/Linear';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeDog } from '../../../../features/dogs';
@@ -93,24 +93,26 @@ export const DogDetails = () => {
     return (
         <>
             <div className='dog-details-container'>
-                {open && <AlertDialog state={{ setOpen, setAgree }} />}
+                {open && <DeleteModal state={{ setOpen, setAgree }} />}
 
                 {stateDog && <>
                     <div className="image-wrapper-dog-details">
                         <img src={stateDog.dog.uploadImg} alt="dog" />
                     </div>
-                    <div className="dog-details-text">
-                        <h2>{stateDog.dog.breed}</h2>
-                        <p>Age: {stateDog.dog.age} years old</p>
-                        <p>Vacciness: {stateDog.dog.vaccines}</p>
-                        <p>{stateDog.dog.description}</p>
+                    <div className='details-content'>
+                        <div className="dog-details-text">
+                            <h2>{stateDog.dog.breed}</h2>
+                            <p>Age: {stateDog.dog.age} years old</p>
+                            <p>Vacciness: {stateDog.dog.vaccines}</p>
+                            <p>{stateDog.dog.description}</p>
+                        </div>
+                        {isCreator &&
+                            <div className='details-btns'>
+                                <button onClick={() => navigate(`/edit/${stateDog.id}`, { state: { id: stateDog.id } })} className="btn-level-two">Edit dog</button>
+                                <button onClick={() => setOpen(true)} className="btn-level-two delete">Delete dog</button>
+                            </div>
+                        }
                     </div>
-                    {isCreator &&
-                        <>
-                            <button onClick={() => navigate(`/edit/${stateDog.id}`, { state: { id: stateDog.id } })} className="btn-level-two">Edit dog</button>
-                            <button onClick={() => setOpen(true)} className="btn-level-two">Delete dog</button>
-                        </>
-                    }
                 </>}
 
                 {!stateDog && <LinearColor />}

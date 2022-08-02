@@ -32,15 +32,37 @@
 /* ADOPT-BUY Section */
 
 .adopt-buy-section-container {
-    height: 40vh;
+    height: 60vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 20% 30%;
+    align-items: flex-start;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.42);
+}
 
+.buy-section-container {
+    background-image: url('../../assets/images/buy.jpg');
+}
+
+.adopt-buy-section-container h1 {
+    font-size: 60px;
+    padding-left: 100px;
+}
+
+.adopt-buy-section-container p {
+    background-color: #ffffff67;
+    padding: 20px 100px;
+    color: #000000;
+    font-size: 23px;
 }
 
 .adopt-buy-catalog-container {
     display: flex;
     flex-wrap: wrap;
-    background-color: #ffffff;
+    /* background-color: #ffffff; */
+    justify-content: center;
 }

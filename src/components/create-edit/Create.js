@@ -21,7 +21,6 @@ export const Create = () => {
     const dispatch = useDispatch();
     const user = useSelector(states => states.user.value.payload);
 
-
     const uploadFile = () => {
         if (imageUpload == null) return;
         const imageRef = ref(storage, `dogs/${imageUpload.name + v4()}`);
@@ -36,11 +35,7 @@ export const Create = () => {
     const createDogHandler = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
-        if (imageUpload) {
-            console.log('imageUpload', imageUpload);
-            uploadFile();
-            console.log('file uploaded');
-        }
+
         const dog = {
             breed: formData.get('breed'),
             age: formData.get('age'),
@@ -108,7 +103,13 @@ export const Create = () => {
                     </div>
                     <div>
                         <label htmlFor='uploadImg'>Upload image:</label>
-                        <input type="file" name="uploadImg" onChange={(e) => setImageUpload(e.target.files[0])} />
+                        <input type="file" name="uploadImg" onChange={(e) => {
+                            setImageUpload(e.target.files[0])
+                            console.log('imageUpload', imageUpload)
+                            uploadFile()
+                        }} />
+                        {/* {imageUpload && <img src={imageUpload} alt='dog' />} */}
+                        {/* {imageUpload && console.log(imageUpload)} */}
                         {/* <button onClick={uploadFile} type='button'> Upload Image</button> */}
                     </div>
                     <div>

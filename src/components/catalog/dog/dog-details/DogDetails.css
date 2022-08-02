@@ -17,6 +17,13 @@
     text-align: left;
 }
 
+.details-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 20px;
+}
+
 /* COMMENTS */
 
 .comments-container {

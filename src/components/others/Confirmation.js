@@ -6,7 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export default function AlertDialog({ state }) {
+export default function DeleteModal({ state }) {
 
     return (
         <div>
@@ -28,7 +28,7 @@ export default function AlertDialog({ state }) {
                     <Button onClick={() => {
                         state.setOpen(false)
                         state.setAgree(true)
-                    }} autoFocus>
+                    }} autoFocus style={{ color: "#ff0000" }}>
                         Delete
                     </Button>
                 </DialogActions>
