@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { DogDetails } from "../catalog/dog/dog-details/DogDetails";
 import { DogProvider } from "../../contexts/Dog";
 import { Edit } from "../create-edit/Edit";
+import { NotFound } from "../not-found/NotFound";
 
 const ProtectedRoute = ({ data }) => {
     if (data.user === undefined) {
@@ -33,6 +34,7 @@ export const DogContextRoutes = () => {
                 <Route element={<ProtectedRoute data={{ user, redirectPath: 'login' }} />}>
                     <Route path='my-dogs/:id' element={<DogDetails />} />
                 </Route>
+
 
             </Routes >
         </DogProvider>

@@ -24,7 +24,6 @@ export const DogDetails = () => {
     const user = useSelector(states => states.user.value.payload);
     const stateDog = useSelector(states => states.dog.value.payload);
 
-
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -32,6 +31,7 @@ export const DogDetails = () => {
         dogsService.getDogById(stateDog.id)
             .then(res => {
                 setDog(res)
+                console.log('res', res)
                 setComments(res.comments)
             })
             .catch(err => console.log(err.message))
@@ -50,6 +50,8 @@ export const DogDetails = () => {
             }
         }
     }, [])
+
+    console.log('dog', dog)
 
     const addCommentHandler = (e) => {
         e.preventDefault();
