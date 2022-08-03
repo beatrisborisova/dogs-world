@@ -8,13 +8,16 @@ import { motion } from 'framer-motion';
 import { useDispatch } from "react-redux";
 import { removeDog } from '../../features/dogs';
 import ReactPaginate from 'react-paginate';
+import { NoDogs } from './dog/no-dogs/NoDogs';
 
 export const Adopt = ({ dogsPerPage }) => {
 
     const [dogs, setDogs] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const [selectedId, setSelectedId] = useState(null);
     const [currentDog, setCurrentDog] = useState(null);
     const [creatorId, setCreatorId] = useState(null);
+    const [showPagination, setShowPagination] = useState(false);
 
     const [itemOffset, setItemOffset] = useState(0);
     const [pageCount, setPageCount] = useState(0);
@@ -27,19 +30,27 @@ export const Adopt = ({ dogsPerPage }) => {
         dogsService.getAllAdopt()
             .then(res => {
                 setDogs(res)
-                dispatch(removeDog());
+                dispatch(removeDog())
+                setIsLoading(false)
                 setCurrentPageDogs(res.slice(itemOffset, endOffset))
                 setPageCount(Math.ceil(res.length / dogsPerPage))
             })
+            .catch(err => console.log(err.message))
+            .finally(() => {
+                setDogs(null)
+                setIsLoading(false)
+            })
+
+        if (endOffset > 4) {
+            setShowPagination(true);
+        }
+
     }, [itemOffset])
 
     const handlePageClick = (e) => {
         const newOffset = e.selected * dogsPerPage % dogs.length;
-        console.log(`User requested page number ${e.selected}, which is offset ${newOffset}`);
         setItemOffset(newOffset);
     };
-
-    console.log('ADOPT', dogs);
 
     return (
         <>
@@ -49,9 +60,11 @@ export const Adopt = ({ dogsPerPage }) => {
                     <p>All is paw-sible when you rescue a dog. </p>
                 </section>
                 <section className='adopt-buy-catalog-container'>
-                    {dogs.length === 0 && <LinearColor />}
 
-                    {dogs.length !== 0 &&
+                    {isLoading && <LinearColor />}
+                    {!dogs && <NoDogs />}
+
+                    {dogs && dogs.length !== 0 &&
                         currentPageDogs.map(el =>
                             <Dog type="adopt" currentDog={el.dog} dogId={el.id} key={el.id}
                                 setCurrentDog={setCurrentDog} setSelectedId={setSelectedId} creatorId={el.creatorId}
@@ -65,7 +78,7 @@ export const Adopt = ({ dogsPerPage }) => {
                 </section>
             </motion.section>
 
-            {!selectedId && !currentDog &&
+            {showPagination &&
                 <ReactPaginate
                     nextLabel="next >"
                     onPageChange={handlePageClick}

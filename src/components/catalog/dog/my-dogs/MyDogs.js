@@ -7,14 +7,17 @@ import LinearColor from "../../../others/Linear";
 import { DogFlyer } from "../dog-flyer/DogFlyer";
 import { Dog } from "../dog-item/Dog";
 import ReactPaginate from 'react-paginate';
+import { NoDogs } from "../no-dogs/NoDogs";
 
 
 export const MyDogs = ({ dogsPerPage }) => {
 
     const [myDogs, setMyDogs] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const [selectedId, setSelectedId] = useState(null);
     const [currentDog, setCurrentDog] = useState(null);
     const [creatorId, setCreatorId] = useState(null);
+    const [showPagination, setShowPagination] = useState(false);
 
     const [itemOffset, setItemOffset] = useState(0);
     const [pageCount, setPageCount] = useState(0);
@@ -30,15 +33,28 @@ export const MyDogs = ({ dogsPerPage }) => {
         dogsService.getMyDogs(userId)
             .then(res => {
                 setMyDogs(res)
+                setIsLoading(false)
                 dispatch(removeDog())
                 setCurrentPageDogs(res.slice(itemOffset, endOffset))
                 setPageCount(Math.ceil(res.length / dogsPerPage))
             })
+            .catch(err => console.log(err.message))
+            .finally(() => {
+                setMyDogs(null)
+                setIsLoading(false)
+            })
+
+
+        if (endOffset > 4) {
+            setShowPagination(true);
+        }
+
     }, [itemOffset])
+
+
 
     const handlePageClick = (e) => {
         const newOffset = e.selected * dogsPerPage % myDogs.length;
-        console.log(`User requested page number ${e.selected}, which is offset ${newOffset}`);
         setItemOffset(newOffset);
     };
 
@@ -46,11 +62,10 @@ export const MyDogs = ({ dogsPerPage }) => {
         <>
             <section className='adopt-buy-catalog-container'>
 
-                {/* TODO: тука трябва да се сложи тоя loader да не зарежда до безкрай, а в един момент да изписва, че няма добавени кучета на тоя потребители */}
+                {isLoading && <LinearColor />}
+                {!myDogs && <NoDogs />}
 
-                {myDogs.length === 0 && <LinearColor />}
-
-                {myDogs.length !== 0 &&
+                {myDogs && myDogs.length !== 0 &&
                     currentPageDogs.map(el => <Dog currentDog={el.dog} dogId={el.id} key={el.id} creatorId={el.creatorId}
                         setCurrentDog={setCurrentDog} setSelectedId={setSelectedId} setCreatorId={setCreatorId} />)
                 }
@@ -58,10 +73,11 @@ export const MyDogs = ({ dogsPerPage }) => {
                 {selectedId && currentDog &&
                     <DogFlyer state={{ setSelectedId, setCurrentDog, currentDog, selectedId, creatorId }} />
                 }
+
             </section>
 
-            {!selectedId && !currentDog &&
-                <ReactPaginate
+            {showPagination &
+                < ReactPaginate
                     nextLabel="next >"
                     onPageChange={handlePageClick}
                     pageRangeDisplayed={3}

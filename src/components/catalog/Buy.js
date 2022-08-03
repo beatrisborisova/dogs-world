@@ -9,16 +9,18 @@ import { removeDog } from '../../features/dogs';
 import { motion } from 'framer-motion';
 
 import ReactPaginate from 'react-paginate';
+import { NoDogs } from './dog/no-dogs/NoDogs';
 
 
 
 export const Buy = ({ dogsPerPage }) => {
 
     const [dogs, setDogs] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const [selectedId, setSelectedId] = useState(null);
     const [currentDog, setCurrentDog] = useState(null);
     const [creatorId, setCreatorId] = useState(null);
-
+    const [showPagination, setShowPagination] = useState(false);
 
     const [itemOffset, setItemOffset] = useState(0);
     const [pageCount, setPageCount] = useState(0);
@@ -34,9 +36,20 @@ export const Buy = ({ dogsPerPage }) => {
             .then(res => {
                 setDogs(res)
                 dispatch(removeDog())
+                setIsLoading(false)
                 setCurrentPageDogs(res.slice(itemOffset, endOffset))
                 setPageCount(Math.ceil(res.length / dogsPerPage))
             })
+            .catch(err => console.log(err.message))
+            .finally(() => {
+                setDogs(null)
+                setIsLoading(false)
+            })
+
+        if (endOffset > 4) {
+            setShowPagination(true);
+        }
+
     }, [itemOffset])
 
 
@@ -54,9 +67,10 @@ export const Buy = ({ dogsPerPage }) => {
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
                 </section>
                 <section className='adopt-buy-catalog-container'>
-                    {dogs.length === 0 && <LinearColor />}
+                    {isLoading && <LinearColor />}
+                    {!dogs && <NoDogs />}
 
-                    {dogs.length !== 0 &&
+                    {dogs && dogs.length !== 0 &&
                         currentPageDogs.map(el => <Dog type="buy" currentDog={el} key={el.id}
                             setCurrentDog={setCurrentDog} setSelectedId={setSelectedId} setCreatorId={setCreatorId} />)
                     }
@@ -67,7 +81,7 @@ export const Buy = ({ dogsPerPage }) => {
                 </section>
             </motion.div>
 
-            {!selectedId && !currentDog &&
+            {showPagination &&
                 <ReactPaginate
                     nextLabel="next >"
                     onPageChange={handlePageClick}
