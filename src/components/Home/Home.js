@@ -1,4 +1,4 @@
-import './Home.css';
+import styles from './Home.module.css';
 import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
 const video = require('../../assets/images/home.mp4');
@@ -7,34 +7,33 @@ export const Home = () => {
 
     return (
         <motion.div initial={{ width: 0 }} animate={{ width: '100%' }} exit={{ width: '100%', transition: { duration: 0.3 } }}>
-            <div className="home-container" >
-                <div className='home-content'>
-                    <div className='home-text'>
+            <div className={styles.homeContainer}>
+                <div className={styles.homeContent}>
+                    <div className={styles.homeText}>
                         <h1>Welcome to Dogland</h1>
                         <NavLink to={'catalog'} className="btn-level-one">EXPLORE</NavLink>
                     </div>
-                    <div className='home-image-wrapper'>
-                        <video width="100%" autoPlay muted className='home-video'>
+                    {video &&
+                        <video width="100%" autoPlay muted className={styles.homeVideo}>
                             <source src={video} type="video/mp4" />
-                            Your browser does not support the video tag.
                         </video>
-                    </div>
+                    }
                 </div>
             </div>
-            <section className='home-categories-container'>
-                <NavLink to={'/catalog/adopt'} className='home-adopt-container home-article'>
+            <section className={styles.homeCategoriesContainer}>
+                <NavLink to={'/catalog/adopt'} className={[styles.homeAdoptContainer, styles.homeArticle].join(' ')}>
                     <article>
                         <h3>Adopt a dog</h3>
                         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. </p>
                     </article>
                 </NavLink>
-                <NavLink to={'/catalog/buy'} className='home-buy-container home-article'>
+                <NavLink to={'/catalog/buy'} className={[styles.homeBuyContainer, styles.homeArticle].join(' ')}>
                     <article>
                         <h3>Buy a dog</h3>
                         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. </p>
                     </article>
                 </NavLink>
-                <NavLink to={'/create'} className='home-create-container home-article'>
+                <NavLink to={'/create'} className={[styles.homeCreateContainer, styles.homeArticle].join(' ')}>
                     <article>
                         <h3>Post a dog</h3>
                         <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. </p>

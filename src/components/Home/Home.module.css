@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
 
-.home-content {
+.homeContent {
     position: relative;
 }
 
-.home-text {
+.homeText {
     width: 100%;
     position: absolute;
     top: 50%;
@@ -13,26 +13,39 @@
     z-index: 1;
 }
 
-.home-content h1 {
+.homeContent h1 {
     font-family: 'Dancing Script', cursive;
+    position: relative;
     font-weight: 700;
     font-size: 80px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    animation: title;
+    animation-duration: 2s;
+}
+
+@keyframes title {
+    from {
+        left: -50%;
+    }
+
+    to {
+        left: 0;
+    }
 }
 
 
-.home-categories-container {
+.homeCategoriesContainer {
     display: flex;
 }
 
-.home-article {
+.homeArticle {
     padding: 30px;
     flex: 1;
     text-decoration: none;
     color: #000000;
 }
 
-.home-article:hover {
+.homeArticle:hover {
     cursor: pointer;
     background: rgba(253, 228, 140, 0.44);
     color: #000000;
@@ -41,14 +54,14 @@
     -webkit-backdrop-filter: blur(10.9px);
 }
 
-.home-adopt-container {
+.homeAdoptContainer {
     background-color: #fffb00;
 }
 
-.home-buy-container {
+.homeBuyContainer {
     background-color: #00ffff;
 }
 
-.home-create-container {
+.homeCreateContainer {
     background-color: #ff0084;
 }
