@@ -1,4 +1,4 @@
-import './Profile.css';
+import styles from './Profile.module.css';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,6 +17,13 @@ export const EditProfile = () => {
     const [currentImageUrl, setCurrentImageUrl] = useState('');
     const [imageUrls, setImageUrls] = useState([]);
 
+    const [email, setEmail] = useState('');
+    const [name, setName] = useState('');
+    const [city, setCity] = useState('');
+    const [gender, setGender] = useState('');
+    const [genderSelectedOption, setGenderSelectedOption] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
+
     const user = useSelector((states) => states.user.value.payload);
     const navigate = useNavigate();
 
@@ -24,8 +31,15 @@ export const EditProfile = () => {
         userService.getUserData(user.uid)
             .then(res => {
                 setCurrentUserData(res.user.myUser)
+                setEmail(res.user.myUser.email)
+                setName(res.user.myUser.name)
+                setGenderSelectedOption(res.user.myUser.gender)
+                setCity(res.user.myUser.city)
+
             })
     }, [])
+
+
 
     const uploadFile = () => {
         if (imageUpload == null) return;
@@ -41,23 +55,29 @@ export const EditProfile = () => {
     const editProfileHandler = (e) => {
         e.preventDefault();
 
-        const formData = new FormData(e.target);
-        const name = formData.get('name');
-        const avatar = currentImageUrl;
-        const email = currentUserData.email;
-        const city = formData.get('city');
-        const gender = formData.get('gender');
+        const user = {
+            name,
+            email,
+            avatar: currentImageUrl,
+            city,
+            gender: genderSelectedOption,
+            uid: currentUserData.uid
+        }
 
-        userService.editProfile({ name, email, avatar, city, gender, uid: currentUserData.uid }, currentUserData.uid)
+        userService.editProfile(user, currentUserData.uid)
             .then(() => navigate('/profile'))
+    }
+
+    const genderChangeHandler = (e) => {
+        setGenderSelectedOption(e.target.value);
     }
 
     return (
         <>{currentUserData &&
-            <form onSubmit={editProfileHandler} className="profile-text">
+            <form onSubmit={editProfileHandler} className={styles.profileText}>
                 <div>
                     <label htmlFor='name'>Name: </label>
-                    <input type="text" defaultValue={currentUserData.name} name='name' />
+                    <input type="text" name='name' value={name} onChange={(e) => setName(e.target.value)} />
                 </div>
                 <div>
                     <label htmlFor='avatar'>Avatar: </label>
@@ -66,12 +86,12 @@ export const EditProfile = () => {
                 </div>
                 <div>
                     <label htmlFor='city'>City: </label>
-                    <input type="text" defaultValue={currentUserData.city} name='city' />
+                    <input type="text" name='city' value={city} onChange={(e) => setCity(e.target.value)} />
                 </div>
                 <div>
                     <label htmlFor='gender'>Gender: </label>
-                    <input type="radio" defaultValue="male" name='gender' />Male
-                    <input type="radio" defaultValue="female" name='gender' />Fale
+                    <input type="radio" value="male" name='gender' onChange={genderChangeHandler} checked={genderSelectedOption === 'male'} />Male
+                    <input type="radio" value="female" name='gender' onChange={genderChangeHandler} checked={genderSelectedOption === 'female'} />Female
                 </div>
                 <div>
                     <input type="submit" value="Save" className='submit-btn' />

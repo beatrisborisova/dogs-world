@@ -40,7 +40,7 @@ export const MyDogs = ({ dogsPerPage }) => {
             })
             .catch(err => console.log(err.message))
             .finally(() => {
-                setMyDogs(null)
+                // setMyDogs(null)
                 setIsLoading(false)
             })
 
@@ -63,7 +63,7 @@ export const MyDogs = ({ dogsPerPage }) => {
             <section className='adopt-buy-catalog-container'>
 
                 {isLoading && <LinearColor />}
-                {!myDogs && <NoDogs />}
+                {myDogs.length === 0 && !isLoading && <NoDogs />}
 
                 {myDogs && myDogs.length !== 0 &&
                     currentPageDogs.map(el => <Dog currentDog={el.dog} dogId={el.id} key={el.id} creatorId={el.creatorId}

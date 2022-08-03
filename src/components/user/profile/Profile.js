@@ -1,4 +1,5 @@
-import './Profile.css';
+import styles from './Profile.module.css';
+import userStyles from '../User.module.css';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -16,20 +17,17 @@ export const Profile = () => {
             });
     }, [])
 
-    // console.log('user', user.uid);
-    // console.log('USER WE', currentUser.uid);
-
     return (
-        <div className='profile-container'>
-            <div className="image-wrapper-profile">
+        <div className={styles.profileContainer}>
+            <div className={styles.imageWrapperProfile}>
                 {currentUser && <img src={currentUser.avatar} alt="user" />}
             </div>
-            <div className='profile-content'>
-                <div className='login-register-username-nav'>
+            <div className={styles.profileContent}>
+                <div className={userStyles.loginRegisterUsernameNav}>
                     <Link to={'/my-dogs'}>My dogs</Link>
                     <Link to={'/edit-profile'}>Edit profile</Link>
                 </div>
-                <div className="profile-text">
+                <div className={styles.profileText}>
                     <h2>Name: {currentUser && <span>{currentUser.name}</span>} {!currentUser && <span>NOT SET</span>}</h2>
                     <p>email: {currentUser && <span>{currentUser.email}</span>} {!currentUser && <span>NOT SET</span>}</p>
                     <p>city: {currentUser && <span>{currentUser.city}</span>} {!currentUser && <span>NOT SET</span>}</p>

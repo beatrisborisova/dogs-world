@@ -1,16 +1,16 @@
-.login-register-container {
+.loginRegisterContainer {
     width: 30%;
     margin: 0 auto;
     padding: 100px;
 
 }
 
-.login-register-main-content {
+.loginRegisterMainContent {
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 
 }
 
-.login-register-username-nav {
+.loginRegisterUsernameNav {
     border: none;
     /* border-top: 2px solid #5ecf7a; */
     background-color: #ffffffa6;
@@ -20,16 +20,16 @@
     justify-content: space-evenly;
 }
 
-.login-register-username-nav a {
+.loginRegisterUsernameNav a {
     text-decoration: none;
     color: #000000;
 }
 
-.login-register-username-nav a.active {
+.loginRegisterUsernameNava.active {
     font-weight: bold;
 }
 
-.login-register-content {
+.loginRegisterContent {
     border: none;
     border-top: 2px solid #5ecf7a;
     background-color: #ffffffa6;
@@ -37,18 +37,18 @@
     margin: 0 auto;
 }
 
-.login-register-content div {
+.loginRegisterContent div {
     margin: 10px 0;
     display: flex;
     align-items: center;
 }
 
-.login-register-form {
+.loginRegisterForm {
     display: flex;
     flex-direction: column;
 }
 
-.login-register-form input {
+.loginRegisterFormInput {
     border: none;
     padding: 10px;
     background-color: #7a7a7a1c;
@@ -56,12 +56,12 @@
     outline: none;
 }
 
-.login-register-form div :nth-child(1):not(.submit-btn) {
+.loginRegisterForm div :nth-child(1):not(.submit-btn) {
     padding: 14px;
     background-color: #0000001c;
 }
 
-.login-register-form div .submit-btn {
+.loginRegisterForm div .submit-btn {
     padding: 13px;
     background-color: #5ecf7a;
     width: 100%;

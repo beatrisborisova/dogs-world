@@ -1,5 +1,5 @@
 import './Create-Edit.css';
-import '../user/User.css'
+// import styles from '../user/User.module.css'
 import * as dogsService from '../../services/dogs';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -11,9 +11,7 @@ import { setDog } from '../../features/dogs';
 import { useDispatch, useSelector } from 'react-redux';
 
 export const Create = () => {
-    const [vaccinesSelectedOption, setVaccinesSelectedOption] = useState('yes');
-    const [typeSelectedOpion, setTypeSelectedOption] = useState('adopt');
-    const [genderSelectedOption, setGenderSelectedOption] = useState('male');
+
     const [imageUpload, setImageUpload] = useState(null);
     const [currentImageUrl, setCurrentImageUrl] = useState('');
     const [imageUrls, setImageUrls] = useState([]);
@@ -21,27 +19,39 @@ export const Create = () => {
     const dispatch = useDispatch();
     const user = useSelector(states => states.user.value.payload);
 
-    const uploadFile = () => {
+
+    const [breed, setBreed] = useState('');
+    const [age, setAge] = useState('');
+    const [vaccinesSelectedOption, setVaccinesSelectedOption] = useState('yes');
+    const [typeSelectedOpion, setTypeSelectedOption] = useState('adopt');
+    const [genderSelectedOption, setGenderSelectedOption] = useState('male');
+    const [description, setDescription] = useState('');
+
+    const uploadImg = () => {
         if (imageUpload == null) return;
         const imageRef = ref(storage, `dogs/${imageUpload.name + v4()}`);
-        uploadBytes(imageRef, imageUpload).then(res => {
-            getDownloadURL(res.ref).then((url) => {
-                setImageUrls(state => [...state, url]);
-                setCurrentImageUrl(url)
+        uploadBytes(imageRef, imageUpload)
+            .then(res => {
+                getDownloadURL(res.ref)
+                    .then((url) => {
+                        setImageUrls(state => [...state, url]);
+                        setCurrentImageUrl(url);
+                    });
             });
-        });
-    };
+    }
+
 
     const createDogHandler = async (e) => {
         e.preventDefault();
-        const formData = new FormData(e.target);
+
+
 
         const dog = {
-            breed: formData.get('breed'),
-            age: formData.get('age'),
+            breed,
+            age,
             gender: genderSelectedOption,
             vaccines: vaccinesSelectedOption,
-            description: formData.get('description'),
+            description,
             type: typeSelectedOpion,
             uploadImg: currentImageUrl
         }
@@ -53,19 +63,18 @@ export const Create = () => {
             })
             .catch((err) => console.log(err.message))
 
-
     }
 
-    const vaccinesChangeHandler = (value) => {
-        setVaccinesSelectedOption(value)
+    const typeChangeHandler = (e) => {
+        setTypeSelectedOption(e.target.value);
     }
 
-    const typeChangeHandler = (value) => {
-        setTypeSelectedOption(value);
+    const genderChangeHandler = (e) => {
+        setGenderSelectedOption(e.target.value);
     }
 
-    const genderChangeHandler = (value) => {
-        setGenderSelectedOption(value);
+    const vaccinesChangeHandler = (e) => {
+        setVaccinesSelectedOption(e.target.value);
     }
 
     return (
@@ -76,42 +85,39 @@ export const Create = () => {
                 <form onSubmit={createDogHandler} className="create-edit-form">
                     <div>
                         <label htmlFor='breed'>Breed:</label>
-                        <input type="text" name="breed" />
+                        <input type="text" name="breed" value={breed} onChange={(e) => setBreed(e.target.value)} />
                     </div>
                     <div>
                         <label htmlFor='age'>Age:</label>
-                        <input type="number" name="age" />
+                        <input type="number" name="age" value={age} onChange={(e) => setAge(e.target.value)} />
                     </div>
                     <div>
                         <label htmlFor='age'>Gender:</label>
-                        <input type="radio" name="gender" value="male" onChange={(e) => genderChangeHandler(e.target.value)} checked={genderSelectedOption === 'male'} /> Male
-                        <input type="radio" name="gender" value="female" onChange={(e) => genderChangeHandler(e.target.value)} checked={genderSelectedOption === 'female'} /> Female
-                    </div>
-                    <div>
-                        <label htmlFor='vaccines'>Vaccines:</label>
-                        <input type="radio" name="vaccines" value='yes' onChange={(e) => vaccinesChangeHandler(e.target.value)} checked={vaccinesSelectedOption === 'yes'} /> Yes
-                        <input type="radio" name="vaccines" value='no' onChange={(e) => vaccinesChangeHandler(e.target.value)} checked={vaccinesSelectedOption === 'no'} /> No
-                    </div>
-                    <div>
-                        <label htmlFor='description'>Description:</label>
-                        <input type="text" name="description" />
-                    </div>
-                    <div>
-                        <label htmlFor='type'>Type:</label>
-                        <input type="radio" name="type" value='adopt' onChange={(e) => typeChangeHandler(e.target.value)} checked={typeSelectedOpion === 'adopt'} /> Adopt
-                        <input type="radio" name="type" value='buy' onChange={(e) => typeChangeHandler(e.target.value)} checked={typeSelectedOpion === 'buy'} /> Buy
+                        <input type="radio" name="gender" value="male" onChange={genderChangeHandler} checked={genderSelectedOption === 'male'} /> Male
+                        <input type="radio" name="gender" value="female" onChange={genderChangeHandler} checked={genderSelectedOption === 'female'} /> Female
                     </div>
                     <div>
                         <label htmlFor='uploadImg'>Upload image:</label>
                         <input type="file" name="uploadImg" onChange={(e) => {
+                            uploadImg()
                             setImageUpload(e.target.files[0])
-                            console.log('imageUpload', imageUpload)
-                            uploadFile()
                         }} />
-                        {/* {imageUpload && <img src={imageUpload} alt='dog' />} */}
-                        {/* {imageUpload && console.log(imageUpload)} */}
-                        {/* <button onClick={uploadFile} type='button'> Upload Image</button> */}
                     </div>
+                    <div>
+                        <label htmlFor='vaccines'>Vaccines:</label>
+                        <input type="radio" name="vaccines" value='yes' onChange={vaccinesChangeHandler} checked={vaccinesSelectedOption === 'yes'} /> Yes
+                        <input type="radio" name="vaccines" value='no' onChange={vaccinesChangeHandler} checked={vaccinesSelectedOption === 'no'} /> No
+                    </div>
+                    <div>
+                        <label htmlFor='description'>Description:</label>
+                        <textarea type="text" name="description" value={description} onChange={(e) => setDescription(e.target.value)} />
+                    </div>
+                    <div>
+                        <label htmlFor='type'>Type:</label>
+                        <input type="radio" name="type" value='adopt' onChange={typeChangeHandler} checked={typeSelectedOpion === 'adopt'} /> Adopt
+                        <input type="radio" name="type" value='buy' onChange={typeChangeHandler} checked={typeSelectedOpion === 'buy'} /> Buy
+                    </div>
+
                     <div>
                         <input type="submit" value="Post a dog" className='submit-btn' />
                     </div>

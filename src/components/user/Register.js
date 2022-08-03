@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faKey } from '@fortawesome/free-solid-svg-icons';
 
-import './User.css';
+import styles from './User.module.css';
 import { NavLink, useNavigate } from 'react-router-dom';
 import * as userService from '../../services/user';
 import { useState } from 'react';
@@ -19,6 +19,16 @@ export const Register = () => {
     const [imageUpload, setImageUpload] = useState(null);
     const [currentImageUrl, setCurrentImageUrl] = useState('');
     const [imageUrls, setImageUrls] = useState([]);
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [repass, setRepass] = useState('');
+    const [name, setName] = useState('');
+    const [city, setCity] = useState('');
+    const [gender, setGender] = useState('');
+    const [genderSelectedOption, setGenderSelectedOption] = useState('');
+
+
     // const [currentUserProfile, setCurrentUserProfile] = useState(null);
 
     const dispatch = useDispatch();
@@ -26,13 +36,6 @@ export const Register = () => {
 
     const registerHandler = (e) => {
         e.preventDefault();
-        const formData = new FormData(e.target);
-        const email = formData.get('email');
-        const password = formData.get('password');
-        const name = formData.get('name');
-        const city = formData.get('city');
-        const gender = formData.get('gender');
-        const repass = formData.get('repass');
 
         if (password !== repass) {
             throw new Error('Passwords don\'t match')
@@ -69,40 +72,44 @@ export const Register = () => {
         });
     };
 
+    const genderChangeHandler = (e) => {
+        setGenderSelectedOption(e.target.value);
+    }
+
     return (
-        <div className='login-register-container'>
-            <div className='login-register-username-nav'>
+        <div className={styles.loginRegisterContainer}>
+            <div className={styles.loginRegisterUsernameNav}>
                 <NavLink to={'/login'} activeClass>Login</NavLink>
                 <NavLink to={'/register'}>Register</NavLink>
             </div>
-            <div className='login-register-content'>
-                <form onSubmit={registerHandler} className="login-register-form">
+            <div className={styles.loginRegisterContent}>
+                <form onSubmit={registerHandler} className={styles.loginRegisterForm}>
                     <div>
                         <FontAwesomeIcon icon={faUser} />
-                        <input type="text" placeholder='Email' name='email' />
+                        <input type="text" placeholder='Email' name='email' value={email} onChange={((e) => setEmail(e.target.value))} />
                     </div>
                     <div>
-                        <input type="text" placeholder='Name' name="name" />
+                        <input type="text" placeholder='Name' name="name" value={name} onChange={(e) => setName(e.target.value)} />
                     </div>
                     <div>
                         <input type="file" name="avatar" placeholder='Upload profile picture' onChange={(e) => setImageUpload(e.target.files[0])} />
                         <button onClick={uploadFile} type='button'> Upload Image</button>
                     </div>
                     <div>
-                        <input type="text" placeholder='City' name="city" />
+                        <input type="text" placeholder='City' name="city" value={city} onChange={(e) => setCity(e.target.city)} />
                     </div>
                     <div>
                         <label htmlFor='gender'>Gender: </label>
-                        <input type="radio" value="male" />Male
-                        <input type="radio" value="female" />Female
+                        <input type="radio" value="male" onChange={genderChangeHandler} checked={genderSelectedOption === 'male'} />Male
+                        <input type="radio" value="female" onChange={genderChangeHandler} checked={genderSelectedOption === 'male'} />Female
                     </div>
                     <div>
                         <FontAwesomeIcon icon={faKey} />
-                        <input type="password" placeholder='Password' name='password' />
+                        <input type="password" placeholder='Password' name='password' value={password} onChange={(e) => setPassword(e.target.city)} />
                     </div>
                     <div>
                         <FontAwesomeIcon icon={faKey} />
-                        <input type="password" placeholder='Repeat password' name='repass' />
+                        <input type="password" placeholder='Repeat password' name='repass' value={repass} onChange={(e) => setRepass(e.target.city)} />
                     </div>
                     <div>
                         <input type="submit" value="Register" className='submit-btn' />

@@ -1,4 +1,4 @@
-.create-edit-container{
+.create-edit-container {
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     width: 30%;
     margin: 0 auto;
@@ -45,4 +45,12 @@
     color: #ffffff;
     font-weight: bold;
     letter-spacing: 0.5px;
+}
+
+.edit-image-wrapper {
+    width: 200px;
+}
+
+.edit-image-wrapper img {
+    width: 100%;
 }

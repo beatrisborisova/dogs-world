@@ -1,4 +1,4 @@
-import './User.css';
+import styles from './User.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faKey } from '@fortawesome/free-solid-svg-icons';
 
@@ -23,7 +23,6 @@ export const Login = () => {
 
         userService.login(email, password)
             .then(res => {
-                console.log('res.user', res.user);
                 setLoginUser(res)
                 dispatch(login({ payload: { email: res.user.myUser.email, uid: res.user.uid }, type: 'LOGIN' }))
                 navigate('/')
@@ -32,14 +31,14 @@ export const Login = () => {
     }
 
     return (
-        <div className='login-register-container'>
-            <div className='login-register-main-content'>
-                <div className='login-register-username-nav'>
+        <div className={styles.loginRegisterContainer}>
+            <div className={styles.loginRegisterMainContent}>
+                <div className={styles.loginRegisterUsernameNav}>
                     <NavLink to={'/login'}>Login</NavLink>
                     <NavLink to={'/register'}>Register</NavLink>
                 </div>
-                <div className='login-register-content'>
-                    <form onSubmit={loginHandler} className="login-register-form">
+                <div className={styles.loginRegisterContent}>
+                    <form onSubmit={loginHandler} className={styles.loginRegisterForm}>
                         <div>
                             <FontAwesomeIcon icon={faUser} />
                             <input type="text" placeholder='Email' name='email' />
