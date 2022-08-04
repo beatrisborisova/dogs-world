@@ -96,7 +96,7 @@ export const Create = () => {
                         <label htmlFor='age'>Age:</label>
                         <input type="number" name="age" value={age} onChange={(e) => setAge(e.target.value)} />
                     </div>
-                    <div>
+                    <div className='radio-div-container'>
                         <label htmlFor='age'>Gender:</label>
                         <input type="radio" name="gender" value="male" onChange={genderChangeHandler} checked={genderSelectedOption === 'male'} /> Male
                         <input type="radio" name="gender" value="female" onChange={genderChangeHandler} checked={genderSelectedOption === 'female'} /> Female
@@ -108,7 +108,7 @@ export const Create = () => {
                     <button onClick={uploadFile} type='button' className='upload-btn'> Upload Image</button>
                     {succesfulUpload && <p className='success'>Image uploaded succesfully</p>}
 
-                    <div>
+                    <div className='radio-div-container'>
                         <label htmlFor='vaccines'>Vaccines:</label>
                         <input type="radio" name="vaccines" value='yes' onChange={vaccinesChangeHandler} checked={vaccinesSelectedOption === 'yes'} /> Yes
                         <input type="radio" name="vaccines" value='no' onChange={vaccinesChangeHandler} checked={vaccinesSelectedOption === 'no'} /> No
@@ -117,7 +117,7 @@ export const Create = () => {
                         <label htmlFor='description'>Description:</label>
                         <textarea type="text" name="description" value={description} onChange={(e) => setDescription(e.target.value)} />
                     </div>
-                    <div>
+                    <div className='radio-div-container'>
                         <label htmlFor='type'>Type:</label>
                         <input type="radio" name="type" value='adopt' onChange={typeChangeHandler} checked={typeSelectedOpion === 'adopt'} /> Adopt
                         <input type="radio" name="type" value='buy' onChange={typeChangeHandler} checked={typeSelectedOpion === 'buy'} /> Buy

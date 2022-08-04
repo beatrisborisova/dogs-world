@@ -109,7 +109,7 @@ export const Register = () => {
                     <div>
                         <input type="text" placeholder='City' name="city" value={city} onChange={(e) => setCity(e.target.city)} />
                     </div>
-                    <div>
+                    <div className='radio-div-container'>
                         <label htmlFor='gender'>Gender: </label>
                         <input type="radio" value="male" onChange={genderChangeHandler} checked={genderSelectedOption === 'male'} />Male
                         <input type="radio" value="female" onChange={genderChangeHandler} checked={genderSelectedOption === 'male'} />Female

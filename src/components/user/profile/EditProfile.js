@@ -81,6 +81,7 @@ export const EditProfile = () => {
     return (
         <>{currentUserData &&
             <form onSubmit={editProfileHandler} className={styles.profileText}>
+                <h2>Edit profile</h2>
                 <div>
                     <label htmlFor='name'>Name: </label>
                     <input type="text" name='name' value={name} onChange={(e) => setName(e.target.value)} />
@@ -96,13 +97,13 @@ export const EditProfile = () => {
                     <label htmlFor='city'>City: </label>
                     <input type="text" name='city' value={city} onChange={(e) => setCity(e.target.value)} />
                 </div>
-                <div>
+                <div className='radio-div-container'>
                     <label htmlFor='gender'>Gender: </label>
                     <input type="radio" value="male" name='gender' onChange={genderChangeHandler} checked={genderSelectedOption === 'male'} />Male
                     <input type="radio" value="female" name='gender' onChange={genderChangeHandler} checked={genderSelectedOption === 'female'} />Female
                 </div>
                 <div>
-                    <input type="submit" value="Save" className='submit-btn' />
+                    <button type="submit" className='btn-level-two' >Save</button>
                 </div>
             </form>
         }

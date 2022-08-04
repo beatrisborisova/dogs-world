@@ -11,6 +11,7 @@ import { motion } from 'framer-motion';
 import { DogContext } from '../../contexts/Dog';
 import { useSelector, useDispatch } from 'react-redux';
 import { setDog } from '../../features/dogs';
+import LinearColor from '../others/Linear';
 
 export const Edit = () => {
 
@@ -110,7 +111,7 @@ export const Edit = () => {
             <div className='create-edit-content'>
                 <h2>Edit</h2>
 
-                {isLoading && <div>Loading ... </div>}
+                {isLoading && <LinearColor />}
 
                 {!isLoading &&
                     <form onSubmit={editDogHandler} className="create-edit-form">
@@ -122,12 +123,12 @@ export const Edit = () => {
                             <label htmlFor='age'>Age:</label>
                             {dog && <input type="number" name="age" value={age} onChange={(e) => setAge(e.target.value)} />}
                         </div>
-                        <div>
+                        <div className='radio-div-container'>
                             <label htmlFor='age'>Gender:</label>
                             {dog && <input type="radio" name="gender" value='male' onChange={genderChangeHandler} checked={genderSelectedOption === 'male'} />} Male
                             {dog && <input type="radio" name="gender" value='female' onChange={genderChangeHandler} checked={genderSelectedOption === 'female'} />} Female
                         </div>
-                        <div>
+                        <div className='radio-div-container'>
                             <label htmlFor='vaccines'>Vaccines:</label>
                             {dog && <input type="radio" name="vaccines" value='yes' onChange={vaccinesChangeHandler} checked={vaccinesSelectedOption === 'yes'} />} Yes
                             {dog && <input type="radio" name="vaccines" value='no' onChange={vaccinesChangeHandler} checked={vaccinesSelectedOption === 'no'} />} No
@@ -151,14 +152,14 @@ export const Edit = () => {
                             {dog && <textarea type="text" name="description" value={description} onChange={(e) => setDescription(e.target.value)} />}
 
                         </div>
-                        <div>
+                        <div className='radio-div-container'>
                             <label htmlFor='type'>Type:</label>
                             {dog && <input type="radio" name="type" value='adopt' onChange={typeChangeHandler} checked={typeSelectedOpion === 'adopt'} />} Adopt
                             {dog && <input type="radio" name="type" value='buy' onChange={typeChangeHandler} checked={typeSelectedOpion === 'buy'} />} Buy
                         </div>
 
                         <div>
-                            <input type="submit" value="Save" className='submit-btn' />
+                            <button type="submit" className='btn-level-two'>Save</button>
                         </div>
                     </form>
                 }
