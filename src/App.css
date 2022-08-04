@@ -125,3 +125,7 @@ main {
   width: fit-content;
   padding: 10px 0;
 }
+
+.radio-div-container input {
+  padding: 5px;
+}

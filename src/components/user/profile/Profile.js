@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import * as userService from '../../../services/user';
+import CircularColor from '../../others/Spinner';
 
 export const Profile = () => {
 
@@ -23,16 +24,19 @@ export const Profile = () => {
                 {currentUser && <img src={currentUser.avatar} alt="user" />}
             </div>
             <div className={styles.profileContent}>
-                <div className={userStyles.loginRegisterUsernameNav}>
+                <div className={userStyles.loginRegisterUserNav}>
                     <Link to={'/my-dogs'}>My dogs</Link>
                     <Link to={'/edit-profile'}>Edit profile</Link>
                 </div>
-                <div className={styles.profileText}>
-                    <h2>Name: {currentUser && <span>{currentUser.name}</span>} {!currentUser && <span>NOT SET</span>}</h2>
-                    <p>email: {currentUser && <span>{currentUser.email}</span>} {!currentUser && <span>NOT SET</span>}</p>
-                    <p>city: {currentUser && <span>{currentUser.city}</span>} {!currentUser && <span>NOT SET</span>}</p>
-                    <p>gender:{currentUser && <span>{currentUser.gender}</span>} {!currentUser && <span>NOT SET</span>}</p>
-                </div>
+                {currentUser &&
+                    <div className={styles.profileText}>
+                        <h2><b>Name: </b><span>{currentUser.name}</span></h2>
+                        <p><b>Email: </b><span>{currentUser.email}</span></p>
+                        <p><b>City: </b> <span>{currentUser.city}</span></p>
+                        <p><b>Gender: </b><span>{currentUser.gender}</span></p>
+                    </div>
+                }
+                {!currentUser && <CircularColor />}
             </div>
         </div>
     )
