@@ -1,7 +1,7 @@
 import './Create-Edit.css';
 // import styles from '../user/User.module.css'
 import * as dogsService from '../../services/dogs';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { storage } from '../../firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
@@ -26,8 +26,15 @@ export const Create = () => {
     const [typeSelectedOpion, setTypeSelectedOption] = useState('adopt');
     const [genderSelectedOption, setGenderSelectedOption] = useState('male');
     const [description, setDescription] = useState('');
+    const [succesfulUpload, setSuccesfulUplaod] = useState(false);
 
-    const uploadImg = () => {
+    useEffect(() => {
+        if (currentImageUrl) {
+            setSuccesfulUplaod(true);
+        }
+    }, [currentImageUrl])
+
+    const uploadFile = () => {
         if (imageUpload == null) return;
         const imageRef = ref(storage, `dogs/${imageUpload.name + v4()}`);
         uploadBytes(imageRef, imageUpload)
@@ -43,8 +50,6 @@ export const Create = () => {
 
     const createDogHandler = async (e) => {
         e.preventDefault();
-
-
 
         const dog = {
             breed,
@@ -98,11 +103,11 @@ export const Create = () => {
                     </div>
                     <div>
                         <label htmlFor='uploadImg'>Upload image:</label>
-                        <input type="file" name="uploadImg" onChange={(e) => {
-                            uploadImg()
-                            setImageUpload(e.target.files[0])
-                        }} />
+                        <input type="file" name="uploadImg" onChange={(e) => setImageUpload(e.target.files[0])} />
                     </div>
+                    <button onClick={uploadFile} type='button' className='upload-btn'> Upload Image</button>
+                    {succesfulUpload && <p className='success'>Image uploaded succesfully</p>}
+
                     <div>
                         <label htmlFor='vaccines'>Vaccines:</label>
                         <input type="radio" name="vaccines" value='yes' onChange={vaccinesChangeHandler} checked={vaccinesSelectedOption === 'yes'} /> Yes

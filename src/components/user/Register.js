@@ -4,7 +4,7 @@ import { faUser, faKey } from '@fortawesome/free-solid-svg-icons';
 import styles from './User.module.css';
 import { NavLink, useNavigate } from 'react-router-dom';
 import * as userService from '../../services/user';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { register } from '../../features/user';
 import { userProfile } from '../../features/userProfile';
@@ -27,12 +27,21 @@ export const Register = () => {
     const [city, setCity] = useState('');
     const [gender, setGender] = useState('');
     const [genderSelectedOption, setGenderSelectedOption] = useState('');
+    const [succesfulUpload, setSuccesfulUplaod] = useState(false);
+
 
 
     // const [currentUserProfile, setCurrentUserProfile] = useState(null);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (currentImageUrl) {
+            setSuccesfulUplaod(true);
+        }
+    }, [currentImageUrl])
+
 
     const registerHandler = (e) => {
         e.preventDefault();
@@ -78,7 +87,7 @@ export const Register = () => {
 
     return (
         <div className={styles.loginRegisterContainer}>
-            <div className={styles.loginRegisterUsernameNav}>
+            <div className={styles.loginRegisterUserNav}>
                 <NavLink to={'/login'} activeClass>Login</NavLink>
                 <NavLink to={'/register'}>Register</NavLink>
             </div>
@@ -93,8 +102,10 @@ export const Register = () => {
                     </div>
                     <div>
                         <input type="file" name="avatar" placeholder='Upload profile picture' onChange={(e) => setImageUpload(e.target.files[0])} />
-                        <button onClick={uploadFile} type='button'> Upload Image</button>
                     </div>
+                    <button onClick={uploadFile} type='button' className='upload-btn'>Upload avatar</button>
+                    {succesfulUpload && <p className='success'>Avatar uploaded succesfully</p>}
+
                     <div>
                         <input type="text" placeholder='City' name="city" value={city} onChange={(e) => setCity(e.target.city)} />
                     </div>

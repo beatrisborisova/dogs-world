@@ -97,3 +97,24 @@ main {
   color: #000000;
 
 }
+
+/* SUCCESS MESSAGE */
+
+.success {
+  color: #46a918;
+}
+
+.error {
+  color: #e71c1c;
+}
+
+/* UPLOAD Btn */
+
+.upload-btn {
+  border: none;
+  padding: 5px;
+  margin: 5px;
+  background-color: #ffe469;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+
+}

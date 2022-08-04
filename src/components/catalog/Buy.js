@@ -42,11 +42,10 @@ export const Buy = ({ dogsPerPage }) => {
             })
             .catch(err => console.log(err.message))
             .finally(() => {
-                setDogs(null)
                 setIsLoading(false)
             })
 
-        if (endOffset > 4) {
+        if (dogs.length > 4) {
             setShowPagination(true);
         }
 

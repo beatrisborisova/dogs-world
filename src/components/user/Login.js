@@ -33,7 +33,7 @@ export const Login = () => {
     return (
         <div className={styles.loginRegisterContainer}>
             <div className={styles.loginRegisterMainContent}>
-                <div className={styles.loginRegisterUsernameNav}>
+                <div className={styles.loginRegisterUserNav}>
                     <NavLink to={'/login'}>Login</NavLink>
                     <NavLink to={'/register'}>Register</NavLink>
                 </div>

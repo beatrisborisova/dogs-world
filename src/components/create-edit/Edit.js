@@ -34,7 +34,7 @@ export const Edit = () => {
     const [typeSelectedOpion, setTypeSelectedOption] = useState('');
     const [genderSelectedOption, setGenderSelectedOption] = useState('');
     const [description, setDescription] = useState('');
-
+    const [succesfulUpload, setSuccesfulUplaod] = useState(false);
 
     useEffect(() => {
         dogsService.getDogById(dogState.id)
@@ -52,17 +52,28 @@ export const Edit = () => {
     }, [])
 
 
-    const editDogHandler = (e) => {
-        e.preventDefault();
+    useEffect(() => {
+        if (currentImageUrl) {
+            setSuccesfulUplaod(true);
+        }
+    }, [currentImageUrl])
 
+    const uploadFile = () => {
         if (imageUpload == null) return;
         const imageRef = ref(storage, `dogs/${imageUpload.name + v4()}`);
-        uploadBytes(imageRef, imageUpload).then(res => {
-            getDownloadURL(res.ref).then((url) => {
-                setImageUrls(state => [...state, url]);
-                setCurrentImageUrl(url)
+        uploadBytes(imageRef, imageUpload)
+            .then(res => {
+                getDownloadURL(res.ref)
+                    .then((url) => {
+                        setImageUrls(state => [...state, url]);
+                        setCurrentImageUrl(url);
+                    });
             });
-        });
+    }
+
+
+    const editDogHandler = (e) => {
+        e.preventDefault();
 
         const newDogData = {
             breed,
@@ -73,10 +84,6 @@ export const Edit = () => {
             type: typeSelectedOpion,
             uploadImg: currentImageUrl
         }
-
-        console.log('newDogData', newDogData);
-        console.log('dogState.id', dogState.id);
-        console.log('dog.comments', dog.comments)
 
         dogsService.editDog(dogState.id, newDogData, dog.comments)
             .then((res) => {
@@ -100,7 +107,6 @@ export const Edit = () => {
 
     return (
         <motion.div className='create-edit-container' initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-            <p>TO BE CHANGED TO CONTROLLED FORM</p>
             <div className='create-edit-content'>
                 <h2>Edit</h2>
 
@@ -132,14 +138,13 @@ export const Edit = () => {
                                 <>
                                     <div className='edit-image-wrapper'>
                                         <img src={currentImageUrl} alt="dog" />
-                                        {console.log('currentImageUrl', currentImageUrl)}
                                     </div>
-                                    <input type="file" name="uploadImg" onChange={(e) => {
-                                        setImageUpload(e.target.files[0])
-                                    }} />
+                                    <input type="file" name="uploadImg" onChange={(e) => setImageUpload(e.target.files[0])} />
                                 </>
                             }
                         </div>
+                        <button onClick={uploadFile} type='button' className='upload-btn'> Upload Image</button>
+                        {succesfulUpload && <p className='success'>Image uploaded succesfully</p>}
 
                         <div>
                             <label htmlFor='description'>Description:</label>

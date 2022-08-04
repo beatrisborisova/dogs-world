@@ -23,6 +23,8 @@ export const EditProfile = () => {
     const [gender, setGender] = useState('');
     const [genderSelectedOption, setGenderSelectedOption] = useState('');
     const [isLoading, setIsLoading] = useState(true);
+    const [succesfulUpload, setSuccesfulUplaod] = useState(false);
+
 
     const user = useSelector((states) => states.user.value.payload);
     const navigate = useNavigate();
@@ -39,7 +41,11 @@ export const EditProfile = () => {
             })
     }, [])
 
-
+    useEffect(() => {
+        if (currentImageUrl) {
+            setSuccesfulUplaod(true);
+        }
+    }, [currentImageUrl])
 
     const uploadFile = () => {
         if (imageUpload == null) return;
@@ -82,8 +88,10 @@ export const EditProfile = () => {
                 <div>
                     <label htmlFor='avatar'>Avatar: </label>
                     <input type="file" name="avatar" placeholder='Upload profile picture' onChange={(e) => setImageUpload(e.target.files[0])} />
-                    <button onClick={uploadFile} type='button'> Upload Image</button>
                 </div>
+                <button onClick={uploadFile} type='button' className='upload-btn'>Upload avatar</button>
+                {succesfulUpload && <p className='success'>Avatar uploaded succesfully</p>}
+
                 <div>
                     <label htmlFor='city'>City: </label>
                     <input type="text" name='city' value={city} onChange={(e) => setCity(e.target.value)} />

@@ -40,12 +40,11 @@ export const MyDogs = ({ dogsPerPage }) => {
             })
             .catch(err => console.log(err.message))
             .finally(() => {
-                // setMyDogs(null)
                 setIsLoading(false)
             })
 
 
-        if (endOffset > 4) {
+        if (myDogs.length > 4) {
             setShowPagination(true);
         }
 
