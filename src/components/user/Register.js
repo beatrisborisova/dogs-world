@@ -12,6 +12,38 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { v4 } from 'uuid';
 import { storage } from '../../firebase';
 
+const validateEmail = require("email-validator");
+
+const errorsInitialState = {
+    email: {
+        isValid: '',
+        value: ''
+    },
+    password: {
+        isValid: '',
+        value: ''
+    },
+    repass: {
+        isValid: '',
+        value: ''
+    },
+    name: {
+        isValid: '',
+        value: ''
+    },
+    gender: {
+        isValid: '',
+        value: ''
+    },
+    avatar: {
+        isValid: '',
+        value: ''
+    },
+    city: {
+        isValid: '',
+        value: ''
+    },
+}
 
 export const Register = () => {
 
@@ -26,8 +58,10 @@ export const Register = () => {
     const [name, setName] = useState('');
     const [city, setCity] = useState('');
     const [gender, setGender] = useState('');
-    const [genderSelectedOption, setGenderSelectedOption] = useState('');
+    const [genderSelectedOption, setGenderSelectedOption] = useState('male');
     const [succesfulUpload, setSuccesfulUplaod] = useState(false);
+
+    const [errors, setErrors] = useState(errorsInitialState);
 
 
 
@@ -42,12 +76,13 @@ export const Register = () => {
         }
     }, [currentImageUrl])
 
-
     const registerHandler = (e) => {
         e.preventDefault();
 
         if (password !== repass) {
-            throw new Error('Passwords don\'t match')
+            setErrors(oldState => {
+                return { ...oldState, password: { isValid: false, value: 'Passwords don\'t match' } }
+            })
         }
 
         const user = {
@@ -61,6 +96,7 @@ export const Register = () => {
 
         userService.register(user)
             .then(res => {
+                console.log('myUser', res);
                 setRegisterUser(res.myUser)
                 dispatch(register({ payload: { email: res.myUser.email, uid: res.myUser.uid }, type: 'REGISTER' }))
                 dispatch(userProfile({ payload: { email: res.myUser.email, name, avatar: currentImageUrl, city, gender }, type: 'USER PROFILE' }))
@@ -85,6 +121,72 @@ export const Register = () => {
         setGenderSelectedOption(e.target.value);
     }
 
+    const emailValidator = (e) => {
+        if (e.target.value === "") {
+            setErrors(oldState => {
+                return { ...oldState, email: { isValid: false, value: 'Email fiels is required' } }
+            })
+        } else if (!validateEmail.validate(e.target.value)) {
+            setErrors(oldState => {
+                return { ...oldState, email: { isValid: false, value: 'Email must be in a format xxx@xxx.xxx' } }
+            })
+        } else {
+            setErrors(oldState => {
+                return { ...oldState, email: { isValid: true, value: '' } }
+            })
+        }
+    }
+
+    const nameValidator = (e) => {
+        const namePattern = /[A-Z]\w+ [A-Z]\w+/;
+        if (e.target.value === "") {
+            setErrors(oldState => {
+                return { ...oldState, name: { isValid: false, value: 'Name field is required' } }
+            })
+        } else if (!namePattern.test(e.target.value)) {
+            setErrors(oldState => {
+                return { ...oldState, name: { isValid: false, value: 'Name must be in format Firstname Lastname' } }
+            })
+        } else {
+            setErrors(oldState => {
+                return { ...oldState, name: { isValid: true, value: '' } }
+            })
+        }
+    }
+
+    const passwordValidator = (e) => {
+
+        if (e.target.value === "") {
+            setErrors(oldState => {
+                return { ...oldState, password: { isValid: false, value: 'Password fields are required' } }
+            })
+        } else if (e.target.value.length < 6) {
+            setErrors(oldState => {
+                return { ...oldState, password: { isValid: false, value: 'Password must be at least 6 characters long' } }
+            })
+        } else {
+            setErrors(oldState => {
+                return { ...oldState, password: { isValid: true, value: '' } }
+            })
+        }
+    }
+
+    const cityValidator = (e) => {
+        if (e.target.value === "") {
+            setErrors(oldState => {
+                return { ...oldState, city: { isValid: false, value: 'City field is required' } }
+            })
+        } else if (e.target.value.length < 3) {
+            setErrors(oldState => {
+                return { ...oldState, city: { isValid: false, value: 'City name must be at leas 3 characters long' } }
+            })
+        } else {
+            setErrors(oldState => {
+                return { ...oldState, city: { isValid: true, value: '' } }
+            })
+        }
+    }
+
     return (
         <div className={styles.loginRegisterContainer}>
             <div className={styles.loginRegisterUserNav}>
@@ -95,10 +197,12 @@ export const Register = () => {
                 <form onSubmit={registerHandler} className={styles.loginRegisterForm}>
                     <div>
                         <FontAwesomeIcon icon={faUser} />
-                        <input type="text" placeholder='Email' name='email' value={email} onChange={((e) => setEmail(e.target.value))} />
+                        <input type="text" placeholder='Email' name='email' value={email} onChange={((e) => setEmail(e.target.value))} onBlur={emailValidator} />
+                        {!errors.email.isValid && <p className='error'>{errors.email.value}</p>}
                     </div>
                     <div>
-                        <input type="text" placeholder='Name' name="name" value={name} onChange={(e) => setName(e.target.value)} />
+                        <input type="text" placeholder='Name' name="name" value={name} onChange={(e) => setName(e.target.value)} onBlur={nameValidator} />
+                        {!errors.name.isValid && <p className='error'>{errors.name.value}</p>}
                     </div>
                     <div>
                         <input type="file" name="avatar" placeholder='Upload profile picture' onChange={(e) => setImageUpload(e.target.files[0])} />
@@ -107,20 +211,23 @@ export const Register = () => {
                     {succesfulUpload && <p className='success'>Avatar uploaded succesfully</p>}
 
                     <div>
-                        <input type="text" placeholder='City' name="city" value={city} onChange={(e) => setCity(e.target.city)} />
+                        <input type="text" placeholder='City' name="city" value={city} onChange={(e) => setCity(e.target.value)} onBlur={cityValidator} />
+                        {!errors.city.isValid && <p className='error'>{errors.city.value}</p>}
                     </div>
                     <div className='radio-div-container'>
                         <label htmlFor='gender'>Gender: </label>
                         <input type="radio" value="male" onChange={genderChangeHandler} checked={genderSelectedOption === 'male'} />Male
-                        <input type="radio" value="female" onChange={genderChangeHandler} checked={genderSelectedOption === 'male'} />Female
+                        <input type="radio" value="female" onChange={genderChangeHandler} checked={genderSelectedOption === 'female'} />Female
                     </div>
                     <div>
                         <FontAwesomeIcon icon={faKey} />
-                        <input type="password" placeholder='Password' name='password' value={password} onChange={(e) => setPassword(e.target.city)} />
+                        <input type="password" placeholder='Password' name='password' value={password} onChange={(e) => setPassword(e.target.value)} onBlur={passwordValidator} />
+                        {/* {!errors.password.isValid && <p className='error'>{errors.password.value}</p>} */}
                     </div>
                     <div>
                         <FontAwesomeIcon icon={faKey} />
-                        <input type="password" placeholder='Repeat password' name='repass' value={repass} onChange={(e) => setRepass(e.target.city)} />
+                        <input type="password" placeholder='Repeat password' name='repass' value={repass} onChange={(e) => setRepass(e.target.value)} onBlur={passwordValidator} />
+                        {!errors.password.isValid && <p className='error'>{errors.password.value}</p>}
                     </div>
                     <div>
                         <input type="submit" value="Register" className='submit-btn' />

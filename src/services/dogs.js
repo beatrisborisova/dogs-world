@@ -1,6 +1,18 @@
 import { addDoc, collection, deleteDoc, doc, getDocs, setDoc, updateDoc } from "firebase/firestore";
 import { database } from '../firebase';
 import { getUser } from "./user";
+import { toast } from 'react-toastify';
+
+const toastSettings = {
+    position: "top-right",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: 'colored'
+}
 
 const getDogImage = () => {
     return fetch('https://dog.ceo/api/breeds/image/random')
@@ -17,6 +29,7 @@ const getAllDogs = async () => {
             console.log(`${doc.id} => ${doc.data()}`);
         });
     } catch (err) {
+        toast.error("Cannot open catalog", toastSettings)
         throw new Error('Cannot get all dogs');
     }
 }
@@ -31,6 +44,7 @@ const getAllAdopt = async () => {
         });
         return results.map(([id, v]) => Object.assign({}, { id }, v));
     } catch (err) {
+        toast.error("Cannot open adopt catalog", toastSettings)
         throw new Error('Cannot get all ADOPT dogs');
     }
 }
@@ -45,6 +59,7 @@ const getAllBuy = async () => {
         });
         return results.map(([id, v]) => Object.assign({}, { id }, v));
     } catch (err) {
+        toast.error("Cannot open buy catalog", toastSettings)
         throw new Error('Cannot get all BUY dogs');
     }
 }
@@ -65,6 +80,7 @@ const getDogById = async (dogId) => {
 
         return dog;
     } catch (err) {
+        toast.error("Cannot find item with this ID", toastSettings)
         throw new Error('No item with this ID');
     }
 }
@@ -108,10 +124,11 @@ const createDog = async (dog) => {
             comments: [],
             creatorId: getUser()
         });
-        console.log('Document written with ID: ', docRef.id);
+        toast.success("Successfully created dog", toastSettings)
         return docRef;
 
     } catch (err) {
+        toast.error("Cannot create dog", toastSettings)
         throw new Error('Cannot create entry.');
     }
 }
@@ -135,9 +152,10 @@ const editDog = async (dogId, dog, comments) => {
             const docRef = doc(database, "buy", dogId);
             await setDoc(docRef, editedDog);
         }
-
+        toast.success("Successfully edited dog", toastSettings)
         return docRef;
     } catch (err) {
+        toast.error("Cannot edit dog", toastSettings)
         throw new Error('Cannot edit entry with ID: ', dog.id)
     }
 }
@@ -152,7 +170,11 @@ const deleteDog = async (dogId, dog) => {
         } else if (dog.dog.dog.type === 'buy') {
             await deleteDoc(doc(database, "buy", dogId));
         }
+
+        toast.success("Successfully deleted dog", toastSettings)
+
     } catch (err) {
+        toast.error("Cannot delete dog", toastSettings)
         throw new Error('Cannot delete entry with ID: ', dog.id)
     }
 
@@ -174,8 +196,11 @@ const addComment = async (dogId, dog, oldComments, comment) => {
             const docRef = doc(database, "buy", dogId);
             await updateDoc(docRef, editedDog);
         }
+
+        toast.success("Successfully added comment", toastSettings)
         return docRef;
     } catch (err) {
+        toast.error("Cannot add comment", toastSettings)
         throw new Error('Cannot edit entry with ID: ', dogId)
     }
 }

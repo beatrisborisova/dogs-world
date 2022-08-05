@@ -1,6 +1,6 @@
 import styles from './User.module.css';
 import "react-toastify/dist/ReactToastify.css"
-
+import { toast } from 'react-toastify';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faKey } from '@fortawesome/free-solid-svg-icons';
@@ -30,17 +30,18 @@ export const Login = () => {
                 dispatch(login({ payload: { email: res.user.myUser.email, uid: res.user.uid }, type: 'LOGIN' }))
                 navigate('/')
             })
-            .catch(err => console.log(err.message))
+            .catch()
+
     }
 
     return (
         <div className={styles.loginRegisterContainer}>
-            <ToastContainer />
             <div className={styles.loginRegisterMainContent}>
                 <div className={styles.loginRegisterUserNav}>
                     <NavLink to={'/login'}>Login</NavLink>
                     <NavLink to={'/register'}>Register</NavLink>
                 </div>
+
                 <div className={styles.loginRegisterContent}>
                     <form onSubmit={loginHandler} className={styles.loginRegisterForm}>
                         <div>

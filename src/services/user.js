@@ -1,33 +1,22 @@
 import {
-    getAuth, signInWithEmailAndPassword, signInWithPopup,
-    GoogleAuthProvider, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut
+    getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut
 } from 'firebase/auth';
-import { addDoc, collection, doc, getDocs, query, setDoc, where } from 'firebase/firestore';
+
+import { collection, doc, getDocs, setDoc } from 'firebase/firestore';
+import { toast } from 'react-toastify';
 import { app, database } from '../firebase';
 
 const auth = getAuth(app);
-
-const googleProvider = new GoogleAuthProvider();
-
-const signInWithGoogle = async () => {
-    try {
-        const res = await signInWithPopup(auth, googleProvider);
-        const user = res.user;
-        const q = query(collection(database, "users"), where("uid", "==", user.uid));
-        const docs = await getDocs(q);
-        if (docs.docs.length === 0) {
-            await addDoc(collection(database, "users"), {
-                uid: user.uid,
-                name: user.displayName,
-                authProvider: "google",
-                email: user.email,
-            });
-        }
-    } catch (err) {
-        console.error(err);
-        alert(err.message);
-    }
-};
+const toastSettings = {
+    position: "top-right",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: 'colored'
+}
 
 const login = async (email, password) => {
     try {
@@ -45,14 +34,15 @@ const login = async (email, password) => {
             }
         });
         sessionStorage.setItem('currentUserId', myUser.uid)
+        toast.success("Successfully logged in", toastSettings)
         return myUser;
     } catch (err) {
-        console.error(err);
-        alert(err.message);
+        toast.error("Unsuccessful login", toastSettings)
     }
 };
 
 const register = async ({ email, password, name, avatar, city, gender }) => {
+    console.log('{ email, password, name, avatar, city, gender }', { email, password, name, avatar, city, gender });
     try {
         const res = await createUserWithEmailAndPassword(auth, email, password);
         const user = res.user;
@@ -68,26 +58,18 @@ const register = async ({ email, password, name, avatar, city, gender }) => {
         const docRef = doc(database, "users", user.uid);
         await setDoc(docRef, { myUser, uid: docRef.id });
         sessionStorage.setItem('currentUserId', docRef.id)
+        console.log('myUser', myUser);
+        toast.success("Successfully registered", toastSettings)
         return { myUser, docRef };
         // return myUser;
     } catch (err) {
-        console.error(err);
-        alert(err.message);
-    }
-};
-
-const sendPasswordReset = async (email) => {
-    try {
-        await sendPasswordResetEmail(auth, email);
-        alert("Password reset link sent!");
-    } catch (err) {
-        console.error(err);
-        alert(err.message);
+        toast.error("Unsuccessful register", toastSettings)
     }
 };
 
 const logout = () => {
     signOut(auth);
+    toast.success("Successfully logged out", toastSettings)
     sessionStorage.removeItem('currentUserId')
 };
 
@@ -111,6 +93,7 @@ const getUserData = async (userId) => {
         });
         return myUser;
     } catch (err) {
+        toast.error("Unsuccessful request", toastSettings)
         throw new Error('No user with this ID');
     }
 }
@@ -136,18 +119,18 @@ const editProfile = async (user, userId) => {
         sessionStorage.setItem('currentUserId', docRef.id)
         await setDoc(docRef, editedUser);
         // return docRef;
+        toast.success("Profile edited successfully", toastSettings)
         return { editedUser, docRef };
     } catch (err) {
+        toast.error("Unsuccessful edit", toastSettings)
         throw new Error('Cannot edit entry with ID: ', userId)
     }
 }
 
 export {
     auth,
-    signInWithGoogle,
     login,
     register,
-    sendPasswordReset,
     logout,
     getUser,
     getUserData,

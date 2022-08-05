@@ -31,6 +31,7 @@ const errorsInitialState = {
     },
 }
 
+// TODO: To be removed or made as a abstract validator
 
 export const Error = ({ type, value }) => {
     const [errors, setErrors] = useState(errorsInitialState);
