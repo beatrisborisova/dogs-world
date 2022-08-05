@@ -13,16 +13,18 @@
 .loginRegisterUserNav {
     border: none;
     /* border-top: 2px solid #5ecf7a; */
-    background-color: #ffffffa6;
+    background-color: #6dc561a6;
     padding: 10px;
 
     display: flex;
     justify-content: space-evenly;
 }
 
+
 .loginRegisterUserNav a {
     text-decoration: none;
     color: #000000;
+    width: 100%;
 }
 
 /* TODO: Active style does not apply */

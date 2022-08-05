@@ -3,8 +3,9 @@ header, footer {
     justify-content: space-between;
     align-items: center;
     padding: 20px;
+    background-color: #f5f5dc;
     /* сянката не се ъплайва на хедъра */
-    box-shadow: 0px 8px 17px 0px rgba(0,0,0,0.52);
+    box-shadow: 0px 8px 17px 0px rgba(0, 0, 0, 0.52);
 }
 
 header a.active {
@@ -24,7 +25,7 @@ header a.active {
     align-items: center;
 }
 
-.dropbtn, .navigation-list a, .user-navigation-list a{
+.dropbtn, .navigation-list a, .user-navigation-list a {
     background-color: transparent;
     color: #000000;
     padding: 16px;

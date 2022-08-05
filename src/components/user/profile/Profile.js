@@ -20,23 +20,25 @@ export const Profile = () => {
 
     return (
         <div className={styles.profileContainer}>
-            <div className={styles.imageWrapperProfile}>
-                {currentUser && <img src={currentUser.avatar} alt="user" />}
-            </div>
-            <div className={styles.profileContent}>
-                <div className={userStyles.loginRegisterUserNav}>
-                    <Link to={'/my-dogs'}>My dogs</Link>
-                    <Link to={'/edit-profile'}>Edit profile</Link>
+            <div className={styles.profileMainContent}>
+                <div className={styles.imageWrapperProfile}>
+                    {currentUser && <img src={currentUser.avatar} alt="user" />}
                 </div>
-                {currentUser &&
-                    <div className={styles.profileText}>
-                        <h2><b>Name: </b><span>{currentUser.name}</span></h2>
-                        <p><b>Email: </b><span>{currentUser.email}</span></p>
-                        <p><b>City: </b> <span>{currentUser.city}</span></p>
-                        <p><b>Gender: </b><span>{currentUser.gender}</span></p>
+                <div className={styles.profileContent}>
+                    <div className={userStyles.loginRegisterUserNav}>
+                        <span className={styles.myDogsLinkContainer}><Link to={'/my-dogs'}>My dogs</Link></span>
+                        <span className={styles.myDogsEditProfileContainer}><Link to={'/edit-profile'}>Edit profile</Link></span>
                     </div>
-                }
-                {!currentUser && <CircularColor />}
+                    {currentUser &&
+                        <div className={styles.profileText}>
+                            <h2><span>{currentUser.name}</span></h2>
+                            <p><b>Email: </b><span>{currentUser.email}</span></p>
+                            <p><b>City: </b> <span>{currentUser.city}</span></p>
+                            <p><b>Gender: </b><span>{currentUser.gender}</span></p>
+                        </div>
+                    }
+                    {!currentUser && <CircularColor />}
+                </div>
             </div>
         </div>
     )

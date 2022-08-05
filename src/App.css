@@ -3,7 +3,9 @@
 }
 
 main {
-  background-color: aquamarine;
+  background-image: url('./assets/images/createBackground.jpg');
+
+  /* background-color: aquamarine; */
 }
 
 .btn-level-one {
