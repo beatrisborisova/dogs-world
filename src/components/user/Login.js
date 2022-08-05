@@ -1,4 +1,7 @@
 import styles from './User.module.css';
+import "react-toastify/dist/ReactToastify.css"
+
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faKey } from '@fortawesome/free-solid-svg-icons';
 
@@ -32,6 +35,7 @@ export const Login = () => {
 
     return (
         <div className={styles.loginRegisterContainer}>
+            <ToastContainer />
             <div className={styles.loginRegisterMainContent}>
                 <div className={styles.loginRegisterUserNav}>
                     <NavLink to={'/login'}>Login</NavLink>
