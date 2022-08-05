@@ -20,6 +20,8 @@ export const DogProvider = ({ children }) => {
     const locationDogId = location.pathname.split('/');
     const dogId = locationDogId[locationDogId.length - 1];
 
+    console.log('sogId', dogId);
+
     useEffect(() => {
         dogService.getDogById(dogId)
             .then(res => setDogState(res))

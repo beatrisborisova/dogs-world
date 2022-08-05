@@ -46,6 +46,7 @@ export const Adopt = ({ dogsPerPage }) => {
 
     }, [itemOffset])
 
+
     const handlePageClick = (e) => {
         const newOffset = e.selected * dogsPerPage % dogs.length;
         setItemOffset(newOffset);

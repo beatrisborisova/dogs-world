@@ -31,7 +31,7 @@ export const DogFlyer = ({ state }) => {
                         dispatch(removeDog())
                     }} className="btn-level-two close">CLOSE</motion.button>
                     <motion.button onClick={() => {
-                        navigate(`${dogId}`, { currentDog, dogId });
+                        navigate(`/catalog/my-dogs/${dogId}`, { currentDog, dogId });
                         dispatch(setDog({ payload: { dog: currentDog, id: dogId, creatorId: state.creatorId }, type: 'SET DOG' }));
                     }} className="btn-level-two">More details</motion.button>
                 </motion.div>

@@ -20,11 +20,15 @@ export const DogContextRoutes = () => {
         <DogProvider>
             <Routes >
                 <Route element={<ProtectedRoute data={{ user, redirectPath: 'login' }} />}>
-                    <Route path='catalog/buy/:id' element={<DogDetails />} />
+                    <Route path='buy/:id' element={<DogDetails />} />
                 </Route>
 
                 <Route element={<ProtectedRoute data={{ user, redirectPath: 'login' }} />}>
-                    <Route path='catalog/adopt/:id' element={<DogDetails />} />
+                    <Route path='adopt/:id' element={<DogDetails />} />
+                </Route>
+
+                <Route element={<ProtectedRoute data={{ user, redirectPath: 'login' }} />}>
+                    <Route path='edit/:id' element={<Edit />} />
                 </Route>
 
                 <Route element={<ProtectedRoute data={{ user, redirectPath: 'login' }} />}>
@@ -34,8 +38,6 @@ export const DogContextRoutes = () => {
                 <Route element={<ProtectedRoute data={{ user, redirectPath: 'login' }} />}>
                     <Route path='my-dogs/:id' element={<DogDetails />} />
                 </Route>
-
-
             </Routes >
         </DogProvider>
     )

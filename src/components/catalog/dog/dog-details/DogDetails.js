@@ -28,6 +28,7 @@ export const DogDetails = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        // dogsService.getDogById(stateDog.id)
         dogsService.getDogById(stateDog.id)
             .then(res => {
                 setDog(res)
@@ -110,7 +111,7 @@ export const DogDetails = () => {
                         </div>
                         {isCreator &&
                             <div className='details-btns'>
-                                <button onClick={() => navigate(`/edit/${stateDog.id}`, { state: { id: stateDog.id } })} className="btn-level-two">Edit dog</button>
+                                <button onClick={() => navigate(`/catalog/edit/${stateDog.id}`, { state: { id: stateDog.id } })} className="btn-level-two">Edit dog</button>
                                 <button onClick={() => setOpen(true)} className="btn-level-two delete">Delete dog</button>
                             </div>
                         }
