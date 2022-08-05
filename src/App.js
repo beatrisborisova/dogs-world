@@ -5,11 +5,11 @@ import { ToastContainer } from 'react-toastify';
 import { Footer } from './components/common/Footer';
 import { Header } from './components/common/Header';
 import { DogContextRoutes } from './components/others/DogContextRoutes';
-import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import { Routes, Route, Navigate, Outlet, useNavigate } from 'react-router-dom';
 import { NotFound } from './components/not-found/NotFound';
 import { Home } from './components/Home/Home';
 import { Cause } from './components/about/Cause/Cause';
-import { Contacts } from './components/about/Contacts/Contacts';
+// import { Contacts } from './components/about/Contacts/Contacts';
 import { Main } from './components/catalog/Main';
 import { Adopt } from './components/catalog/Adopt';
 import { Buy } from './components/catalog/Buy';
@@ -20,10 +20,20 @@ import { EditProfile } from './components/user/profile/EditProfile';
 import { Create } from './components/create-edit/Create';
 import { useSelector } from 'react-redux';
 import { MyDogs } from './components/catalog/dog/my-dogs/MyDogs';
+import { lazy, Suspense } from 'react';
+import CircularColor from './components/others/Spinner';
+
+const Contacts = lazy(() => import('./components/about/Contacts/Contacts'));
+
 
 const ProtectedRoute = ({ data }) => {
+  const navigate = useNavigate();
+
+  // TODO: Cannot access the state in login component after redirect
+  // const hasRedirection = true
   if (data.user === undefined) {
-    return <Navigate to={data.redirectPath} replace />;
+    return navigate(`${data.redirectPath}`, { state: { hasRedirection: true, } })
+    // return <Navigate to={data.redirectPath} state={hasRedirection} />;
   }
   return <Outlet />
 };
@@ -40,17 +50,32 @@ function App() {
 
         <Routes>
           <Route path='/' index element={<Home />} />
-
           <Route path='cause' element={<Cause />} />
-          <Route path='contacts' element={<Contacts />} />
 
-          <Route path='catalog' element={<Main />} />
+
+          <Route path='/contacts' element={
+            <Suspense fallback={<CircularColor />}>
+              <Contacts />
+            </Suspense>
+          } />
+
+          <Route path='catalog' element={
+            <Suspense fallback={<CircularColor />}>
+              <Main />
+            </Suspense>
+          } />
+
+
           <Route path='catalog/adopt' element={<Adopt dogsPerPage={4} />} />
           <Route path='catalog/buy' element={<Buy dogsPerPage={4} />} />
 
           <Route path='login' element={<Login />} />
-          <Route path='register' element={<Register />} />
 
+          <Route path='register' element={
+            <Suspense fallback={<CircularColor />}>
+              <Register />
+            </Suspense>
+          } />
 
           <Route element={<ProtectedRoute data={{ user, redirectPath: 'login' }} />}>
             <Route path='profile' element={<Profile />} />
@@ -67,6 +92,7 @@ function App() {
           <Route element={<ProtectedRoute data={{ user, redirectPath: 'login' }} />}>
             <Route path='create' element={<Create />} />
           </Route>
+
           <Route path='/catalog/*' element={<DogContextRoutes />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

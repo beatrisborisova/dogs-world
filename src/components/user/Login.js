@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faKey } from '@fortawesome/free-solid-svg-icons';
 
 import * as userService from '../../services/user';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 import { useDispatch } from 'react-redux';
@@ -16,7 +16,10 @@ export const Login = () => {
 
     const [loginUser, setLoginUser] = useState(null);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+
+    const location = useLocation();
+
+    console.log('locagion', location);
 
     const loginHandler = (e) => {
         e.preventDefault();
@@ -28,7 +31,11 @@ export const Login = () => {
             .then(res => {
                 setLoginUser(res)
                 dispatch(login({ payload: { email: res.user.myUser.email, uid: res.user.uid }, type: 'LOGIN' }))
-                navigate('/')
+                // if (state.hasRedirection) {
+                //     navigate(-2)
+                // } else {
+                //     navigate('/')
+                // }
             })
             .catch()
 

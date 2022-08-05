@@ -7,7 +7,7 @@ import { NotFound } from "../not-found/NotFound";
 
 const ProtectedRoute = ({ data }) => {
     if (data.user === undefined) {
-        return <Navigate to={data.redirectPath} replace />;
+        return <Navigate to={`/${data.redirectPath}`} />;
     }
     return <Outlet />
 };
