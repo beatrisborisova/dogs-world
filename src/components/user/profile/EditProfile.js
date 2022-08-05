@@ -99,8 +99,8 @@ export const EditProfile = () => {
                 </div>
                 <div className='radio-div-container'>
                     <label htmlFor='gender'>Gender: </label>
-                    <input type="radio" value="male" name='gender' onChange={genderChangeHandler} checked={genderSelectedOption === 'male'} />Male
-                    <input type="radio" value="female" name='gender' onChange={genderChangeHandler} checked={genderSelectedOption === 'female'} />Female
+                    <span className='radio-span'><input type="radio" value="male" name='gender' onChange={genderChangeHandler} checked={genderSelectedOption === 'male'} />Male</span>
+                    <span className='radio-span'><input type="radio" value="female" name='gender' onChange={genderChangeHandler} checked={genderSelectedOption === 'female'} />Female</span>
                 </div>
                 <div>
                     <button type="submit" className='btn-level-two' >Save</button>

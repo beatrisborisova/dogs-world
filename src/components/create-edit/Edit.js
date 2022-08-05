@@ -125,41 +125,41 @@ export const Edit = () => {
                         </div>
                         <div className='radio-div-container'>
                             <label htmlFor='age'>Gender:</label>
-                            {dog && <input type="radio" name="gender" value='male' onChange={genderChangeHandler} checked={genderSelectedOption === 'male'} />} Male
-                            {dog && <input type="radio" name="gender" value='female' onChange={genderChangeHandler} checked={genderSelectedOption === 'female'} />} Female
+                            <span className='radio-span'><input type="radio" name="gender" value='male' onChange={genderChangeHandler} checked={genderSelectedOption === 'male'} /> Male</span>
+                            <span className='radio-span'><input type="radio" name="gender" value='female' onChange={genderChangeHandler} checked={genderSelectedOption === 'female'} /> Female</span>
                         </div>
                         <div className='radio-div-container'>
                             <label htmlFor='vaccines'>Vaccines:</label>
-                            {dog && <input type="radio" name="vaccines" value='yes' onChange={vaccinesChangeHandler} checked={vaccinesSelectedOption === 'yes'} />} Yes
-                            {dog && <input type="radio" name="vaccines" value='no' onChange={vaccinesChangeHandler} checked={vaccinesSelectedOption === 'no'} />} No
+                            <span className='radio-span'><input type="radio" name="vaccines" value='yes' onChange={vaccinesChangeHandler} checked={vaccinesSelectedOption === 'yes'} /> Yes</span>
+                            <span className='radio-span'><input type="radio" name="vaccines" value='no' onChange={vaccinesChangeHandler} checked={vaccinesSelectedOption === 'no'} /> No</span>
                         </div>
                         <div>
                             <label htmlFor='uploadImg'>Upload image:</label>
-                            {dog &&
-                                <>
-                                    <div className='edit-image-wrapper'>
-                                        <img src={currentImageUrl} alt="dog" />
-                                    </div>
-                                    <input type="file" name="uploadImg" onChange={(e) => setImageUpload(e.target.files[0])} />
-                                </>
-                            }
+
+                            <>
+                                <div className='edit-image-wrapper'>
+                                    <img src={currentImageUrl} alt="dog" />
+                                </div>
+                                <input type="file" name="uploadImg" onChange={(e) => setImageUpload(e.target.files[0])} />
+                            </>
+
                         </div>
                         <button onClick={uploadFile} type='button' className='upload-btn'> Upload Image</button>
                         {succesfulUpload && <p className='success'>Image uploaded succesfully</p>}
 
                         <div>
                             <label htmlFor='description'>Description:</label>
-                            {dog && <textarea type="text" name="description" value={description} onChange={(e) => setDescription(e.target.value)} />}
+                            <textarea type="text" name="description" value={description} onChange={(e) => setDescription(e.target.value)} />
 
                         </div>
                         <div className='radio-div-container'>
                             <label htmlFor='type'>Type:</label>
-                            {dog && <input type="radio" name="type" value='adopt' onChange={typeChangeHandler} checked={typeSelectedOpion === 'adopt'} />} Adopt
-                            {dog && <input type="radio" name="type" value='buy' onChange={typeChangeHandler} checked={typeSelectedOpion === 'buy'} />} Buy
+                            <span className='radio-span'><input type="radio" name="type" value='adopt' onChange={typeChangeHandler} checked={typeSelectedOpion === 'adopt'} /> Adopt</span>
+                            <span className='radio-span'><input type="radio" name="type" value='buy' onChange={typeChangeHandler} checked={typeSelectedOpion === 'buy'} /> Buy</span>
                         </div>
 
                         <div>
-                            <button type="submit" className='btn-level-two'>Save</button>
+                            <button type="submit" className='submit-btn'>Save</button>
                         </div>
                     </form>
                 }

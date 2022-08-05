@@ -216,8 +216,8 @@ export const Register = () => {
                     </div>
                     <div className='radio-div-container'>
                         <label htmlFor='gender'>Gender: </label>
-                        <input type="radio" value="male" onChange={genderChangeHandler} checked={genderSelectedOption === 'male'} />Male
-                        <input type="radio" value="female" onChange={genderChangeHandler} checked={genderSelectedOption === 'female'} />Female
+                        <span className='radio-span'><input type="radio" value="male" onChange={genderChangeHandler} checked={genderSelectedOption === 'male'} />Male</span>
+                        <span className='radio-span'><input type="radio" value="female" onChange={genderChangeHandler} checked={genderSelectedOption === 'female'} />Female</span>
                     </div>
                     <div>
                         <FontAwesomeIcon icon={faKey} />

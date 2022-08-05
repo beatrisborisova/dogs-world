@@ -131,3 +131,8 @@ main {
 .radio-div-container input {
   padding: 5px;
 }
+
+.radio-span {
+  display: flex;
+  margin: 10px;
+}

@@ -195,8 +195,8 @@ export const Create = () => {
                     </div>
                     <div className='radio-div-container'>
                         <label htmlFor='age'>Gender:</label>
-                        <input type="radio" name="gender" value="male" onChange={genderChangeHandler} checked={genderSelectedOption === 'male'} /> Male
-                        <input type="radio" name="gender" value="female" onChange={genderChangeHandler} checked={genderSelectedOption === 'female'} /> Female
+                        <span className='radio-span'><input type="radio" name="gender" value="male" onChange={genderChangeHandler} checked={genderSelectedOption === 'male'} /> Male</span>
+                        <span className='radio-span'><input type="radio" name="gender" value="female" onChange={genderChangeHandler} checked={genderSelectedOption === 'female'} /> Female</span>
                     </div>
                     <div>
                         <label htmlFor='uploadImg'>Upload image:</label>
@@ -208,8 +208,8 @@ export const Create = () => {
 
                     <div className='radio-div-container'>
                         <label htmlFor='vaccines'>Vaccines:</label>
-                        <input type="radio" name="vaccines" value='yes' onChange={vaccinesChangeHandler} checked={vaccinesSelectedOption === 'yes'} /> Yes
-                        <input type="radio" name="vaccines" value='no' onChange={vaccinesChangeHandler} checked={vaccinesSelectedOption === 'no'} /> No
+                        <span className='radio-span'><input type="radio" name="vaccines" value='yes' onChange={vaccinesChangeHandler} checked={vaccinesSelectedOption === 'yes'} /> Yes</span>
+                        <span className='radio-span'><input type="radio" name="vaccines" value='no' onChange={vaccinesChangeHandler} checked={vaccinesSelectedOption === 'no'} /> No</span>
                     </div>
                     <div>
                         <label htmlFor='description'>Description:</label>
@@ -218,8 +218,8 @@ export const Create = () => {
                     </div>
                     <div className='radio-div-container'>
                         <label htmlFor='type'>Type:</label>
-                        <input type="radio" name="type" value='adopt' onChange={typeChangeHandler} checked={typeSelectedOpion === 'adopt'} /> Adopt
-                        <input type="radio" name="type" value='buy' onChange={typeChangeHandler} checked={typeSelectedOpion === 'buy'} /> Buy
+                        <span className='radio-span'> <input type="radio" name="type" value='adopt' onChange={typeChangeHandler} checked={typeSelectedOpion === 'adopt'} /> Adopt</span>
+                        <span className='radio-span'><input type="radio" name="type" value='buy' onChange={typeChangeHandler} checked={typeSelectedOpion === 'buy'} /> Buy</span>
                     </div>
 
                     <div>
