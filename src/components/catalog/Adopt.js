@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import './Catalog.css';
+import styles from './Catalog.module.css';
 import { Dog } from './dog/dog-item/Dog';
 import * as dogsService from '../../services/dogs';
 import LinearColor from '../others/Linear';
@@ -55,11 +55,11 @@ export const Adopt = ({ dogsPerPage }) => {
     return (
         <>
             <motion.section initial={{ width: 0 }} animate={{ width: '100%' }} exit={{ width: '100%', transition: { duration: 0.1 } }}>
-                <section className='adopt-buy-section-container adopt-section-container'>
+                <section className={[styles.adoptBuySectionContainer, styles.adoptSectionContainer].join(' ')}>
                     <h1>Adopt a dog</h1>
                     <p>All is paw-sible when you rescue a dog. </p>
                 </section>
-                <section className='adopt-buy-catalog-container'>
+                <section className={styles.adoptBuyCatalogContainer}>
 
                     {isLoading && <LinearColor />}
                     {!dogs && <NoDogs />}

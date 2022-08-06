@@ -1,4 +1,4 @@
-import './DogFlyer.css';
+import styles from './DogFlyer.module.css';
 import { motion } from "framer-motion"
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
@@ -9,19 +9,17 @@ export const DogFlyer = ({ state }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    console.log('state from flyer', state);
-
     const currentDog = state.currentDog;
     const dogId = state.selectedId;
 
 
     return (
-        <motion.div className='dog-content-container'
+        <motion.div className={styles.dogContentContainer}
             animate={state.setSelectedId ? { opacity: 1 } : { opacity: 0 }}>
-            <div className='dog-content'>
+            <div className={styles.dogContent}>
                 <motion.div key={state.currentDog.id}>
                     <motion.h4><b>Breed:</b> {currentDog.breed}</motion.h4>
-                    <motion.div className='image-wrapper-dog-main'>
+                    <motion.div className={styles.imageWrapperDogMain}>
                         <motion.img src={currentDog.uploadImg} key={currentDog.uploadImg} />
                     </motion.div>
                     <motion.p><b>Age:</b> {currentDog.age}</motion.p>

@@ -1,4 +1,4 @@
-import './Catalog.css';
+import styles from './Catalog.module.css';
 import { NavLink } from 'react-router-dom';
 import Carousel from 'react-bootstrap/Carousel';
 import { useEffect, useState } from 'react';
@@ -25,12 +25,12 @@ export const Main = () => {
     return (
         // <motion.section className='main-section'
         //     initial={{ width: 0 }} animate={{ width: '100%' }} exit={{ width: '100%', transition: { duration: 0.3 } }}>
-        <div className='main-section-content'>
-            <article className='main-adopt-article main-article'>
+        <div className={styles.mainSectionContent}>
+            <article className={[styles.mainAdoptArticle, styles.mainArticle].join(' ')}>
                 <h2>Adopt a dog</h2>
                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard.</p>
                 {adoptDogs.length > 0 &&
-                    <Carousel className="main-carousel">
+                    <Carousel className={styles.mainCarousel}>
                         {adoptDogs.map((el, index) => {
                             if (index < 3) {
                                 return (
@@ -50,11 +50,11 @@ export const Main = () => {
                 {adoptDogs.length === 0 && <CircularColor />}
                 <NavLink to={'/catalog/adopt'} className="btn-level-two">GO</NavLink>
             </article>
-            <article className='main-buy-article main-article'>
+            <article className={[styles.mainBuyArticle, styles.mainArticle].join(' ')}>
                 <h2>Buy a dog</h2>
                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard.</p>
                 {buyDogs.length > 0 &&
-                    <Carousel className="main-carousel">
+                    <Carousel className={styles.mainCarousel}>
                         {buyDogs.map((el, index) => {
                             if (index < 3) {
                                 return (

@@ -1,4 +1,4 @@
-.comment-container {
+.commentContainer {
     display: grid;
     grid-template-columns: 30% 50% 20%;
     text-align: left;

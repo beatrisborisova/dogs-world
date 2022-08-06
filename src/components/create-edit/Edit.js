@@ -1,4 +1,4 @@
-import './Create-Edit.css';
+import styles from './Create-Edit.module.css';
 import * as dogsService from '../../services/dogs';
 import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -107,14 +107,14 @@ export const Edit = () => {
     }
 
     return (
-        <motion.div className='create-edit-container' initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-            <div className='create-edit-content'>
+        <motion.div className={styles.createEditContainer} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <div className={styles.createEditContent}>
                 <h2>Edit</h2>
 
                 {isLoading && <LinearColor />}
 
                 {!isLoading &&
-                    <form onSubmit={editDogHandler} className="create-edit-form">
+                    <form onSubmit={editDogHandler} className={styles.createEditForm}>
                         <div>
                             <label htmlFor='breed'>Breed:</label>
                             {dog && <input type="text" name="breed" value={breed} onChange={(e) => setBreed(e.target.value)} />}
@@ -137,7 +137,7 @@ export const Edit = () => {
                             <label htmlFor='uploadImg'>Upload image:</label>
 
                             <>
-                                <div className='edit-image-wrapper'>
+                                <div className={styles.editImageWrapper}>
                                     <img src={currentImageUrl} alt="dog" />
                                 </div>
                                 <input type="file" name="uploadImg" onChange={(e) => setImageUpload(e.target.files[0])} />

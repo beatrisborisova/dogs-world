@@ -1,4 +1,4 @@
-import './DogDetails.css';
+import styles from './DogDetails.module.css';
 import * as dogsService from '../../../../services/dogs';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -52,8 +52,6 @@ export const DogDetails = () => {
         }
     }, [])
 
-    console.log('dog', dog)
-
     const addCommentHandler = (e) => {
         e.preventDefault();
 
@@ -95,22 +93,22 @@ export const DogDetails = () => {
 
     return (
         <>
-            <div className='dog-details-container'>
+            <div className={styles.dogDetailsContainer}>
                 {open && <DeleteModal state={{ setOpen, setAgree }} />}
 
                 {stateDog && <>
-                    <div className="image-wrapper-dog-details">
+                    <div className={styles.imageWrapperDogDetails}>
                         <img src={stateDog.dog.uploadImg} alt="dog" />
                     </div>
-                    <div className='details-content'>
-                        <div className="dog-details-text">
+                    <div className={styles.detailsContent}>
+                        <div className={styles.dogDetailsText}>
                             <h2>{stateDog.dog.breed}</h2>
                             <p>Age: {stateDog.dog.age} years old</p>
                             <p>Vacciness: {stateDog.dog.vaccines}</p>
                             <p>{stateDog.dog.description}</p>
                         </div>
                         {isCreator &&
-                            <div className='details-btns'>
+                            <div className={styles.detailsBtns}>
                                 <button onClick={() => navigate(`/catalog/edit/${stateDog.id}`, { state: { id: stateDog.id } })} className="btn-level-two">Edit dog</button>
                                 <button onClick={() => setOpen(true)} className="btn-level-two delete">Delete dog</button>
                             </div>
@@ -123,19 +121,19 @@ export const DogDetails = () => {
 
             </div>
 
-            <div className='comments-container'>
-                <div className='comments-content'>
+            <div className={styles.commentsContainer}>
+                <div className={styles.commentsContent}>
                     {dog && <h2>Comments</h2>}
                     {dog && dog.comments.length > 0 &&
                         dog.comments.map(el => <Comment comment={el} commentOwnerEmail={el.commentOwnerEmail} key={el.commentId} date={el.commentCreatedAt} />)
                     }
                     {dog && dog.comments.length === 0 &&
-                        <div className='no-comments'>No comments yet. Be the first one <FontAwesomeIcon icon={faSmile} style={{ color: '#e2db23', fontSize: '20px' }} /></div>
+                        <div className={styles.noComments}>No comments yet. Be the first one <FontAwesomeIcon icon={faSmile} style={{ color: '#e2db23', fontSize: '20px' }} /></div>
                     }
                 </div>
-                <div className='add-comment-container'>
-                    <form onSubmit={addCommentHandler} className="comments-form">
-                        <p className='email-comment'>{user.email}</p>
+                <div className={styles.addCommentContainer}>
+                    <form onSubmit={addCommentHandler} className={styles.commentsForm}>
+                        <p className={styles.emailComment}>{user.email}</p>
                         <div>
                             <textarea className='comment-field' name='comment' placeholder='Your comment here...'></textarea>
                             <button className='btn-level-three' type='submit'>Add comment</button>

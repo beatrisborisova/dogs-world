@@ -1,4 +1,4 @@
-import './Dog.css';
+import styles from './Dog.module.css';
 import { motion } from "framer-motion"
 import { useDispatch, useSelector } from 'react-redux';
 import { setDog } from '../../../../features/dogs';
@@ -7,13 +7,13 @@ export const Dog = ({ currentDog, dogId, creatorId, setCurrentDog, setSelectedId
 
 
     const stateDog = useSelector(states => states.dog.value.payload)
-    console.log('creatorId', creatorId);
     const dispatch = useDispatch();
 
     return (
         <>
             {stateDog &&
-                <motion.div className={`dog-container ${stateDog.dog.type}-dog-container dog-modal`}
+                // <motion.div className={[styles.dogContainer, styles.{stateDog.dog.type}DogContainer, styles.dogModal]}
+                <motion.div className={[styles.dogContainer]}
                     onClick={() => {
                         setSelectedId(stateDog.id)
                         setCurrentDog(stateDog.dog)
@@ -22,7 +22,7 @@ export const Dog = ({ currentDog, dogId, creatorId, setCurrentDog, setSelectedId
                     animate={{ scale: 1, opacity: 1 }}
                     initial={{ scale: 0.7, opacity: 0 }}>
                     <motion.div>
-                        <motion.div className='image-wrapper-dog-main'>
+                        <motion.div className={styles.imageWrapperDogMain}>
                             <motion.img src={stateDog.dog.uploadImg} key={stateDog.dog.uploadImg} />
                         </motion.div>
                         <motion.h2>{stateDog.dog.breed}</motion.h2>
@@ -32,7 +32,9 @@ export const Dog = ({ currentDog, dogId, creatorId, setCurrentDog, setSelectedId
             }
 
             {!stateDog &&
-                <motion.div className={`dog-container ${currentDog.type}-dog-container dog-modal`}
+                // <motion.div className={`dog-container ${currentDog.type}-dog-container dog-modal`}
+                <motion.div className={[styles.dogContainer]}
+
                     onClick={() => {
                         setSelectedId(dogId)
                         setCurrentDog(currentDog)
@@ -42,8 +44,7 @@ export const Dog = ({ currentDog, dogId, creatorId, setCurrentDog, setSelectedId
                     animate={{ scale: 1, opacity: 1 }}
                     initial={{ scale: 0.7, opacity: 0 }}>
                     <motion.div>
-                        {console.log('from Dog.js', creatorId)}
-                        <motion.div className='image-wrapper-dog-main'>
+                        <motion.div className={styles.imageWrapperDogMain}>
                             <motion.img src={currentDog.uploadImg} key={currentDog.uploadImg} />
                         </motion.div>
                         <motion.h2>{currentDog.breed}</motion.h2>

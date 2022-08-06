@@ -1,4 +1,4 @@
-import './Cause.css';
+import styles from './Cause.module.css';
 import { motion } from 'framer-motion';
 
 

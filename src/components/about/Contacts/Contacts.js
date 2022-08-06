@@ -1,4 +1,4 @@
-import './Contacts.css';
+import styles from './Contacts.module.css';
 import { motion } from 'framer-motion';
 
 const Contacts = () => {
@@ -6,11 +6,11 @@ const Contacts = () => {
         <motion.div initial={{ width: 0 }} animate={{ width: '100%' }} exit={{ width: '100%', transition: { duration: 0.3 } }}>
             <h2>Contacts</h2>
             <h4>About</h4>
-            <div className='softuni-image-wrapper'>
+            <div className={styles.softuniImageWrapper}>
                 <img src={require('../../../assets/images/softuni-logo.png')} alt='softuni' />
             </div>
             <p>Handcrafter by me, <a href='https://github.com/beatrisborisova'>Beatris Borisova</a></p>
-            <div className='about-text'>
+            <div className={styles.aboutText}>
                 <p>This is a project for the React.js course at Software University</p>
                 <h3>Technologies used:</h3>
                 <ul>

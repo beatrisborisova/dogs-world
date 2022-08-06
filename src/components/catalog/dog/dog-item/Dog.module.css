@@ -1,4 +1,4 @@
-.dog-container {
+.dogContainer {
     width: 200px;
     padding: 20px;
     margin: 20px;
@@ -7,30 +7,33 @@
     cursor: pointer;
 }
 
-.adopt-dog-container:hover {
+
+.dogContainer:hover {
     background-color: #fffb00;
 }
 
-.adopt-buy-catalog-container a {
-    text-decoration: none;
-    color: #000000;
-}
-
-.adopt-buy-catalog-container a:hover {
-    text-decoration: none;
-    color: #000000;
-}
-
-.buy-dog-container:hover {
+/* .itemDogContainer:hover {
     background-color: #00ffff;
+} */
+
+.adoptBuyCatalogContainer a {
+    text-decoration: none;
+    color: #000000;
 }
 
-.image-wrapper-dog-main {
+.adoptBuyCatalogContainer a:hover {
+    text-decoration: none;
+    color: #000000;
+}
+
+
+
+.imageWrapperDogMain {
     width: 100px;
     margin: 10px auto;
 }
 
-.image-wrapper-dog-main img {
+.imageWrapperDogMain img {
     border-radius: 50%;
     width: 100%;
 }

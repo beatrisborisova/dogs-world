@@ -1,4 +1,4 @@
-import './Create-Edit.css';
+import styles from './Create-Edit.module.css';
 // import styles from '../user/User.module.css'
 import * as dogsService from '../../services/dogs';
 import { useEffect, useState } from 'react';
@@ -178,11 +178,11 @@ export const Create = () => {
     }
 
     return (
-        <motion.div className='create-edit-container'
+        <motion.div className={styles.createEditContainer}
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-            <div className='create-edit-content'>
+            <div className={styles.createEditContent}>
                 <h2>Publish a dog</h2>
-                <form onSubmit={createDogHandler} className="create-edit-form">
+                <form onSubmit={createDogHandler} className={styles.createEditForm}>
                     <div>
                         <label htmlFor='breed'>Breed:</label>
                         <input type="text" name="breed" value={breed} onChange={(e) => setBreed(e.target.value)} onBlur={breedValidator} />

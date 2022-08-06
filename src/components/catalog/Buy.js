@@ -1,4 +1,4 @@
-import './Catalog.css';
+import styles from './Catalog.module.css';
 import { useEffect, useState } from 'react';
 import { Dog } from './dog/dog-item/Dog';
 import * as dogsService from '../../services/dogs';
@@ -61,11 +61,11 @@ export const Buy = ({ dogsPerPage }) => {
     return (
         <>
             <motion.div initial={{ width: 0 }} animate={{ width: '100%' }} exit={{ width: '100%', transition: { duration: 0.3 } }}>
-                <section className='adopt-buy-section-container buy-section-container'>
+                <section className={[styles.adoptBuySectionContainer, styles.buySectionContainer].join(' ')}>
                     <h1>Buy a dog</h1>
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
                 </section>
-                <section className='adopt-buy-catalog-container'>
+                <section className={styles.adoptBuyCatalogContainer}>
                     {isLoading && <LinearColor />}
                     {!dogs && <NoDogs />}
 
