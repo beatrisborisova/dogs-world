@@ -13,7 +13,7 @@ header a.active {
     color: #56a05b;
 }
 
-.navigation-list, .user-navigation-list {
+.navigationList, .userNavigationList {
     padding: 0;
     margin: 0;
     display: flex;
@@ -25,7 +25,7 @@ header a.active {
     align-items: center;
 }
 
-.dropbtn, .navigation-list a, .user-navigation-list a {
+.dropbtn, .navigationList a, .userNavigationList a {
     background-color: transparent;
     color: #000000;
     padding: 16px;
@@ -38,11 +38,11 @@ header a.active {
     padding: 0;
 }
 
-.dropbtn:hover, .navigation-list a:hover, .user-navigation-list a:hover {
+.dropbtn:hover, .navigationList a:hover, .userNavigationList a:hover {
     color: #56a05b;
 }
 
-.dropdown-container {
+.dropdownContainer {
     display: none;
     position: absolute;
     background-color: #f1f1f1;
@@ -51,17 +51,26 @@ header a.active {
     z-index: 1;
 }
 
-.dropdown-container a {
+.dropdownContainer a {
     color: black;
     padding: 10px;
     text-decoration: none;
     display: block;
 }
 
-.dropdown-container a:hover {
+.dropdownContainer a:hover {
     background-color: #bbbbbb;
 }
 
-.dropdown:hover .dropdown-container {
+.dropdown:hover .dropdownContainer {
     display: block;
+}
+
+/* RESPONSIVE */
+
+@media screen and (max-width: 375px) {
+    header, .userNavigationList, footer {
+        flex-direction: column;
+        padding: 7px;
+    }
 }

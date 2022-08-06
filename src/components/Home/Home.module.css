@@ -65,3 +65,19 @@
 .homeCreateContainer {
     background-color: #ff0084;
 }
+
+/* RESPONSIVE */
+
+@media screen and (max-width: 375px) {
+    .homeCategoriesContainer {
+        flex-direction: column;
+    }
+
+    .homeText {
+        top: 15%;
+    }
+
+    .homeText h1 {
+        font-size: 51px;
+    }
+}

@@ -1,12 +1,11 @@
-import './Common.css';
+import styles from './Common.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { Link, NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import * as userService from '../../services/user';
 
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../features/user';
 import { removeDog } from '../../features/dogs';
 
@@ -33,15 +32,15 @@ export const Header = () => {
 
     return (
         <header>
-            <div className="image-wrapper-logo">
-                <NavLink to={'/'}>LOGO HERE</NavLink>
+            <div className={styles.imageWrapperLogo}>
+                <Link to={'/'}>LOGO HERE</Link>
             </div>
-            <nav className='nav'>
-                <ul className="navigation-list">
+            <nav className={styles.nav}>
+                <ul className={styles.navigationList}>
                     <NavLink to={'/'}>Home</NavLink>
-                    <NavLink to={'/catalog'} className='dropdown'>
-                        <button className="dropbtn">Main</button>
-                        <div className="dropdown-container">
+                    <NavLink to={'/catalog'} className={styles.dropdown}>
+                        <button className={styles.dropbtn}>Main</button>
+                        <div className={styles.dropdownContainer}>
                             <NavLink to={'/catalog/adopt'}>Adopt</NavLink>
                             <NavLink to={'/catalog/buy'}>Buy</NavLink>
                         </div>
@@ -51,13 +50,13 @@ export const Header = () => {
                 </ul>
             </nav>
             <div>
-                <ul className="user-navigation-list">
+                <ul className={styles.userNavigationList}>
 
                     {hasUser &&
                         <>
                             <NavLink to={'/create'}>Publish a dog</NavLink>
                             <NavLink to={'/profile'}>Profile</NavLink>
-                            <NavLink to={'/'} onClick={logoutHandler}>Logout</NavLink>
+                            <Link to={'/'} onClick={logoutHandler}>Logout</Link>
                         </>
                     }
 
