@@ -67,8 +67,7 @@
 .adoptBuyCatalogContainer {
     display: flex;
     flex-wrap: wrap;
-    /* background-color: #ffffff; */
-    justify-content: center;
+    padding: 20px 100px;
 }
 
 /* RESPONSIVE */

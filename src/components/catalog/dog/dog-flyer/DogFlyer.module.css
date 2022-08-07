@@ -14,6 +14,15 @@
     padding: 50px;
 }
 
+.imageWrapperDogMain {
+    width: 400px;
+    margin: 0 auto;
+}
+
+.imageWrapperDogMain img {
+    width: 100%;
+}
+
 .btn-level-two.close {
     background-color: darkgrey;
 }

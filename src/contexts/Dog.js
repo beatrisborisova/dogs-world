@@ -8,7 +8,6 @@ export { DogContext }
 
 export const DogProvider = ({ children }) => {
 
-    const [dog, setDog] = useState(null);
     const [dogState, setDogState] = useState(null);
 
 
@@ -19,8 +18,6 @@ export const DogProvider = ({ children }) => {
 
     const locationDogId = location.pathname.split('/');
     const dogId = locationDogId[locationDogId.length - 1];
-
-    console.log('sogId', dogId);
 
     useEffect(() => {
         dogService.getDogById(dogId)

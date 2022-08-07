@@ -1,7 +1,7 @@
 import styles from './DogDetails.module.css';
 import * as dogsService from '../../../../services/dogs';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import DeleteModal from '../../../others/Confirmation';
 import LinearColor from '../../../others/Linear';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,6 +10,7 @@ import { Comment } from '../../../comments/Comment';
 import { v4 } from 'uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSmile } from '@fortawesome/free-solid-svg-icons';
+import { DogContext } from '../../../../contexts/Dog';
 
 export const DogDetails = () => {
 
@@ -28,11 +29,9 @@ export const DogDetails = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // dogsService.getDogById(stateDog.id)
         dogsService.getDogById(stateDog.id)
             .then(res => {
                 setDog(res)
-                console.log('res', res)
                 setComments(res.comments)
             })
             .catch(err => console.log(err.message))

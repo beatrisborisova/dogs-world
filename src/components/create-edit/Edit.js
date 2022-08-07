@@ -10,7 +10,7 @@ import { v4 } from 'uuid';
 import { motion } from 'framer-motion';
 import { DogContext } from '../../contexts/Dog';
 import { useSelector, useDispatch } from 'react-redux';
-import { setDog } from '../../features/dogs';
+import { setDog as setReduxState } from '../../features/dogs';
 import LinearColor from '../others/Linear';
 
 export const Edit = () => {
@@ -26,7 +26,7 @@ export const Edit = () => {
     const [currentImageUrl, setCurrentImageUrl] = useState('');
     const [imageUrls, setImageUrls] = useState([]);
     const user = useSelector(states => states.user.value.payload);
-    // const dog = useSelector(states => states.dog.value.payload);
+
     const [isLoading, setIsLoading] = useState(true);
 
     const [breed, setBreed] = useState('');
@@ -36,6 +36,7 @@ export const Edit = () => {
     const [genderSelectedOption, setGenderSelectedOption] = useState('');
     const [description, setDescription] = useState('');
     const [succesfulUpload, setSuccesfulUplaod] = useState(false);
+    const [isImageChanged, setIsImageChanged] = useState(false);
 
     useEffect(() => {
         dogsService.getDogById(dogState.id)
@@ -52,10 +53,10 @@ export const Edit = () => {
             })
     }, [])
 
-
     useEffect(() => {
         if (currentImageUrl) {
             setSuccesfulUplaod(true);
+            setCurrentImageUrl(currentImageUrl);
         }
     }, [currentImageUrl])
 
@@ -68,6 +69,7 @@ export const Edit = () => {
                     .then((url) => {
                         setImageUrls(state => [...state, url]);
                         setCurrentImageUrl(url);
+                        setIsImageChanged(true);
                     });
             });
     }
@@ -89,7 +91,7 @@ export const Edit = () => {
         dogsService.editDog(dogState.id, newDogData, dog.comments)
             .then((res) => {
                 navigate(`/catalog/${typeSelectedOpion}/${dogState.id}`)
-                dispatch(setDog({ payload: { dog, id: res.id, creatorId: user.uid }, type: 'SET DOG' }));
+                dispatch(setReduxState({ payload: { dog: newDogData, id: res.id, creatorId: user.uid }, type: 'SET DOG' }))
             })
             .catch(err => console.log(err.message))
     }
@@ -117,11 +119,11 @@ export const Edit = () => {
                     <form onSubmit={editDogHandler} className={styles.createEditForm}>
                         <div>
                             <label htmlFor='breed'>Breed:</label>
-                            {dog && <input type="text" name="breed" value={breed} onChange={(e) => setBreed(e.target.value)} />}
+                            <input type="text" name="breed" value={breed} onChange={(e) => setBreed(e.target.value)} />
                         </div>
                         <div>
                             <label htmlFor='age'>Age:</label>
-                            {dog && <input type="number" name="age" value={age} onChange={(e) => setAge(e.target.value)} />}
+                            <input type="number" name="age" value={age} onChange={(e) => setAge(e.target.value)} />
                         </div>
                         <div className='radio-div-container'>
                             <label htmlFor='age'>Gender:</label>
@@ -145,7 +147,7 @@ export const Edit = () => {
 
                         </div>
                         <button onClick={uploadFile} type='button' className='upload-btn'> Upload Image</button>
-                        {succesfulUpload && <p className='success'>Image uploaded succesfully</p>}
+                        {isImageChanged && <p className='success'>Image uploaded succesfully</p>}
 
                         <div>
                             <label htmlFor='description'>Description:</label>

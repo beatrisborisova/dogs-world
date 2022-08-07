@@ -51,7 +51,7 @@ const getAllAdopt = async () => {
 
 const getAllBuy = async () => {
     try {
-        const querySnapshot = await getDocs(collection(database, "dogs"));
+        const querySnapshot = await getDocs(collection(database, "buy"));
         let results = [];
         querySnapshot.forEach((doc) => {
             // console.log(`${doc.id} => ${doc.data()}`);
