@@ -30,7 +30,6 @@ export const Header = () => {
         } else {
             setIsNavShown(true)
         }
-        console.log('isNavShown', isNavShown);
     }, [user.email])
 
     const logoutHandler = () => {

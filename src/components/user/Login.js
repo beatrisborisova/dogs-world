@@ -16,10 +16,10 @@ export const Login = () => {
 
     const [loginUser, setLoginUser] = useState(null);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    const location = useLocation();
+    const { state } = useLocation();
 
-    console.log('locagion', location);
 
     const loginHandler = (e) => {
         e.preventDefault();
@@ -31,11 +31,11 @@ export const Login = () => {
             .then(res => {
                 setLoginUser(res)
                 dispatch(login({ payload: { email: res.user.myUser.email, uid: res.user.uid }, type: 'LOGIN' }))
-                // if (state.hasRedirection) {
-                //     navigate(-2)
-                // } else {
-                //     navigate('/')
-                // }
+                if (state) {
+                    navigate(-2)
+                } else {
+                    navigate('/')
+                }
             })
             .catch()
 

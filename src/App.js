@@ -27,13 +27,10 @@ const Contacts = lazy(() => import('./components/about/Contacts/Contacts'));
 
 
 const ProtectedRoute = ({ data }) => {
-  const navigate = useNavigate();
 
-  // TODO: Cannot access the state in login component after redirect
-  // const hasRedirection = true
+  const hasRedirection = true;
   if (data.user === undefined) {
-    return navigate(`${data.redirectPath}`, { state: { hasRedirection: true, } })
-    // return <Navigate to={data.redirectPath} state={hasRedirection} />;
+    return <Navigate to={data.redirectPath} state={hasRedirection} />;
   }
   return <Outlet />
 };
