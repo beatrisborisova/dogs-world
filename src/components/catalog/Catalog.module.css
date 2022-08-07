@@ -70,6 +70,23 @@
     padding: 20px 100px;
 }
 
+/* 
+.carouselItemImageWrapper {
+    width: 300px;
+    margin: auto;
+
+}
+
+.carouselItemImageWrapper img {
+    width: 100%;
+} */
+
+/* TODO: styles does not apply */
+.carousel-inner {
+    width: 400px;
+    margin: 20px auto;
+}
+
 /* RESPONSIVE */
 
 @media screen and (max-width: 375px) {

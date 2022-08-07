@@ -33,13 +33,12 @@ export const Main = () => {
                         {adoptDogs.map((el, index) => {
                             if (index < 3) {
                                 return (
-                                    <Carousel.Item key={el.id}>
+                                    <Carousel.Item key={el.id} className={styles.carouselItem}>
                                         <img
                                             className="d-block w-100"
                                             src={el.dog.uploadImg}
                                             alt="slide"
                                         />
-                                        <p>{el.dog.breed}</p>
                                     </Carousel.Item>
                                 )
                             }
@@ -56,13 +55,12 @@ export const Main = () => {
                         {buyDogs.map((el, index) => {
                             if (index < 3) {
                                 return (
-                                    <Carousel.Item key={el.id}>
+                                    <Carousel.Item key={el.id} className={styles.carouselItem}>
                                         <img
                                             className="d-block w-100"
                                             src={el.dog.uploadImg}
                                             alt="slide"
                                         />
-                                        <p>{el.dog.breed}</p>
                                     </Carousel.Item>
                                 )
                             }

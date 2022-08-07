@@ -77,6 +77,9 @@ export const Create = () => {
                     .then((url) => {
                         setImageUrls(state => [...state, url]);
                         setCurrentImageUrl(url);
+                        setErrors(oldState => {
+                            return { ...oldState, image: { isValid: true, value: '' } }
+                        })
                     });
             });
     }
@@ -93,6 +96,15 @@ export const Create = () => {
             description,
             type: typeSelectedOpion,
             uploadImg: currentImageUrl
+        }
+
+        breedValidator();
+        ageValidator();
+        imageValidator();
+        descriptionValidator();
+
+        if (!errors.breed.isValid && !errors.age.isValid && !errors.image.isValid && !errors.description.isValid) {
+            return
         }
 
         dogsService.createDog(dog)
@@ -116,12 +128,12 @@ export const Create = () => {
         setVaccinesSelectedOption(e.target.value);
     }
 
-    const breedValidator = (e) => {
-        if (e.target.value === "") {
+    const breedValidator = () => {
+        if (breed === "") {
             setErrors(oldState => {
                 return { ...oldState, breed: { isValid: false, value: 'Breed field is required' } }
             })
-        } else if (e.target.value.length < 3) {
+        } else if (breed.length < 3) {
             setErrors(oldState => {
                 return { ...oldState, breed: { isValid: false, value: 'Breed must be at least 3 characters long' } }
             })
@@ -132,13 +144,12 @@ export const Create = () => {
         }
     }
 
-    const ageValidator = (e) => {
-        console.log(e.target.value === "");
-        if (e.target.value === "") {
+    const ageValidator = () => {
+        if (age === "") {
             setErrors(oldState => {
                 return { ...oldState, age: { isValid: false, value: 'Age field is required' } }
             })
-        } else if (Number(e.target.value) < 0) {
+        } else if (Number(age) < 0) {
             setErrors(oldState => {
                 return { ...oldState, age: { isValid: false, value: 'Age must a whole number bigger or equal to 0' } }
             })
@@ -149,8 +160,8 @@ export const Create = () => {
         }
     }
 
-    const imageValidator = (e) => {
-        if (e.target.value === "") {
+    const imageValidator = () => {
+        if (currentImageUrl === "") {
             setErrors(oldState => {
                 return { ...oldState, image: { isValid: false, value: 'Image field is required' } }
             })
@@ -162,11 +173,11 @@ export const Create = () => {
     }
 
     const descriptionValidator = (e) => {
-        if (e.target.value === "") {
+        if (description === "") {
             setErrors(oldState => {
                 return { ...oldState, description: { isValid: false, value: 'Description field is required' } }
             })
-        } else if (e.target.value.length < 10) {
+        } else if (description.length < 10) {
             setErrors(oldState => {
                 return { ...oldState, description: { isValid: false, value: 'Description must be at least 10 characters long' } }
             })
@@ -186,13 +197,15 @@ export const Create = () => {
                     <div>
                         <label htmlFor='breed'>Breed:</label>
                         <input type="text" name="breed" value={breed} onChange={(e) => setBreed(e.target.value)} onBlur={breedValidator} />
-                        {!errors.breed.isValid && <p className='error'>{errors.breed.value}</p>}
                     </div>
+                    {!errors.breed.isValid && <p className='error'>{errors.breed.value}</p>}
+
                     <div>
                         <label htmlFor='age'>Age:</label>
                         <input type="number" name="age" value={age} onChange={(e) => setAge(e.target.value)} onBlur={ageValidator} />
-                        {!errors.age.isValid && <p className='error'>{errors.age.value}</p>}
                     </div>
+                    {!errors.age.isValid && <p className='error'>{errors.age.value}</p>}
+
                     <div className='radio-div-container'>
                         <label htmlFor='age'>Gender:</label>
                         <span className='radio-span'><input type="radio" name="gender" value="male" onChange={genderChangeHandler} checked={genderSelectedOption === 'male'} /> Male</span>
@@ -201,8 +214,8 @@ export const Create = () => {
                     <div>
                         <label htmlFor='uploadImg'>Upload image:</label>
                         <input type="file" name="uploadImg" onChange={(e) => setImageUpload(e.target.files[0])} onBlur={imageValidator} />
-                        {!errors.image.isValid && <p className='error'>{errors.image.value}</p>}
                     </div>
+                    {!errors.image.isValid && <p className='error'>{errors.image.value}</p>}
                     <button onClick={uploadFile} type='button' className='upload-btn'> Upload Image</button>
                     {succesfulUpload && <p className='success'>Image uploaded succesfully</p>}
 
@@ -214,8 +227,9 @@ export const Create = () => {
                     <div>
                         <label htmlFor='description'>Description:</label>
                         <textarea type="text" name="description" value={description} onChange={(e) => setDescription(e.target.value)} onBlur={descriptionValidator} />
-                        {!errors.description.isValid && <p className='error'>{errors.description.value}</p>}
                     </div>
+                    {!errors.description.isValid && <p className='error'>{errors.description.value}</p>}
+
                     <div className='radio-div-container'>
                         <label htmlFor='type'>Type:</label>
                         <span className='radio-span'> <input type="radio" name="type" value='adopt' onChange={typeChangeHandler} checked={typeSelectedOpion === 'adopt'} /> Adopt</span>

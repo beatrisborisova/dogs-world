@@ -13,6 +13,37 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setDog as setReduxState } from '../../features/dogs';
 import LinearColor from '../others/Linear';
 
+const errorsInitialState = {
+    breed: {
+        isValid: '',
+        value: ''
+    },
+    age: {
+        isValid: '',
+        value: ''
+    },
+    gender: {
+        isValid: '',
+        value: ''
+    },
+    image: {
+        isValid: '',
+        value: ''
+    },
+    vaccines: {
+        isValid: '',
+        value: ''
+    },
+    description: {
+        isValid: '',
+        value: ''
+    },
+    type: {
+        isValid: '',
+        value: ''
+    },
+}
+
 export const Edit = () => {
 
     const { state } = useLocation();
@@ -37,6 +68,8 @@ export const Edit = () => {
     const [description, setDescription] = useState('');
     const [succesfulUpload, setSuccesfulUplaod] = useState(false);
     const [isImageChanged, setIsImageChanged] = useState(false);
+
+    const [errors, setErrors] = useState(errorsInitialState);
 
     useEffect(() => {
         dogsService.getDogById(dogState.id)
@@ -88,6 +121,16 @@ export const Edit = () => {
             uploadImg: currentImageUrl
         }
 
+
+        breedValidator();
+        ageValidator();
+        imageValidator();
+        descriptionValidator();
+
+        if (!errors.breed.isValid && !errors.age.isValid && !errors.image.isValid && !errors.description.isValid) {
+            return
+        }
+
         dogsService.editDog(dogState.id, newDogData, dog.comments)
             .then((res) => {
                 navigate(`/catalog/${typeSelectedOpion}/${dogState.id}`)
@@ -108,6 +151,67 @@ export const Edit = () => {
         setVaccinesSelectedOption(e.target.value);
     }
 
+    const breedValidator = () => {
+        if (breed === "") {
+            setErrors(oldState => {
+                return { ...oldState, breed: { isValid: false, value: 'Breed field is required' } }
+            })
+        } else if (breed.length < 3) {
+            setErrors(oldState => {
+                return { ...oldState, breed: { isValid: false, value: 'Breed must be at least 3 characters long' } }
+            })
+        } else {
+            setErrors(oldState => {
+                return { ...oldState, breed: { isValid: true, value: '' } }
+            })
+        }
+    }
+
+    const ageValidator = () => {
+        if (age === "") {
+            setErrors(oldState => {
+                return { ...oldState, age: { isValid: false, value: 'Age field is required' } }
+            })
+        } else if (Number(age) < 0) {
+            setErrors(oldState => {
+                return { ...oldState, age: { isValid: false, value: 'Age must a whole number bigger or equal to 0' } }
+            })
+        } else {
+            setErrors(oldState => {
+                return { ...oldState, age: { isValid: true, value: '' } }
+            })
+        }
+    }
+
+    const imageValidator = () => {
+        if (currentImageUrl === "") {
+            setErrors(oldState => {
+                return { ...oldState, image: { isValid: false, value: 'Image field is required' } }
+            })
+        } else {
+            setErrors(oldState => {
+                return { ...oldState, image: { isValid: true, value: '' } }
+            })
+        }
+    }
+
+    const descriptionValidator = (e) => {
+        if (description === "") {
+            setErrors(oldState => {
+                return { ...oldState, description: { isValid: false, value: 'Description field is required' } }
+            })
+        } else if (description.length < 10) {
+            setErrors(oldState => {
+                return { ...oldState, description: { isValid: false, value: 'Description must be at least 10 characters long' } }
+            })
+        } else {
+            setErrors(oldState => {
+                return { ...oldState, description: { isValid: true, value: '' } }
+            })
+        }
+    }
+
+
     return (
         <motion.div className={styles.createEditContainer} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <div className={styles.createEditContent}>
@@ -119,12 +223,16 @@ export const Edit = () => {
                     <form onSubmit={editDogHandler} className={styles.createEditForm}>
                         <div>
                             <label htmlFor='breed'>Breed:</label>
-                            <input type="text" name="breed" value={breed} onChange={(e) => setBreed(e.target.value)} />
+                            <input type="text" name="breed" value={breed} onChange={(e) => setBreed(e.target.value)} onBlur={breedValidator} />
                         </div>
+                        {!errors.breed.isValid && <p className='error'>{errors.breed.value}</p>}
+
                         <div>
                             <label htmlFor='age'>Age:</label>
-                            <input type="number" name="age" value={age} onChange={(e) => setAge(e.target.value)} />
+                            <input type="number" name="age" value={age} onChange={(e) => setAge(e.target.value)} onBlur={ageValidator} />
                         </div>
+                        {!errors.age.isValid && <p className='error'>{errors.age.value}</p>}
+
                         <div className='radio-div-container'>
                             <label htmlFor='age'>Gender:</label>
                             <span className='radio-span'><input type="radio" name="gender" value='male' onChange={genderChangeHandler} checked={genderSelectedOption === 'male'} /> Male</span>
@@ -142,7 +250,7 @@ export const Edit = () => {
                                 <div className={styles.editImageWrapper}>
                                     <img src={currentImageUrl} alt="dog" />
                                 </div>
-                                <input type="file" name="uploadImg" onChange={(e) => setImageUpload(e.target.files[0])} />
+                                <input type="file" name="uploadImg" onChange={(e) => setImageUpload(e.target.files[0])} onBlur={imageValidator} />
                             </>
 
                         </div>
@@ -151,9 +259,10 @@ export const Edit = () => {
 
                         <div>
                             <label htmlFor='description'>Description:</label>
-                            <textarea type="text" name="description" value={description} onChange={(e) => setDescription(e.target.value)} />
-
+                            <textarea type="text" name="description" value={description} onChange={(e) => setDescription(e.target.value)} onBlur={descriptionValidator} />
                         </div>
+                        {!errors.description.isValid && <p className='error'>{errors.description.value}</p>}
+
                         <div className='radio-div-container'>
                             <label htmlFor='type'>Type:</label>
                             <span className='radio-span'><input type="radio" name="type" value='adopt' onChange={typeChangeHandler} checked={typeSelectedOpion === 'adopt'} /> Adopt</span>
