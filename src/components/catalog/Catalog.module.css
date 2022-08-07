@@ -70,3 +70,20 @@
     /* background-color: #ffffff; */
     justify-content: center;
 }
+
+/* RESPONSIVE */
+
+@media screen and (max-width: 375px) {
+    .mainSectionContent {
+        flex-direction: column;
+    }
+
+    .adoptBuySectionContainer {
+        align-items: center;
+    }
+
+    .adoptBuySectionContainer h1 {
+        font-size: 37px;
+        padding: 0;
+    }
+}

@@ -60,7 +60,7 @@ export const Login = () => {
                             <input type="password" placeholder='Password' name='password' />
                         </div>
                         <div>
-                            <input type="submit" value="Login" className='submit-btn' />
+                            <input type="submit" value="Login" className={styles.submitBtn} />
                         </div>
                     </form>
                 </div>

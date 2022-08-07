@@ -22,3 +22,11 @@
     color: #ffffff;
     background-color: #686868;
 }
+
+/* RESPONSIVE */
+
+@media screen and (max-width: 375px) {
+    .dogContentContainer {
+        padding: 100px 20px;
+    }
+}

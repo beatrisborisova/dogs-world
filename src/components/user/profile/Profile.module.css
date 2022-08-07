@@ -68,3 +68,28 @@ h2 {
     background-color: aqua;
     font-weight: bold;
 }
+
+/* RESPONSIVE */
+
+@media screen and (max-width: 375px) {
+    .profileContainer {
+        height: auto;
+        padding: 20px;
+    }
+
+    .profileMainContent {
+        display: block;
+        padding: 30px;
+    }
+
+    .imageWrapperProfile {
+        width: auto;
+        margin-bottom: 10px;
+    }
+
+    .profileText {
+        padding: 40px 30px;
+        text-align: center;
+    }
+
+}

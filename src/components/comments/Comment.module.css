@@ -4,3 +4,11 @@
     text-align: left;
     border-bottom: 1px solid #dfdfdf;
 }
+
+/* RESPONSIVE */
+
+@media screen and (max-width: 375px) {
+    .commentContainer {
+        display: block;
+    }
+}

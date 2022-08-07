@@ -230,7 +230,7 @@ export const Register = () => {
                         {!errors.password.isValid && <p className='error'>{errors.password.value}</p>}
                     </div>
                     <div>
-                        <input type="submit" value="Register" className='submit-btn' />
+                        <input type="submit" value="Register" className={styles.submitBtn} />
                     </div>
                 </form>
             </div>

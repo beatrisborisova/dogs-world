@@ -60,12 +60,12 @@
     outline: none;
 }
 
-.loginRegisterForm div :nth-child(1):not(.submit-btn) {
+.loginRegisterForm div :nth-child(1):not(.submitBtn) {
     padding: 14px;
     background-color: #0000001c;
 }
 
-.loginRegisterForm div .submit-btn {
+.loginRegisterForm div .submitBtn {
     padding: 13px;
     background-color: #5ecf7a;
     width: 100%;
@@ -73,4 +73,17 @@
     color: #ffffff;
     font-weight: bold;
     letter-spacing: 0.5px;
+}
+
+/* RESPONSIVE */
+
+@media screen and (max-width: 375px) {
+    .loginRegisterContainer {
+        width: 100%;
+        padding: 35px;
+    }
+
+    .loginRegisterContent {
+        padding: 30px;
+    }
 }

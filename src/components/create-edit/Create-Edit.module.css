@@ -54,3 +54,16 @@
 .editImageWrapper img {
     width: 100%;
 }
+
+/* RESPONSIVE */
+
+@media screen and (max-width: 375px) {
+    .createEditContainer {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .createEditContent {
+        padding: 30px;
+    }
+}

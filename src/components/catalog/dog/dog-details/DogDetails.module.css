@@ -62,3 +62,20 @@
 .noComments {
     font-size: 24px;
 }
+
+/* RESPONSIVE */
+
+@media screen and (max-width: 375px) {
+    .dogDetailsContainer {
+        display: block;
+    }
+
+    .commentsForm {
+        display: block;
+    }
+
+    .commentsContent h2 {
+        text-align: center;
+    }
+
+}

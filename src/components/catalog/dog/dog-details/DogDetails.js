@@ -55,7 +55,8 @@ export const DogDetails = () => {
     const addCommentHandler = (e) => {
         e.preventDefault();
 
-        const comment = (new FormData(e.target)).get('comment');
+        const form = e.target;
+        const comment = (new FormData(form)).get('comment');
         const currentdate = new Date();
         const datetime = currentdate.getDate() + "/"
             + (currentdate.getMonth() + 1) + "/"
@@ -76,6 +77,7 @@ export const DogDetails = () => {
         dogsService.addComment(stateDog.id, dog, comments, newComment)
             .then(() => {
                 setNewComment(newComment)
+                form.reset()
                 setComments(oldComments => [...oldComments, newComment])
             })
             .catch(err => console.log(err.message))

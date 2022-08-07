@@ -79,7 +79,7 @@ export const EditProfile = () => {
     }
 
     return (
-        <>{currentUserData &&
+        <div className={styles.profileContainer}>{currentUserData &&
             <form onSubmit={editProfileHandler} className={styles.profileText}>
                 <h2>Edit profile</h2>
                 <div>
@@ -108,6 +108,6 @@ export const EditProfile = () => {
             </form>
         }
             {!currentUserData && <LinearColor />}
-        </>
+        </div>
     )
 }
