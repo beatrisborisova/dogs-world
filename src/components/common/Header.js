@@ -12,14 +12,10 @@ import { removeDog } from '../../features/dogs';
 export const Header = () => {
 
     const [hasUser, setHasUser] = useState(false);
-    const [isNavShown, setIsNavShown] = useState(false);
+    const [isNavShown, setIsNavShown] = useState(true);
 
     const dispatch = useDispatch();
     const user = useSelector((states) => states.user.value);
-
-    useEffect(() => {
-        console.log(isNavShown);
-    }, [])
 
     useEffect(() => {
         if (user.email !== '') {
@@ -27,6 +23,14 @@ export const Header = () => {
         } else {
             setHasUser(false);
         }
+
+
+        if (window.innerWidth <= 375) {
+            setIsNavShown(false)
+        } else {
+            setIsNavShown(true)
+        }
+        console.log('isNavShown', isNavShown);
     }, [user.email])
 
     const logoutHandler = () => {
@@ -35,12 +39,17 @@ export const Header = () => {
         dispatch(removeDog());
     }
 
+
     const openMobileMenuHandler = () => {
         setIsNavShown(!isNavShown)
     }
 
     const closeMenu = () => {
-        setIsNavShown(false)
+        if (window.innerWidth <= 375) {
+            setIsNavShown(false)
+        } else {
+            setIsNavShown(true)
+        }
     }
 
     return (
@@ -80,8 +89,8 @@ export const Header = () => {
 
                             {!hasUser &&
                                 <>
-                                    <Link to={'/login'}>Login</Link>
-                                    <Link to={'/register'}>Register</Link>
+                                    <Link to={'/login'} onClick={closeMenu}>Login</Link>
+                                    <Link to={'/register'} onClick={closeMenu}>Register</Link>
                                 </>
                             }
                         </ul>

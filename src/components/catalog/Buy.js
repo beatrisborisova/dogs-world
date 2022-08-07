@@ -63,15 +63,18 @@ export const Buy = ({ dogsPerPage }) => {
             <motion.div initial={{ width: 0 }} animate={{ width: '100%' }} exit={{ width: '100%', transition: { duration: 0.3 } }}>
                 <section className={[styles.adoptBuySectionContainer, styles.buySectionContainer].join(' ')}>
                     <h1>Buy a dog</h1>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                    <p>Dogs are our link to paradise.</p>
                 </section>
                 <section className={styles.adoptBuyCatalogContainer}>
                     {isLoading && <LinearColor />}
                     {!dogs && <NoDogs />}
 
                     {dogs && dogs.length !== 0 &&
-                        currentPageDogs.map(el => <Dog type="buy" currentDog={el} key={el.id}
-                            setCurrentDog={setCurrentDog} setSelectedId={setSelectedId} setCreatorId={setCreatorId} />)
+                        currentPageDogs.map(el =>
+                            <Dog type="buy" currentDog={el.dog} dogId={el.id} key={el.id}
+                                setCurrentDog={setCurrentDog} setSelectedId={setSelectedId} creatorId={el.creatorId}
+                                setCreatorId={setCreatorId}
+                            />)
                     }
 
                     {selectedId && currentDog &&

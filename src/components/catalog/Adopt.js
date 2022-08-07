@@ -57,7 +57,7 @@ export const Adopt = ({ dogsPerPage }) => {
             <motion.section initial={{ width: 0 }} animate={{ width: '100%' }} exit={{ width: '100%', transition: { duration: 0.1 } }}>
                 <section className={[styles.adoptBuySectionContainer, styles.adoptSectionContainer].join(' ')}>
                     <h1>Adopt a dog</h1>
-                    <p>All is paw-sible when you rescue a dog. </p>
+                    <p>All is paw-sible when you rescue a dog.</p>
                 </section>
                 <section className={styles.adoptBuyCatalogContainer}>
 
