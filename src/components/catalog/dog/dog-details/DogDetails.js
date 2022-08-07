@@ -14,7 +14,6 @@ import { DogContext } from '../../../../contexts/Dog';
 
 export const DogDetails = () => {
 
-    // const dogId = useParams().id;
     const [dog, setDog] = useState(null);
     const [open, setOpen] = useState(false);
     const [agree, setAgree] = useState(false);

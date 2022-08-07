@@ -24,19 +24,19 @@ export const Home = () => {
                 <NavLink to={'/catalog/adopt'} className={[styles.homeAdoptContainer, styles.homeArticle].join(' ')}>
                     <article>
                         <h3>Adopt a dog</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. </p>
+                        <p>If you're here to adopt a dog, click here</p>
                     </article>
                 </NavLink>
                 <NavLink to={'/catalog/buy'} className={[styles.homeBuyContainer, styles.homeArticle].join(' ')}>
                     <article>
                         <h3>Buy a dog</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. </p>
+                        <p>If you're here to buy a dog, click here</p>
                     </article>
                 </NavLink>
                 <NavLink to={'/create'} className={[styles.homeCreateContainer, styles.homeArticle].join(' ')}>
                     <article>
                         <h3>Post a dog</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. </p>
+                        <p>If you're here to post a dog offer, click here</p>
                     </article>
                 </NavLink>
             </section>

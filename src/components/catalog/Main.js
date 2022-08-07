@@ -28,7 +28,6 @@ export const Main = () => {
         <div className={styles.mainSectionContent}>
             <article className={[styles.mainAdoptArticle, styles.mainArticle].join(' ')}>
                 <h2>Adopt a dog</h2>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard.</p>
                 {adoptDogs.length > 0 &&
                     <Carousel className={styles.mainCarousel}>
                         {adoptDogs.map((el, index) => {
@@ -52,7 +51,6 @@ export const Main = () => {
             </article>
             <article className={[styles.mainBuyArticle, styles.mainArticle].join(' ')}>
                 <h2>Buy a dog</h2>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard.</p>
                 {buyDogs.length > 0 &&
                     <Carousel className={styles.mainCarousel}>
                         {buyDogs.map((el, index) => {
