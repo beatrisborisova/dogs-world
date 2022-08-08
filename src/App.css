@@ -8,6 +8,10 @@ main {
   /* background-color: aquamarine; */
 }
 
+.active {
+  font-weight: bold;
+}
+
 .btn-level-one {
   background-color: #5ecf7a;
   color: #000000;

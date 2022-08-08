@@ -6,7 +6,7 @@ import LinearColor from '../others/Linear';
 import { DogFlyer } from './dog/dog-flyer/DogFlyer';
 import { motion } from 'framer-motion';
 import { useDispatch } from "react-redux";
-import { removeDog } from '../../features/dogs';
+import { removeDog, setDog } from '../../features/dogs';
 import ReactPaginate from 'react-paginate';
 import { NoDogs } from './dog/no-dogs/NoDogs';
 
@@ -22,6 +22,7 @@ export const Adopt = ({ dogsPerPage }) => {
     const [itemOffset, setItemOffset] = useState(0);
     const [pageCount, setPageCount] = useState(0);
     const [currentPageDogs, setCurrentPageDogs] = useState(null);
+
 
     const dispatch = useDispatch();
 
@@ -52,6 +53,7 @@ export const Adopt = ({ dogsPerPage }) => {
         setItemOffset(newOffset);
     };
 
+
     return (
         <>
             <motion.section initial={{ width: 0 }} animate={{ width: '100%' }} exit={{ width: '100%', transition: { duration: 0.1 } }}>
@@ -59,6 +61,7 @@ export const Adopt = ({ dogsPerPage }) => {
                     <h1>Adopt a dog</h1>
                     <p>All is paw-sible when you rescue a dog.</p>
                 </section>
+
                 <section className={styles.adoptBuyCatalogContainer}>
 
                     {isLoading && <LinearColor />}

@@ -1,16 +1,19 @@
 import styles from './Home.module.css';
 import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
+
+
 const video = require('../../assets/images/home.mp4');
 
 export const Home = () => {
+
 
     return (
         <motion.div initial={{ width: 0 }} animate={{ width: '100%' }} exit={{ width: '100%', transition: { duration: 0.3 } }}>
             <div className={styles.homeContainer}>
                 <div className={styles.homeContent}>
                     <div className={styles.homeText}>
-                        <h1>Welcome to Dogland</h1>
+                        <h1>Welcome to DogLand</h1>
                         <NavLink to={'catalog'} className="btn-level-one">EXPLORE</NavLink>
                     </div>
                     {video &&
@@ -20,6 +23,7 @@ export const Home = () => {
                     }
                 </div>
             </div>
+
             <section className={styles.homeCategoriesContainer}>
                 <NavLink to={'/catalog/adopt'} className={[styles.homeAdoptContainer, styles.homeArticle].join(' ')}>
                     <article>

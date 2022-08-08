@@ -12,7 +12,6 @@
 
 .loginRegisterUserNav {
     border: none;
-    /* border-top: 2px solid #5ecf7a; */
     background-color: #6dc561a6;
     padding: 10px;
 
@@ -27,11 +26,6 @@
     width: 100%;
 }
 
-/* TODO: Active style does not apply */
-
-.loginRegisterUserNav a.active {
-    font-weight: bold;
-}
 
 .loginRegisterContent {
     border: none;

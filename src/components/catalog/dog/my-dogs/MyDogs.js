@@ -1,3 +1,4 @@
+import styles from '../../../catalog/Catalog.module.css';
 import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux";
 import { removeDog } from "../../../../features/dogs";
@@ -59,7 +60,7 @@ export const MyDogs = ({ dogsPerPage }) => {
 
     return (
         <>
-            <section className='adopt-buy-catalog-container'>
+            <section className={styles.adoptBuyCatalogContainer}>
 
                 {isLoading && <LinearColor />}
                 {myDogs.length === 0 && !isLoading && <NoDogs />}

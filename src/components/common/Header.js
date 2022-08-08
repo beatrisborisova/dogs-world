@@ -54,7 +54,9 @@ export const Header = () => {
     return (
         <header>
             <div className={styles.imageWrapperLogo}>
-                <Link to={'/'}>LOGO HERE</Link>
+                <Link to={'/'}>
+                    <img src={require('../../assets/images/logo.png')} alt='logo' />
+                </Link>
             </div>
             <div className={styles.mobileMenuBtn} onClick={openMobileMenuHandler}>Menu</div>
             {isNavShown &&

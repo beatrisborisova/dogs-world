@@ -7,7 +7,12 @@
 .mainSectionContent {
     display: flex;
     justify-content: center;
+    padding: 60px;
+}
+
+.typeContainer {
     padding: 30px;
+
 }
 
 .mainArticle {
@@ -67,24 +72,34 @@
 .adoptBuyCatalogContainer {
     display: flex;
     flex-wrap: wrap;
-    padding: 20px 100px;
+    padding: 60px 100px;
 }
 
-/* 
-.carouselItemImageWrapper {
-    width: 300px;
-    margin: auto;
-
-}
-
-.carouselItemImageWrapper img {
-    width: 100%;
-} */
 
 /* TODO: styles does not apply */
 .carousel-inner {
     width: 400px;
     margin: 20px auto;
+}
+
+/* Search */
+
+.searchContainer {
+    padding-top: 40px;
+}
+
+.searchContainer input {
+    outline: none;
+    background-color: #ffffff89;
+    padding: 8px;
+    border: none;
+    border-bottom: 2px solid;
+    width: 300px;
+    font-size: 20px;
+}
+
+.resultsContainer {
+    margin-top: 30px;
 }
 
 /* RESPONSIVE */

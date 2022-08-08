@@ -25,9 +25,11 @@ const getDogImage = () => {
 const getAllDogs = async () => {
     try {
         const querySnapshot = await getDocs(collection(database, "dogs"));
+        let results = [];
         querySnapshot.forEach((doc) => {
-            console.log(`${doc.id} => ${doc.data()}`);
+            results.push([doc.id, doc.data()])
         });
+        return results.map(([id, v]) => Object.assign({}, { id }, v));
     } catch (err) {
         toast.error("Cannot open catalog", toastSettings)
         throw new Error('Cannot get all dogs');
@@ -39,7 +41,6 @@ const getAllAdopt = async () => {
         const querySnapshot = await getDocs(collection(database, "adopt"));
         let results = [];
         querySnapshot.forEach((doc) => {
-            // console.log(`${doc.id} => ${doc.data()}`);
             results.push([doc.id, doc.data()])
         });
         return results.map(([id, v]) => Object.assign({}, { id }, v));
@@ -54,7 +55,6 @@ const getAllBuy = async () => {
         const querySnapshot = await getDocs(collection(database, "buy"));
         let results = [];
         querySnapshot.forEach((doc) => {
-            // console.log(`${doc.id} => ${doc.data()}`);
             results.push([doc.id, doc.data()])
         });
         return results.map(([id, v]) => Object.assign({}, { id }, v));

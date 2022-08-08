@@ -34,7 +34,9 @@ export const Footer = () => {
     return (
         <footer>
             <div className={styles.imageWrapperLogo}>
-                <Link to={'/'}>LOGO HERE</Link>
+                <Link to={'/'}>
+                    <img src={require('../../assets/images/logo.png')} alt='logo' />
+                </Link>
             </div>
             <div>
                 <ul className={styles.userNavigationList}>
