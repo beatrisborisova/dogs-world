@@ -98,8 +98,17 @@
     font-size: 20px;
 }
 
-.resultsContainer {
+
+.resultsContainer h2 {
     margin-top: 30px;
+}
+
+.resultsContainer div {
+    display: flex;
+}
+
+.resultsContainer div * {
+    display: block;
 }
 
 /* RESPONSIVE */

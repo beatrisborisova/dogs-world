@@ -28,7 +28,6 @@ export const Main = () => {
     const [currentDog, setCurrentDog] = useState(null);
     const [creatorId, setCreatorId] = useState(null);
 
-
     useEffect(() => {
         dogsService.getAllAdopt()
             .then(res => setAdoptDogs(res))
@@ -38,12 +37,31 @@ export const Main = () => {
             .then(res => setDogs(res))
     }, [])
 
+    useEffect(() => {
+        const search = searchParams.get('search');
+        if (search) {
+            const result = dogs.filter(el => el.dog.breed.toLowerCase().trim().includes(search.toLowerCase().trim()));
+            if (result.length === 0) {
+                return setSearchResults([])
+            }
+            setSearchResults(result)
+        }
+    }, [dogs, searchParams])
+
     const searchHandler = (e) => {
         e.preventDefault();
 
         const form = e.target;
         const search = new FormData(form).get('search');
-        const result = dogs.filter(el => el.dog.breed.toLowerCase().trim() === search.toLowerCase().trim());
+
+        if (search === '') {
+            return
+        }
+        const result = dogs.filter(el => el.dog.breed.toLowerCase().trim().includes(search.toLowerCase().trim()));
+        if (result.length === 0) {
+            return setSearchResults([])
+        }
+        setSearchResults(result)
 
         const searchParams = createSearchParams({
             search
@@ -51,11 +69,6 @@ export const Main = () => {
         setSearchParams(searchParams)
         setSeacrchValue(search)
         form.reset();
-
-        if (result.length === 0) {
-            return setSearchResults([])
-        }
-        setSearchResults(result)
 
     }
 
@@ -73,12 +86,14 @@ export const Main = () => {
                 {searchResults && searchResults.length > 0 &&
                     <div className={styles.resultsContainer}>
                         <h2>Results</h2>
-                        {searchResults.map(el => <Dog type={el.dog.type} currentDog={el.dog} dogId={el.id} key={el.id}
-                            setCurrentDog={setCurrentDog} setSelectedId={setSelectedId} creatorId={el.creatorId}
-                            setCreatorId={setCreatorId} />)}
+                        <div>
+                            {searchResults.map(el => <Dog type={el.dog.type} currentDog={el.dog} dogId={el.id} key={el.id}
+                                setCurrentDog={setCurrentDog} setSelectedId={setSelectedId} creatorId={el.creatorId}
+                                setCreatorId={setCreatorId} />)}
+                        </div>
                     </div>
                 }
-                {searchResults && searchResults.length === 0 && <NoDogs />}
+                {searchValue !== '' && searchResults && searchResults.length === 0 && <NoDogs />}
                 {selectedId && currentDog &&
                     <DogFlyer state={{ setSelectedId, setCurrentDog, currentDog, selectedId, creatorId }} />
                 }
