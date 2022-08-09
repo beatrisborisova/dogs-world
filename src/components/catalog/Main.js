@@ -6,7 +6,7 @@ import * as dogsService from '../../services/dogs';
 import CircularColor from '../others/Spinner';
 import { motion } from 'framer-motion';
 
-import { createSearchParams, useNavigate, useSearchParams } from 'react-router-dom';
+import { createSearchParams, useSearchParams } from 'react-router-dom';
 import { Dog } from './dog/dog-item/Dog';
 import { DogFlyer } from './dog/dog-flyer/DogFlyer';
 import { NoDogs } from './dog/no-dogs/NoDogs';
@@ -54,14 +54,10 @@ export const Main = () => {
         const form = e.target;
         const search = new FormData(form).get('search');
 
+
         if (search === '') {
             return
         }
-        const result = dogs.filter(el => el.dog.breed.toLowerCase().trim().includes(search.toLowerCase().trim()));
-        if (result.length === 0) {
-            return setSearchResults([])
-        }
-        setSearchResults(result)
 
         const searchParams = createSearchParams({
             search
@@ -70,12 +66,16 @@ export const Main = () => {
         setSeacrchValue(search)
         form.reset();
 
+        const result = dogs.filter(el => el.dog.breed.toLowerCase().trim().includes(search.toLowerCase().trim()));
+        if (result.length === 0) {
+            return setSearchResults([])
+        }
+        setSearchResults(result)
+
     }
 
     return (
-        // <motion.section className='main-section'
-        //     initial={{ width: 0 }} animate={{ width: '100%' }} exit={{ width: '100%', transition: { duration: 0.3 } }}>
-        <>
+        <section className={styles.mainSection}>
             <div className={styles.searchContainer}>
                 <form onSubmit={searchHandler}>
                     <input type="text" name='search' placeholder='Search by breed...' />
@@ -147,9 +147,6 @@ export const Main = () => {
                     <NavLink to={'/catalog/buy'} className="btn-level-two">GO</NavLink>
                 </article>
             </div>
-        </>
-
-
-        // </motion.section>
+        </section >
     )
 }
