@@ -1,5 +1,5 @@
 import {
-    getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut
+    getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut
 } from 'firebase/auth';
 
 import { collection, doc, getDocs, setDoc } from 'firebase/firestore';

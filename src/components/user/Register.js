@@ -47,25 +47,18 @@ const errorsInitialState = {
 
 export const Register = () => {
 
-    const [registerUser, setRegisterUser] = useState([]);
     const [imageUpload, setImageUpload] = useState(null);
     const [currentImageUrl, setCurrentImageUrl] = useState('');
     const [imageUrls, setImageUrls] = useState([]);
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [repass, setRepass] = useState('');
     const [name, setName] = useState('');
     const [city, setCity] = useState('');
-    const [gender, setGender] = useState('');
     const [genderSelectedOption, setGenderSelectedOption] = useState('male');
     const [succesfulUpload, setSuccesfulUplaod] = useState(false);
 
     const [errors, setErrors] = useState(errorsInitialState);
-
-
-
-    // const [currentUserProfile, setCurrentUserProfile] = useState(null);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -91,14 +84,13 @@ export const Register = () => {
             name,
             avatar: currentImageUrl,
             city,
-            gender
+            gender: genderSelectedOption
         }
 
         userService.register(user)
             .then(res => {
-                setRegisterUser(res.myUser)
                 dispatch(register({ payload: { email: res.myUser.email, uid: res.myUser.uid }, type: 'REGISTER' }))
-                dispatch(userProfile({ payload: { email: res.myUser.email, name, avatar: currentImageUrl, city, gender }, type: 'USER PROFILE' }))
+                dispatch(userProfile({ payload: { email: res.myUser.email, name, avatar: currentImageUrl, city, gender: genderSelectedOption }, type: 'USER PROFILE' }))
                 navigate('/')
             })
             .catch(err => console.log(err.message))
@@ -221,7 +213,6 @@ export const Register = () => {
                     <div>
                         <FontAwesomeIcon icon={faKey} />
                         <input type="password" placeholder='Password' name='password' value={password} onChange={(e) => setPassword(e.target.value)} onBlur={passwordValidator} />
-                        {/* {!errors.password.isValid && <p className='error'>{errors.password.value}</p>} */}
                     </div>
                     <div>
                         <FontAwesomeIcon icon={faKey} />

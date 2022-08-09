@@ -1,11 +1,10 @@
+/* eslint-disable array-callback-return */
 import styles from './Catalog.module.css';
 import { NavLink } from 'react-router-dom';
 import Carousel from 'react-bootstrap/Carousel';
 import { useEffect, useState } from 'react';
 import * as dogsService from '../../services/dogs';
 import CircularColor from '../others/Spinner';
-import { motion } from 'framer-motion';
-
 import { createSearchParams, useSearchParams } from 'react-router-dom';
 import { Dog } from './dog/dog-item/Dog';
 import { DogFlyer } from './dog/dog-flyer/DogFlyer';

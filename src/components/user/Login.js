@@ -1,20 +1,14 @@
 import styles from './User.module.css';
 import "react-toastify/dist/ReactToastify.css"
-import { toast } from 'react-toastify';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faKey } from '@fortawesome/free-solid-svg-icons';
-
 import * as userService from '../../services/user';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-
 import { useDispatch } from 'react-redux';
 import { login } from '../../features/user';
 
 export const Login = () => {
 
-    const [loginUser, setLoginUser] = useState(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -29,7 +23,6 @@ export const Login = () => {
 
         userService.login(email, password)
             .then(res => {
-                setLoginUser(res)
                 dispatch(login({ payload: { email: res.user.myUser.email, uid: res.user.uid }, type: 'LOGIN' }))
                 if (state) {
                     navigate(-2)
