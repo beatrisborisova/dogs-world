@@ -1,11 +1,13 @@
 .dogDetailsContainer {
     display: flex;
     justify-content: center;
-    padding: 50px;
+    padding: 50px 200px;
+    background-color: #ffffff5f;
+
 }
 
 .imageWrapperDogDetails {
-    width: 400px;
+    width: 800px;
 }
 
 .imageWrapperDogDetails img {
@@ -22,6 +24,7 @@
     flex-direction: column;
     justify-content: space-between;
     margin-left: 20px;
+    padding: 20px;
 }
 
 /* COMMENTS */
