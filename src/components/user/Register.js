@@ -181,7 +181,7 @@ export const Register = () => {
     return (
         <div className={styles.loginRegisterContainer}>
             <div className={styles.loginRegisterUserNav}>
-                <NavLink to={'/login'} activeclass>Login</NavLink>
+                <NavLink to={'/login'} activeclass='true'>Login</NavLink>
                 <NavLink to={'/register'}>Register</NavLink>
             </div>
             <div className={styles.loginRegisterContent}>

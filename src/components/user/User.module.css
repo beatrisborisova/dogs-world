@@ -71,7 +71,7 @@
 
 /* RESPONSIVE */
 
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 675px) {
     .loginRegisterContainer {
         width: 100%;
         padding: 35px;

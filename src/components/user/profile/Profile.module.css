@@ -71,7 +71,7 @@ h2 {
 
 /* RESPONSIVE */
 
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 675px) {
     .profileContainer {
         height: auto;
         padding: 20px;

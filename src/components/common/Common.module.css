@@ -84,7 +84,7 @@ header a.active {
 
 /* RESPONSIVE */
 
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 675px) {
     header, .navigationList, .userNavigationList, footer {
         flex-direction: column;
         padding: 7px;

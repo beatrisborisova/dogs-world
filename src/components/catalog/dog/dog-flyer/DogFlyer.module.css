@@ -34,7 +34,7 @@
 
 /* RESPONSIVE */
 
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 675px) {
     .dogContentContainer {
         padding: 100px 20px;
     }
