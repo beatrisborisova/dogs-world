@@ -54,6 +54,11 @@ export const DogDetails = () => {
 
         const form = e.target;
         const comment = (new FormData(form)).get('comment');
+
+        if (comment === '') {
+            return
+        }
+
         const currentdate = new Date();
         const datetime = currentdate.getDate() + "/"
             + (currentdate.getMonth() + 1) + "/"

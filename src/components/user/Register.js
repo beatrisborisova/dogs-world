@@ -87,6 +87,17 @@ export const Register = () => {
             gender: genderSelectedOption
         }
 
+        emailValidator();
+        passwordValidator();
+        nameValidator();
+        avatarValidator();
+        cityValidator();
+
+        if (!errors.email.isValid && !errors.password.isValid && !errors.name.isValid && !errors.avatar.isValid && !errors.city.isValid) {
+            return
+        }
+
+
         userService.register(user)
             .then(res => {
                 dispatch(register({ payload: { email: res.myUser.email, uid: res.myUser.uid }, type: 'REGISTER' }))
@@ -178,6 +189,18 @@ export const Register = () => {
         }
     }
 
+    const avatarValidator = () => {
+        if (currentImageUrl === "") {
+            setErrors(oldState => {
+                return { ...oldState, avatar: { isValid: false, value: 'Avatar field is required' } }
+            })
+        } else {
+            setErrors(oldState => {
+                return { ...oldState, avatar: { isValid: true, value: '' } }
+            })
+        }
+    }
+
     return (
         <div className={styles.loginRegisterContainer}>
             <div className={styles.loginRegisterUserNav}>
@@ -196,8 +219,9 @@ export const Register = () => {
                         {!errors.name.isValid && <p className='error'>{errors.name.value}</p>}
                     </div>
                     <div>
-                        <input type="file" name="avatar" placeholder='Upload profile picture' onChange={(e) => setImageUpload(e.target.files[0])} />
+                        <input type="file" name="avatar" placeholder='Upload profile picture' onChange={(e) => setImageUpload(e.target.files[0])} onBlur={avatarValidator} />
                     </div>
+                    {!errors.avatar.isValid && <p className='error'>{errors.avatar.value}</p>}
                     <button onClick={uploadFile} type='button' className='upload-btn'>Upload avatar</button>
                     {succesfulUpload && <p className='success'>Avatar uploaded succesfully</p>}
 

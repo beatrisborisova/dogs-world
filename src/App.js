@@ -20,15 +20,19 @@ import { useSelector } from 'react-redux';
 import { MyDogs } from './components/catalog/dog/my-dogs/MyDogs';
 import { lazy, Suspense } from 'react';
 import CircularColor from './components/others/Spinner';
+import { useNavigate } from "react-router-dom";
 
 const Contacts = lazy(() => import('./components/about/Contacts/Contacts'));
 
 
 const ProtectedRoute = ({ data }) => {
 
+  const navigate = useNavigate();
+
   const hasRedirection = true;
   if (data.user === undefined) {
-    return <Navigate to={data.redirectPath} state={hasRedirection} />;
+    // return <Navigate to={data.redirectPath} state={hasRedirection} />;
+    navigate(data.redirectPath, { state: { hasRedirection }, replace: false })
   }
   return <Outlet />
 };

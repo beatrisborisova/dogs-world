@@ -14,7 +14,6 @@ export const Login = () => {
 
     const { state } = useLocation();
 
-
     const loginHandler = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);

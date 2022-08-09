@@ -17,7 +17,7 @@ export const Home = () => {
                         <NavLink to={'catalog'} className="btn-level-one">EXPLORE</NavLink>
                     </div>
                     {video &&
-                        <video width="100%" autoPlay muted className={styles.homeVideo}>
+                        <video width="100%" autoPlay muted playsInline className={styles.homeVideo}>
                             <source src={video} type="video/mp4" />
                         </video>
                     }

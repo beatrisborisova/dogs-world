@@ -4,8 +4,6 @@
 
 main {
   background-image: url('./assets/images/createBackground.jpg');
-
-  /* background-color: aquamarine; */
 }
 
 .active {
@@ -139,4 +137,13 @@ main {
 .radio-span {
   display: flex;
   margin: 10px;
+}
+
+/* RESPONSIVE */
+
+@media screen and (max-width: 675px) {
+  main {
+    background-color: #c2e9a7;
+    background-image: none;
+  }
 }
