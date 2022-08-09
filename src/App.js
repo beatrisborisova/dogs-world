@@ -5,11 +5,9 @@ import { ToastContainer } from 'react-toastify';
 import { Footer } from './components/common/Footer';
 import { Header } from './components/common/Header';
 import { DogContextRoutes } from './components/others/DogContextRoutes';
-import { Routes, Route, Navigate, Outlet, useNavigate } from 'react-router-dom';
+import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { NotFound } from './components/not-found/NotFound';
 import { Home } from './components/Home/Home';
-import { Cause } from './components/about/Cause/Cause';
-// import { Contacts } from './components/about/Contacts/Contacts';
 import { Main } from './components/catalog/Main';
 import { Adopt } from './components/catalog/Adopt';
 import { Buy } from './components/catalog/Buy';
@@ -47,8 +45,6 @@ function App() {
 
         <Routes>
           <Route path='/' index element={<Home />} />
-          <Route path='cause' element={<Cause />} />
-
 
           <Route path='/contacts' element={
             <Suspense fallback={<CircularColor />}>

@@ -25,7 +25,7 @@ export const Header = () => {
         }
 
 
-        if (window.innerWidth <= 375) {
+        if (window.innerWidth <= 675) {
             setIsNavShown(false)
         } else {
             setIsNavShown(true)
@@ -44,7 +44,7 @@ export const Header = () => {
     }
 
     const closeMenu = () => {
-        if (window.innerWidth <= 375) {
+        if (window.innerWidth <= 675) {
             setIsNavShown(false)
         } else {
             setIsNavShown(true)
@@ -72,7 +72,6 @@ export const Header = () => {
                                     <NavLink to={'/catalog/buy'} onClick={closeMenu}>Buy</NavLink>
                                 </div>
                             </NavLink>
-                            <NavLink to={'/cause'} onClick={closeMenu}>Cause</NavLink>
                             <NavLink to={'/contacts'} onClick={closeMenu}>Contacts</NavLink>
                         </ul>
                     </nav>

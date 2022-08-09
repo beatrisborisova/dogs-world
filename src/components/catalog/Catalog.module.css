@@ -118,8 +118,16 @@
         flex-direction: column;
     }
 
+    .mainArticle {
+        padding: 30px;
+    }
+
     .adoptBuySectionContainer {
         align-items: center;
+    }
+
+    .typeContainer {
+        padding: 0;
     }
 
     .adoptBuySectionContainer h1 {

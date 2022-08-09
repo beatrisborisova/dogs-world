@@ -38,4 +38,12 @@
     .dogContentContainer {
         padding: 100px 20px;
     }
+
+    .imageWrapperDogMain {
+        width: 200px;
+    }
+
+    .imageWrapperDogMain img {
+        width: 100%;
+    }
 }

@@ -70,7 +70,23 @@
 
 @media screen and (max-width: 675px) {
     .dogDetailsContainer {
-        display: block;
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .detailsContent {
+        margin: auto;
+    }
+
+    .detailsContent button {
+        width: 100%;
+    }
+
+    .dogDetailsText {
+        margin: 0;
     }
 
     .commentsForm {
@@ -79,6 +95,14 @@
 
     .commentsContent h2 {
         text-align: center;
+    }
+
+    .imageWrapperDogDetails {
+        width: 300px;
+    }
+
+    .imageWrapperDogDetails img {
+        width: 100%;
     }
 
 }
