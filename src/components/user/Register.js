@@ -96,7 +96,6 @@ export const Register = () => {
 
         userService.register(user)
             .then(res => {
-                console.log('myUser', res);
                 setRegisterUser(res.myUser)
                 dispatch(register({ payload: { email: res.myUser.email, uid: res.myUser.uid }, type: 'REGISTER' }))
                 dispatch(userProfile({ payload: { email: res.myUser.email, name, avatar: currentImageUrl, city, gender }, type: 'USER PROFILE' }))
@@ -190,7 +189,7 @@ export const Register = () => {
     return (
         <div className={styles.loginRegisterContainer}>
             <div className={styles.loginRegisterUserNav}>
-                <NavLink to={'/login'} activeClass>Login</NavLink>
+                <NavLink to={'/login'} activeclass>Login</NavLink>
                 <NavLink to={'/register'}>Register</NavLink>
             </div>
             <div className={styles.loginRegisterContent}>

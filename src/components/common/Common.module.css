@@ -4,8 +4,6 @@ header, footer {
     align-items: center;
     padding: 20px;
     background-color: #f5f5dc;
-    /* TODO: сянката не се ъплайва на хедъра */
-    box-shadow: 0px 8px 17px 0px rgba(0, 0, 0, 0.52);
 }
 
 header a.active {

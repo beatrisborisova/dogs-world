@@ -24,8 +24,6 @@ const login = async (email, password) => {
         let myUser;
         const querySnapshot = await getDocs(collection(database, "users"));
         querySnapshot.forEach((doc) => {
-            // console.log('doc.data().id', doc.data().uid);
-            // console.log('user.uid', user.user.uid);
             if (doc.data().uid === user.user.uid) {
                 myUser = {
                     uid: doc.id,
@@ -37,7 +35,7 @@ const login = async (email, password) => {
         toast.success("Successfully logged in", toastSettings)
         return myUser;
     } catch (err) {
-        toast.error("Unsuccessful login", toastSettings)
+        toast.error("Incorrect email or password", toastSettings)
     }
 };
 
@@ -46,7 +44,6 @@ const register = async ({ email, password, name, avatar, city, gender }) => {
     try {
         const res = await createUserWithEmailAndPassword(auth, email, password);
         const user = res.user;
-        console.log('user', user);
         const myUser = {
             email,
             name,
@@ -58,10 +55,8 @@ const register = async ({ email, password, name, avatar, city, gender }) => {
         const docRef = doc(database, "users", user.uid);
         await setDoc(docRef, { myUser, uid: docRef.id });
         sessionStorage.setItem('currentUserId', docRef.id)
-        console.log('myUser', myUser);
         toast.success("Successfully registered", toastSettings)
         return { myUser, docRef };
-        // return myUser;
     } catch (err) {
         toast.error("Unsuccessful register", toastSettings)
     }
@@ -82,8 +77,6 @@ const getUserData = async (userId) => {
         let myUser;
         const querySnapshot = await getDocs(collection(database, "users"));
         querySnapshot.forEach((doc) => {
-            console.log('doc.id.uid ', doc.id);
-            console.log('userId.uid', userId);
             if (doc.id === userId) {
                 myUser = {
                     uid: doc.id,
@@ -102,7 +95,6 @@ const getUserData = async (userId) => {
 const editProfile = async (user, userId) => {
     try {
         const docRef = doc(database, "users", userId);
-        // const editedUser = user;
         const editedUser = {
             myUser: {
                 email: user.email,
@@ -114,11 +106,8 @@ const editProfile = async (user, userId) => {
             },
             uid: user.uid
         }
-        // const docRef = doc(database, "users", user.uid);
-        // await setDoc(docRef, { myUser, uid: docRef.id });
         sessionStorage.setItem('currentUserId', docRef.id)
         await setDoc(docRef, editedUser);
-        // return docRef;
         toast.success("Profile edited successfully", toastSettings)
         return { editedUser, docRef };
     } catch (err) {

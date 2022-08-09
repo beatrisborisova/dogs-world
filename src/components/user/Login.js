@@ -37,7 +37,10 @@ export const Login = () => {
                     navigate('/')
                 }
             })
-            .catch()
+            .catch((err) => {
+                console.log(err.message)
+                e.target.reset()
+            })
 
     }
 
