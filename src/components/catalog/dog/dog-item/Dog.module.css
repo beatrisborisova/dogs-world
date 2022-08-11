@@ -31,6 +31,8 @@
 .imageWrapperDogMain {
     width: 100px;
     margin: 10px auto;
+    overflow: hidden;
+    height: 200px;
 }
 
 .imageWrapperDogMain img {

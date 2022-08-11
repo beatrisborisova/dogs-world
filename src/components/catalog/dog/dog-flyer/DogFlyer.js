@@ -20,7 +20,7 @@ export const DogFlyer = ({ state }) => {
                 <motion.div key={state.currentDog.id}>
                     <motion.h4><b>Breed:</b> {currentDog.breed}</motion.h4>
                     <motion.div className={styles.imageWrapperDogMain}>
-                        <motion.img src={currentDog.uploadImg} key={currentDog.uploadImg} />
+                        <motion.img src={currentDog.uploadImg} alt='dog' />
                     </motion.div>
                     <motion.p><b>Age:</b> {currentDog.age}</motion.p>
                     <motion.p><b>Gender:</b> {currentDog.gender}</motion.p>

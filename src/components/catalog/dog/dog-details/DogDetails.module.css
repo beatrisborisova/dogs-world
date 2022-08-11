@@ -1,14 +1,17 @@
 .dogDetailsContainer {
     display: flex;
     justify-content: center;
-    padding: 50px 200px;
+    padding: 50px 100px;
     background-color: #ffffff5f;
 
 }
 
 .imageWrapperDogDetails {
-    width: 800px;
+    max-width: 800px;
+    max-height: 700px;
+    overflow: hidden;
 }
+
 
 .imageWrapperDogDetails img {
     width: 100%;

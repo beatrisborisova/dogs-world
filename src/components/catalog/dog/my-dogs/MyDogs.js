@@ -24,7 +24,6 @@ export const MyDogs = ({ dogsPerPage }) => {
     const [pageCount, setPageCount] = useState(0);
     const [currentPageDogs, setCurrentPageDogs] = useState(null);
 
-
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -38,20 +37,22 @@ export const MyDogs = ({ dogsPerPage }) => {
                 dispatch(removeDog())
                 setCurrentPageDogs(res.slice(itemOffset, endOffset))
                 setPageCount(Math.ceil(res.length / dogsPerPage))
+
             })
             .catch(err => console.log(err.message))
             .finally(() => {
+
                 setIsLoading(false)
             })
 
 
+    }, [itemOffset])
+
+    useEffect(() => {
         if (myDogs.length > 4) {
             setShowPagination(true);
         }
-
-    }, [itemOffset])
-
-
+    }, [myDogs.length])
 
     const handlePageClick = (e) => {
         const newOffset = e.selected * dogsPerPage % myDogs.length;
@@ -76,7 +77,8 @@ export const MyDogs = ({ dogsPerPage }) => {
 
             </section>
 
-            {showPagination &
+
+            {showPagination &&
                 < ReactPaginate
                     nextLabel="next >"
                     onPageChange={handlePageClick}

@@ -20,7 +20,7 @@
 }
 
 .imageWrapperProfile {
-    width: 500px;
+    width: 300px;
     margin: 10px;
     border: 5px solid white;
 
@@ -59,15 +59,6 @@ h2 {
     margin-bottom: 40px;
 }
 
-.myDogsLinkContainer:hover a {
-    color: red;
-    font-weight: bold;
-}
-
-.myDogsEditProfileContainer:hover {
-    background-color: aqua;
-    font-weight: bold;
-}
 
 /* RESPONSIVE */
 
@@ -83,8 +74,12 @@ h2 {
     }
 
     .imageWrapperProfile {
-        width: auto;
+        width: 200px;
         margin-bottom: 10px;
+    }
+
+    .imageWrapperProfile img {
+        width: 100%;
     }
 
     .profileText {

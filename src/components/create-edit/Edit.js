@@ -1,6 +1,6 @@
 import styles from './Create-Edit.module.css';
 import * as dogsService from '../../services/dogs';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storage } from '../../firebase';
@@ -8,45 +8,31 @@ import { v4 } from 'uuid';
 
 
 import { motion } from 'framer-motion';
-import { DogContext } from '../../contexts/Dog';
 import { useSelector, useDispatch } from 'react-redux';
 import { setDog as setReduxState } from '../../features/dogs';
 import LinearColor from '../others/Linear';
 
 const errorsInitialState = {
     breed: {
-        isValid: '',
+        isValid: false,
         value: ''
     },
     age: {
-        isValid: '',
-        value: ''
-    },
-    gender: {
-        isValid: '',
+        isValid: false,
         value: ''
     },
     image: {
-        isValid: '',
-        value: ''
-    },
-    vaccines: {
-        isValid: '',
+        isValid: false,
         value: ''
     },
     description: {
-        isValid: '',
-        value: ''
-    },
-    type: {
-        isValid: '',
+        isValid: false,
         value: ''
     },
 }
 
 export const Edit = () => {
 
-    const { state } = useLocation();
     const dogState = useSelector(states => states.dog.value.payload);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -122,12 +108,11 @@ export const Edit = () => {
         }
 
 
-        breedValidator();
-        ageValidator();
-        imageValidator();
-        descriptionValidator();
-
         if (!errors.breed.isValid && !errors.age.isValid && !errors.image.isValid && !errors.description.isValid) {
+            breedValidator();
+            ageValidator();
+            imageValidator();
+            descriptionValidator();
             return
         }
 

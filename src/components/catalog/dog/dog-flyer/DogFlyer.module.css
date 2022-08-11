@@ -15,7 +15,9 @@
 }
 
 .imageWrapperDogMain {
-    width: 400px;
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
     margin: 0 auto;
 }
 

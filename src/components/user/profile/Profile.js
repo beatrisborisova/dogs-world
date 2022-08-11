@@ -23,6 +23,7 @@ export const Profile = () => {
             <div className={styles.profileMainContent}>
                 <div className={styles.imageWrapperProfile}>
                     {currentUser && <img src={currentUser.avatar} alt="user" />}
+                    {!currentUser && <CircularColor />}
                 </div>
                 <div className={styles.profileContent}>
                     <div className={userStyles.loginRegisterUserNav}>
@@ -37,6 +38,7 @@ export const Profile = () => {
                             <p><b>Gender: </b><span>{currentUser.gender}</span></p>
                         </div>
                     }
+
                     {!currentUser && <CircularColor />}
                 </div>
             </div>

@@ -69,6 +69,11 @@
     letter-spacing: 0.5px;
 }
 
+.loginRegisterUserNav span a:hover {
+    font-weight: bold;
+}
+
+
 /* RESPONSIVE */
 
 @media screen and (max-width: 675px) {

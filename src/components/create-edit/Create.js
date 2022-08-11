@@ -12,31 +12,19 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const errorsInitialState = {
     breed: {
-        isValid: '',
+        isValid: false,
         value: ''
     },
     age: {
-        isValid: '',
-        value: ''
-    },
-    gender: {
-        isValid: '',
+        isValid: false,
         value: ''
     },
     image: {
-        isValid: '',
-        value: ''
-    },
-    vaccines: {
-        isValid: '',
+        isValid: false,
         value: ''
     },
     description: {
-        isValid: '',
-        value: ''
-    },
-    type: {
-        isValid: '',
+        isValid: false,
         value: ''
     },
 }
@@ -61,6 +49,7 @@ export const Create = () => {
     const [succesfulUpload, setSuccesfulUplaod] = useState(false);
 
     const [errors, setErrors] = useState(errorsInitialState);
+    const [hasError, setHasError] = useState(false);
 
     useEffect(() => {
         if (currentImageUrl) {
@@ -98,12 +87,11 @@ export const Create = () => {
             uploadImg: currentImageUrl
         }
 
-        breedValidator();
-        ageValidator();
-        imageValidator();
-        descriptionValidator();
-
-        if (!errors.breed.isValid && !errors.age.isValid && !errors.image.isValid && !errors.description.isValid) {
+        if (!errors.breed.isValid || !errors.age.isValid || !errors.image.isValid || !errors.description.isValid) {
+            breedValidator();
+            ageValidator();
+            imageValidator();
+            descriptionValidator();
             return
         }
 

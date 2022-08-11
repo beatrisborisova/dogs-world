@@ -41,12 +41,13 @@ export const Adopt = ({ dogsPerPage }) => {
                 setIsLoading(false)
             })
 
+    }, [itemOffset])
+
+    useEffect(() => {
         if (dogs.length > 4) {
             setShowPagination(true);
         }
-
-    }, [itemOffset])
-
+    }, [dogs.length])
 
     const handlePageClick = (e) => {
         const newOffset = e.selected * dogsPerPage % dogs.length;

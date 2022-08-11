@@ -26,6 +26,9 @@ export const DogDetails = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    const [commentErrors, setCommentErrors] = useState({ state: { isValid: true, value: '' } });
+
+
     useEffect(() => {
         dogsService.getDogById(stateDog.id)
             .then(res => {
@@ -56,7 +59,13 @@ export const DogDetails = () => {
         const comment = (new FormData(form)).get('comment');
 
         if (comment === '') {
-            return
+            return setCommentErrors(oldState => {
+                return { ...oldState, state: { isValid: false, value: 'Cannot leave an empty comment' } }
+            })
+        } else {
+            setCommentErrors(oldState => {
+                return { ...oldState, state: { isValid: true, value: '' } }
+            })
         }
 
         const currentdate = new Date();
@@ -66,6 +75,7 @@ export const DogDetails = () => {
             + currentdate.getHours() + ":"
             + currentdate.getMinutes() + ":"
             + currentdate.getSeconds();
+
         const newComment = {
             dogId: stateDog.id,
             comment,
@@ -84,6 +94,7 @@ export const DogDetails = () => {
             })
             .catch(err => console.log(err.message))
     }
+
 
     if (agree) {
         dogsService.deleteDog(stateDog.id, dog)
@@ -106,7 +117,10 @@ export const DogDetails = () => {
                     <div className={styles.detailsContent}>
                         <div className={styles.dogDetailsText}>
                             <h2>{stateDog.dog.breed}</h2>
-                            <p>Age: {stateDog.dog.age} years old</p>
+                            {stateDog.dog.age === '1'
+                                ? <p>Age: 1 year old</p>
+                                : <p>Age: {stateDog.dog.age} years old</p>}
+
                             <p>Vacciness: {stateDog.dog.vaccines}</p>
                             <p>{stateDog.dog.description}</p>
                         </div>
@@ -139,6 +153,7 @@ export const DogDetails = () => {
                         <p className={styles.emailComment}>{user.email}</p>
                         <div>
                             <textarea className='comment-field' name='comment' placeholder='Your comment here...'></textarea>
+                            {!commentErrors.state.isValid && <p className='error'>{commentErrors.state.value}</p>}
                             <button className='btn-level-three' type='submit'>Add comment</button>
                         </div>
                     </form>
