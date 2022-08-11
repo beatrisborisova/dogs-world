@@ -1,70 +1,93 @@
-# Getting Started with Create React App
+# DogLand
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+DogLand is a React.js application for posting offers for buying and adoping dogs.
 
-## Available Scripts
+It is a project for the React.js course in Software University.
 
-In the project directory, you can run:
+## Pages and permissions
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### All users
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+#### Home
 
-### `npm test`
+This is the main page of the application. It contains welcome message and shortcuts to the Adopt, Buy and Post a dog pages.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Main  + Search functionality
 
-### `npm run build`
+This page contains all the dogs in the database. There is a search functionality which can be used for dogs filtration by their breed.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+##### Adopt
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Holds all offers for dogs that can be adopted.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+##### Buy
 
-### `npm run eject`
+Holds all offers for dogs that can be bought.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+#### About
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+This page contains core information about the web application.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+#### Register
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Not registered users can sign up into the web application for having access to the whole functionality of it.
 
-## Learn More
+#### Log in
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Registered users can sign in into the web application by giving their credentials so they can use their permissions.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+### Authenticated users
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+#### Profile page + edit profile page functionality
 
-### Making a Progressive Web App
+Users have their own profile pages with personal information and a collection of all their books added in the web application database.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+#### Create dog
 
-### Advanced Configuration
+Users can create a dog offer with breed, age, gender, image, vacciness and description. So the other users can review and comment it.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+#### Dog details
 
-### Deployment
+Each dog has its own details page where users can read more about it and leave a comment.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+  If a dog offer creator
 
-### `npm run build` fails to minify
+#### Edit dog
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Users can edit their entries by changing some or all the properties if needed.
+
+#### Delete dog
+
+Users can delete their entries if needed.
+
+  If not a dog offer creator
+
+#### Comment dog
+
+Users can comment the other users’ dog offers.
+
+
+
+## Technology stack
+
+* React.js 18.2.0
+* React Redux 8.0.2
+* Firebase 9.9.0
+* React Bootstrap 2.4.0
+* Font Awesome 6.1.1
+* Material UI 5.9.2
+* Framer Motion 6.5.1
+* React Paginate 8.1.3
+* React Toastify 9.0.7
+
+
+
+## Application starting
+
+Application can be accessed on https://dogs-world-ab1a0.web.app/
+
+
