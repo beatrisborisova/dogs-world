@@ -12,7 +12,7 @@ import userReducer from './features/user';
 import userProfileReducer from './features/userProfile';
 import dogReducer from './features/dogs';
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
     user: userReducer,
     userProfile: userProfileReducer,
@@ -28,7 +28,6 @@ root.render(
         <App />
       </Provider>
     </BrowserRouter>
-
   </React.StrictMode>
 );
 

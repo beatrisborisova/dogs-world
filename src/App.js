@@ -5,7 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import { Footer } from './components/common/Footer';
 import { Header } from './components/common/Header';
 import { DogContextRoutes } from './components/others/DogContextRoutes';
-import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import { Routes, Route, Outlet, Router, BrowserRouter } from 'react-router-dom';
 import { NotFound } from './components/not-found/NotFound';
 import { Home } from './components/Home/Home';
 import { Main } from './components/catalog/Main';
@@ -22,16 +22,12 @@ import { lazy, Suspense } from 'react';
 import CircularColor from './components/others/Spinner';
 import { useNavigate } from "react-router-dom";
 
-const Contacts = lazy(() => import('./components/about/Contacts/Contacts'));
-
+const About = lazy(() => import('./components/about/About/About'));
 
 const ProtectedRoute = ({ data }) => {
-
   const navigate = useNavigate();
-
   const hasRedirection = true;
   if (data.user === undefined) {
-    // return <Navigate to={data.redirectPath} state={hasRedirection} />;
     navigate(data.redirectPath, { state: { hasRedirection }, replace: false })
   }
   return <Outlet />
@@ -46,13 +42,12 @@ function App() {
       <Header />
       <ToastContainer />
       <main>
-
         <Routes>
           <Route path='/' index element={<Home />} />
 
-          <Route path='/contacts' element={
+          <Route path='/about' element={
             <Suspense fallback={<CircularColor />}>
-              <Contacts />
+              <About />
             </Suspense>
           } />
 
@@ -93,7 +88,6 @@ function App() {
           <Route path='/catalog/*' element={<DogContextRoutes />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-
       </main>
       <Footer />
     </div>

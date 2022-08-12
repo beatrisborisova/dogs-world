@@ -2,7 +2,6 @@ import styles from './Home.module.css';
 import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
-
 const video = require('../../assets/images/home.mp4');
 
 export const Home = () => {

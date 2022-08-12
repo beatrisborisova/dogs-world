@@ -72,7 +72,7 @@ export const Header = () => {
                                     <NavLink to={'/catalog/buy'} onClick={closeMenu}>Buy</NavLink>
                                 </div>
                             </NavLink>
-                            <NavLink to={'/contacts'} onClick={closeMenu}>Contacts</NavLink>
+                            <NavLink to={'/about'} onClick={closeMenu}>About</NavLink>
                         </ul>
                     </nav>
                     <div className={styles.userControls}>
