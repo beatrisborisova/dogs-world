@@ -123,12 +123,13 @@ export const Register = () => {
         setGenderSelectedOption(e.target.value);
     }
 
-    const emailValidator = (e) => {
-        if (e.target.value === "") {
+    const emailValidator = () => {
+
+        if (email === "") {
             setErrors(oldState => {
                 return { ...oldState, email: { isValid: false, value: 'Email fiels is required' } }
             })
-        } else if (!validateEmail.validate(e.target.value)) {
+        } else if (!validateEmail.validate(email)) {
             setErrors(oldState => {
                 return { ...oldState, email: { isValid: false, value: 'Email must be in a format xxx@xxx.xxx' } }
             })
@@ -139,13 +140,13 @@ export const Register = () => {
         }
     }
 
-    const nameValidator = (e) => {
+    const nameValidator = () => {
         const namePattern = /[A-Z]\w+ [A-Z]\w+/;
-        if (e.target.value === "") {
+        if (name === "") {
             setErrors(oldState => {
                 return { ...oldState, name: { isValid: false, value: 'Name field is required' } }
             })
-        } else if (!namePattern.test(e.target.value)) {
+        } else if (!namePattern.test(name)) {
             setErrors(oldState => {
                 return { ...oldState, name: { isValid: false, value: 'Name must be in format Firstname Lastname' } }
             })
@@ -156,13 +157,13 @@ export const Register = () => {
         }
     }
 
-    const passwordValidator = (e) => {
+    const passwordValidator = () => {
 
-        if (e.target.value === "") {
+        if (password === "") {
             setErrors(oldState => {
                 return { ...oldState, password: { isValid: false, value: 'Password fields are required' } }
             })
-        } else if (e.target.value.length < 6) {
+        } else if (password.length < 6) {
             setErrors(oldState => {
                 return { ...oldState, password: { isValid: false, value: 'Password must be at least 6 characters long' } }
             })
@@ -173,12 +174,12 @@ export const Register = () => {
         }
     }
 
-    const cityValidator = (e) => {
-        if (e.target.value === "") {
+    const cityValidator = () => {
+        if (city === "") {
             setErrors(oldState => {
                 return { ...oldState, city: { isValid: false, value: 'City field is required' } }
             })
-        } else if (e.target.value.length < 3) {
+        } else if (city.length < 3) {
             setErrors(oldState => {
                 return { ...oldState, city: { isValid: false, value: 'City name must be at leas 3 characters long' } }
             })

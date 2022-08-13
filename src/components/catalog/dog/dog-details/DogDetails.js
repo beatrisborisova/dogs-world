@@ -142,7 +142,8 @@ export const DogDetails = () => {
                 <div className={styles.commentsContent}>
                     {dog && <h2>Comments</h2>}
                     {dog && dog.comments.length > 0 &&
-                        dog.comments.map(el => <Comment comment={el} commentOwnerEmail={el.commentOwnerEmail} key={el.commentId} date={el.commentCreatedAt} />)
+                        dog.comments.map(el => <Comment comment={el} commentOwnerEmail={el.commentOwnerEmail} key={el.commentId} date={el.commentCreatedAt}
+                            creatorId={stateDog.id} />)
                     }
                     {dog && dog.comments.length === 0 &&
                         <div className={styles.noComments}>No comments yet. Be the first one <FontAwesomeIcon icon={faSmile} style={{ color: '#e2db23', fontSize: '20px' }} /></div>
@@ -150,7 +151,7 @@ export const DogDetails = () => {
                 </div>
                 <div className={styles.addCommentContainer}>
                     <form onSubmit={addCommentHandler} className={styles.commentsForm}>
-                        <p className={styles.emailComment}>{user.email}</p>
+                        <p className={styles.emailComment}>{user.email} {isCreator ? '(owner)' : ''}</p>
                         <div>
                             <textarea className='comment-field' name='comment' placeholder='Your comment here...'></textarea>
                             {!commentErrors.state.isValid && <p className='error'>{commentErrors.state.value}</p>}

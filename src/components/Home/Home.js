@@ -36,12 +36,6 @@ export const Home = () => {
                         <p>If you're here to buy a dog, click here</p>
                     </article>
                 </NavLink>
-                <NavLink to={'/create'} className={[styles.homeCreateContainer, styles.homeArticle].join(' ')}>
-                    <article>
-                        <h3>Post a dog</h3>
-                        <p>If you're here to post a dog offer, click here</p>
-                    </article>
-                </NavLink>
             </section>
         </motion.div >
 
